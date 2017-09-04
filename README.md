@@ -62,6 +62,7 @@ Depend: nodejs, electron and other npm packages.
 
 ## License
 Clause-2 BSD License  
+Exclude dictionary data.(辞書ファイルは辞書ファイル毎のライセンスに準じます)  
 
 # Contact
 mail: [michinari.nukazawa@gmail.com][mailto]  
