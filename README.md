@@ -19,7 +19,7 @@ lina\_dicto は日本語からEsperantoへ変換する単語辞書アプリケ�
 get source:  
 `git clone https://github.com/MichianriNukazawa/lina_dicto`  
 
-[Download for windows(v0.1.0)](https://github.com/MichinariNukazawa/lina_dicto/releases/download/v20170903/lina_dicto-win64-0.1.0-xxxxxx.zip)  
+[Download for windows(v0.1.0)](https://github.com/MichinariNukazawa/lina_dicto/releases/download/v0.1.0/lina_dicto-win64-0.1.0-238d1d9.zip)  
 
 # Donate/Buy
 @todo  
