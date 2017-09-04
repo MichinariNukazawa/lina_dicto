@@ -1,0 +1,18 @@
+{
+  "name": "lina_dicto",
+  "version": "0.1.0",
+  "description": "Dictionary of Japanese to Esperanto",
+  "main": "index.js",
+  "scripts": {
+    "build": "node_modules/.bin/electron .",
+    "package": "node_modules/.bin/electron-packager . lina_dicto --platform=all --arch=x64",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "michinari.nukazawa@gmail.com",
+  "repository": "<project_name>",
+  "license": "BSD-2-Clause",
+  "devDependencies": {
+    "electron": "1.7.5",
+    "electron-packager": "9.0.0"
+  }
+}
