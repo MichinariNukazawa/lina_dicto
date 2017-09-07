@@ -11,7 +11,7 @@ html, body{
 	height:100%;
 }
 
-div#search_input_area
+div#query-area
 {
 	position: fixed;            /* フッターの固定 */
 	bottom: 0px;                /* 位置(下0px) */
@@ -21,17 +21,17 @@ div#search_input_area
 }
 
 #timeline{
-	padding-bottom: 85px;		/* #search_input_area + マージン */
+	padding-bottom: 85px;		/* #query-area + マージン */
 }
 
-#search_input{
+#query-area__query-input__input{
 	width:100%;
 	font-size:150%;
 	height:60px;
 	/*font-family: Consolas, 'Courier New', Courier, Monaco, monospace;*/
 }
 
-#search_input_incrementals{
+#query-area__query-incrementals{
 	width:100%;
 	font-size:40%;
 	height:15px;

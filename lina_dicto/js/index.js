@@ -1,12 +1,18 @@
 'use strict';
 
+var extension = new Extension();
+
 var timeline_item_id = 0;
 
 window.onload = function(e){
 	// 入力欄にフォーカスを与える
-	document.getElementById('search_input').focus();
+	document.getElementById('query-area__query-input__input').focus();
 
 	init_dictionary();
+
+	if(!extension.init()){
+		alart("extension not initialized.");
+	}
 }
 
 function get_new_timeline_item_element_from_keyword(keyword)
@@ -48,11 +54,11 @@ function get_new_timeline_item_element_from_keyword(keyword)
 	return timeline_item_element;
 }
 
-function update_search_input_datalist(keyword)
+function update_query_input_element_datalist(keyword)
 {
-	var search_input_incrementals_element = document.getElementById('search_input_incrementals');
+	var query_incrementals_element = document.getElementById('query-area__query-incrementals');
 
-	search_input_incrementals_element.textContent = ''; // clear
+	query_incrementals_element.textContent = ''; // clear
 
 	var index = dictionary_get_index_from_incremental_keyword(keyword);
 	if(-1 == index){
@@ -74,10 +80,10 @@ function update_search_input_datalist(keyword)
 		options_text += '' + show_word + '';
 	}
 
-	search_input_incrementals_element.textContent = options_text;
+	query_incrementals_element.textContent = options_text;
 }
 
-function on_keypress_by_search_input(e)
+function on_keypress_by_query_input_element(e)
 {
 	var code = e.charCode;
 
@@ -92,7 +98,7 @@ function on_keypress_by_search_input(e)
 		return;
 	}
 
-	var obj_input = document.getElementById('search_input');
+	var obj_input = document.getElementById('query-area__query-input__input');
 	var keyword = obj_input.value;
 	obj_input.value = "";
 
@@ -111,10 +117,10 @@ function on_keypress_by_search_input(e)
 	scrollTo(0, positionY);
 }
 
-function on_keyup_by_search_input(e)
+function on_keyup_by_query_input_element(e)
 {
-	var obj_input = document.getElementById('search_input');
+	var obj_input = document.getElementById('query-area__query-input__input');
 	var keyword = obj_input.value;
-	update_search_input_datalist(keyword);
+	update_query_input_element_datalist(keyword);
 }
 
