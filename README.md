@@ -30,6 +30,7 @@ And please contact.
 Linux. (Ubuntu 16.04LTS+), Windows. (64bit)  
 
 ## Build
+setup:`sudo bash setup/library_for_ubuntu.sh`  
 ```
 cd lina_dict/lina_dict/
 npm run build
