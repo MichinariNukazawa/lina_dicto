@@ -40,7 +40,7 @@ npm run build
 `bash packaging_win64.sh`  
 
 ### MacOSX package
-`cd lina_dicto && node release_darwin.js`  
+`bash packaging_darwin.sh`  
 
 ## Develop
 Depend: nodejs, electron and other npm packages.  
