@@ -19,17 +19,40 @@ function get_new_timeline_item_element_from_keyword(keyword)
 {
 	timeline_item_id++;
 
+	// elementの生成
 	var timeline_item_element = document.createElement('div');
-	timeline_item_element.classList.add('timeline_item');
-	var timeline_item_id_str = "timeline_item_" + timeline_item_id;
+	timeline_item_element.classList.add('timeline__item');
+	var timeline_item_id_str = "timeline__item_" + timeline_item_id;
 	timeline_item_element.id = timeline_item_id_str;
 
 	var query_element = document.createElement('div');
-	timeline_item_element.classList.add('timeline_item_query');
+	query_element.classList.add('timeline__item__query');
+	var query_icon_element = document.createElement('div');
+	query_icon_element.classList.add('timeline__item__query__icon');
+	var query_string_element = document.createElement('div');
+	query_string_element.classList.add('timeline__item__query__string');
+	query_element.appendChild(query_icon_element);
+	query_element.appendChild(query_string_element);
 
-	var explanation_element = document.createElement('div');
-	timeline_item_element.classList.add('timeline_item_explanation');
+	var response_element = document.createElement('div');
+	response_element.classList.add('timeline__item__response');
+	var response_icon_element = document.createElement('div');
+	response_icon_element.classList.add('timeline__item__response__icon');
+	var response_string_element = document.createElement('div');
+	response_string_element.classList.add('timeline__item__response__string');
+	var response_string_main_element = document.createElement('div');
+	response_string_main_element.classList.add('timeline__item__response__string__main');
+	var response_string_sub_element = document.createElement('div');
+	response_string_sub_element.classList.add('timeline__item__response__string__sub');
+	response_element.appendChild(response_icon_element);
+	response_element.appendChild(response_string_element);
+	response_string_element.appendChild(response_string_main_element);
+	response_string_element.appendChild(response_string_sub_element);
 
+	timeline_item_element.appendChild(query_element);
+	timeline_item_element.appendChild(response_element);
+
+	// 表示文字列の生成と挿入
 	var item = dictionary_get_item_from_keyword(keyword);
 	var query_text = "";
 	var explanation_text = "internal error.";
@@ -46,10 +69,8 @@ function get_new_timeline_item_element_from_keyword(keyword)
 	query_text = esperanto_convert_diacritical_mark(query_text);
 	explanation_text = esperanto_convert_diacritical_mark(explanation_text);
 
-	query_element.textContent = query_text;
-	explanation_element.textContent = explanation_text;
-	timeline_item_element.appendChild(query_element);
-	timeline_item_element.appendChild(explanation_element);
+	query_string_element.textContent = query_text;
+	response_string_sub_element.textContent = explanation_text;
 
 	return timeline_item_element;
 }

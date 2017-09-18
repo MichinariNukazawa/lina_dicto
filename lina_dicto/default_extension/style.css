@@ -25,35 +25,39 @@ body{
 	/* 最初にタイムラインに表示される文字列(responseとほぼ同じ構造)*/
 }
 
-.timeline__query{
+.timeline__item{
+	/* query,respnseのセット */
+}
+
+.timeline__item__query{
 	/*
 	クエリ文字列Element
-	responseと対応するMessageIDがidとして付与される // ex. id="timeline__query--${MessageId}"
+	responseと対応するMessageIDがidとして付与される // ex. id="timeline__item__query--${MessageId}"
 	ex. "bona"
 	 */
 }
 
-.timeline__query__icon{
+.timeline__item__query__icon{
 }
 
-.timeline__query__string{
+.timeline__item__query__string{
 }
 
-.timeline__response{
+.timeline__item__response{
 	/* queryと対応するMessageIDがidとして付与される */
 }
 
-.timeline__response__icon{
+.timeline__item__response__icon{
 }
 
-.timeline__response__string{
+.timeline__item__response__string{
 }
 
-.timeline__response__string__main{
+.timeline__item__response__string__main{
 	/* ex. "良い,善良な,りっぱな" */
 }
 
-.timeline__response__string__sub{
+.timeline__item__response__string__sub{
 	/* ex. "`bon/a`:{Ｂ}良い,善良な,りっぱな" */
 }
 
