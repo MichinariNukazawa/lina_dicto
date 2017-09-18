@@ -36,6 +36,12 @@ cd lina_dict/lina_dict/
 npm run build
 ```
 
+### Windows package
+`bash packaging_win64.sh`  
+
+### MacOSX package
+`cd lina_dicto && node release_darwin.js`  
+
 ## Develop
 Depend: nodejs, electron and other npm packages.  
 
