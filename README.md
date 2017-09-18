@@ -6,7 +6,7 @@ lina\_dicto
 lina\_dicto は日本語からEsperantoへ変換する単語辞書アプリケーションです。  
 
 # Screenshot/Image
-![lina\_dicto](document/image/lina_dicto_20170904.png)  
+![lina\_dicto](document/image/lina_dicto_20170918.png)  
 
 # Project goal
 見た目がよいクロスプラットフォームな日本語/Esperanto変換辞書アプリケーションを提供する。  
