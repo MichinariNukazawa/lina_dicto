@@ -69,7 +69,11 @@ function get_new_timeline_item_element_from_keyword(keyword)
 	query_text = esperanto_convert_diacritical_mark(query_text);
 	explanation_text = esperanto_convert_diacritical_mark(explanation_text);
 
+	const glosses = dictionary_get_glosses_from_item(item);
+	const glosses_text = glosses.join(",");
+
 	query_string_element.textContent = query_text;
+	response_string_main_element.textContent = glosses_text;
 	response_string_sub_element.textContent = explanation_text;
 
 	return timeline_item_element;

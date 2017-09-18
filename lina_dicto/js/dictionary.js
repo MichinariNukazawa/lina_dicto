@@ -122,3 +122,39 @@ function dictionary_get_root_word_from_item(item)
 	return item[0];
 }
 
+/** @brief 訳語の配列を返す
+ *	test文字列: abismo, aboco
+ */
+function dictionary_get_glosses_from_item(item)
+{
+	var glosses = [];
+	var explanation = dictionary_get_explanation_from_item(item);
+
+	var mean_words = explanation.split(";");		// 語義を切り出し
+	for(var i = 0; i < mean_words.length; i++){
+		var mean_word = mean_words[i];
+		// 前方を除去
+		mean_word = mean_word.replace(/\{.+\}/g, "");		// 公認語根情報
+		mean_word = mean_word.replace(/［.+］/g, "");		// 文法情報(品詞情報)
+		mean_word = mean_word.replace(/【.+】/g, "");		// 専門用語の略号
+		mean_word = mean_word.replace(/《.+》/g, "");		// その他略記号
+
+		// 後方を除去
+		mean_word = mean_word.replace(/=.+$/g, "");		// 同義語's
+		mean_word = mean_word.replace(/>>.+$/g, "");		// 関連語・類義語
+		mean_word = mean_word.replace(/><.+$/g, "");		// 反対語・対義語
+
+		// 中を除去
+		mean_word = mean_word.replace(/（[属科種]）/g, "");		// 動植物名分類(属科種)
+
+		var gs = mean_word.split(",");	// 訳語を切り出し
+
+		Array.prototype.push.apply(glosses, gs);
+	}
+
+	glosses = glosses.filter(function(e){return e !== "";});	// 空文字を除去
+	console.log(glosses);
+
+	return glosses;
+}
+
