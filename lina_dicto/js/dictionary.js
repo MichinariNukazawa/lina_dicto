@@ -39,23 +39,17 @@ function dictionary_get_item_from_keyword(keyword)
 {
 	const len = dictionary.length;
 	for (let i = 0; i < len; i++) {
-		let explanation = dictionary_get_explanation_from_item(dictionary[i]);
 		let show_word = dictionary_get_show_word_from_item(dictionary[i]);
 
 		// 代用表記以外の末尾の記号を取り除く
 		keyword = keyword.replace(/[^A-Za-z^~]$/g, "");
 		show_word = show_word.replace(/[^A-Za-z^~]$/g, "");
-		explanation = explanation.replace(/[^A-Za-z^~]$/g, "");
 
 		// 大文字小文字を区別しない
 		keyword = keyword.toLowerCase();
 		show_word = show_word.toLowerCase();
-		explanation = explanation.toLowerCase();
 
 		if(keyword === show_word){
-			return dictionary[i];
-		}
-		if(keyword === explanation){
 			return dictionary[i];
 		}
 	}
