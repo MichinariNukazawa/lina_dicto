@@ -5,7 +5,8 @@ const path = require('path');
 
 var dictionary;
 
-function dictionary_is_init(){
+function dictionary_is_init()
+{
 	if(dictionary){
 		return true;
 	}else{
@@ -13,7 +14,8 @@ function dictionary_is_init(){
 	}
 }
 
-function init_dictionary(){
+function init_dictionary()
+{
 	console.log("init_dictionary");
 
 	var datafile = path.join(__dirname, 'data/dictionary00.json');
@@ -35,26 +37,25 @@ function init_dictionary(){
 
 function dictionary_get_item_from_keyword(keyword)
 {
-	var arrayLength = dictionary.length;
-	for (var i = 0; i < arrayLength; i++) {
-
-		explanation = dictionary_get_explanation_from_item(dictionary[i]);
-		show_word = dictionary_get_show_word_from_item(dictionary[i]);
+	const len = dictionary.length;
+	for (let i = 0; i < len; i++) {
+		let explanation = dictionary_get_explanation_from_item(dictionary[i]);
+		let show_word = dictionary_get_show_word_from_item(dictionary[i]);
 
 		// 代用表記以外の末尾の記号を取り除く
 		keyword = keyword.replace(/[^A-Za-z^~]$/g, "");
-		var show_word = show_word.replace(/[^A-Za-z^~]$/g, "");
-		var explanation = explanation.replace(/[^A-Za-z^~]$/g, "");
+		show_word = show_word.replace(/[^A-Za-z^~]$/g, "");
+		explanation = explanation.replace(/[^A-Za-z^~]$/g, "");
 
 		// 大文字小文字を区別しない
 		keyword = keyword.toLowerCase();
 		show_word = show_word.toLowerCase();
 		explanation = explanation.toLowerCase();
 
-		if(keyword == show_word){
+		if(keyword === show_word){
 			return dictionary[i];
 		}
-		if(keyword == explanation){
+		if(keyword === explanation){
 			return dictionary[i];
 		}
 	}
@@ -69,8 +70,8 @@ function dictionary_get_index_from_incremental_keyword(keyword)
 		return -1;
 	}
 
-	var arrayLength = dictionary.length;
-	for (var i = 0; i < arrayLength; i++) {
+	const arrayLength = dictionary.length;
+	for (let i = 0; i < arrayLength; i++) {
 		if(0 === dictionary[i][2].toLowerCase().indexOf(keyword.toLowerCase())){
 			return i;
 		}
@@ -84,7 +85,7 @@ function dictionary_get_index_from_incremental_keyword(keyword)
 
 function dictionary_get_item_from_index(index)
 {
-	var arrayLength = dictionary.length;
+	const arrayLength = dictionary.length;
 	if(index < 0 || arrayLength <= index){
 		return null;
 	}
@@ -127,12 +128,12 @@ function dictionary_get_root_word_from_item(item)
  */
 function dictionary_get_glosses_from_item(item)
 {
-	var glosses = [];
-	var explanation = dictionary_get_explanation_from_item(item);
+	let glosses = [];
+	let explanation = dictionary_get_explanation_from_item(item);
 
-	var mean_words = explanation.split(";");		// 語義を切り出し
-	for(var i = 0; i < mean_words.length; i++){
-		var mean_word = mean_words[i];
+	let mean_words = explanation.split(";");		// 語義を切り出し
+	for(let i = 0; i < mean_words.length; i++){
+		let mean_word = mean_words[i];
 		// 前方を除去
 		mean_word = mean_word.replace(/\{.+\}/g, "");		// 公認語根情報
 		mean_word = mean_word.replace(/［.+］/g, "");		// 文法情報(品詞情報)
@@ -147,7 +148,7 @@ function dictionary_get_glosses_from_item(item)
 		// 中を除去
 		mean_word = mean_word.replace(/（[属科種]）/g, "");		// 動植物名分類(属科種)
 
-		var gs = mean_word.split(",");	// 訳語を切り出し
+		let gs = mean_word.split(",");	// 訳語を切り出し
 
 		Array.prototype.push.apply(glosses, gs);
 	}
