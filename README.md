@@ -48,9 +48,10 @@ Depend: nodejs, electron and other npm packages.
 # Specification
 
 ## Already implement
-- 単語検索
+- エス和辞書
 - インクリメンタルサーチ(検索候補表示)
-- 代用表現変換表示(^-system)
+- 代用表現変換表示(^-sistemo)
+- 多代用表記対応(^-sistemo x-sistemo)
 - 簡易検索履歴
 
 ## Todo
@@ -65,7 +66,6 @@ Depend: nodejs, electron and other npm packages.
 - 語根推定検索
 - 辞書編集機能(項目追加等)
 - 辞書選択機能(辞書追加)
-- 多代用表記対応
 
 ## License
 Clause-2 BSD License  

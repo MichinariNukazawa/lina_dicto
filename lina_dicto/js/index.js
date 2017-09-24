@@ -127,6 +127,8 @@ function on_keypress_by_query_input_element(e)
 	var keyword = obj_input.value;
 	obj_input.value = "";
 
+	keyword = esperanto_convert_caret_from_x_sistemo(keyword);
+
 	if(0 == keyword.length){
 		return;
 	}
@@ -146,6 +148,8 @@ function on_keyup_by_query_input_element(e)
 {
 	var obj_input = document.getElementById('query-area__query-input__input');
 	var keyword = obj_input.value;
+	keyword = esperanto_convert_caret_from_x_sistemo(keyword);
+
 	update_query_input_element_datalist(keyword);
 }
 
