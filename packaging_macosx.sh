@@ -26,11 +26,6 @@ if [ 1 -eq $# ] ; then
 fi
 
 SHOW_VERSION=$(cat ${SOURCE_DIR}/package.json | grep "version" | sed -e 's/.\+:.*"\([0-9.]\+\)".\+/\1/g')
-CHECK_VERSION=$(cat ${SOURCE_DIR}/release_darwin.js | grep 'version:' | sed -e 's/.\+:.*"\([0-9.]\+\)".\+/\1/g')
-if [ "${SHOW_VERSION}" != "${CHECK_VERSION}" ] ; then
-	echo "${SHOW_VERSION} != ${CHECK_VERSION}"
-	exit 1
-fi
 
 GIT_HASH=$(git log --pretty=format:'%h' -n 1)
 GIT_STATUS_SHORT=$(git diff --stat | tail -1)

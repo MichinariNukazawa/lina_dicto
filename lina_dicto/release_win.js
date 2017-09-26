@@ -7,7 +7,7 @@ out: '../release',
 name: config.name,
 platform: 'win32',
 arch: 'x64',
-version: "0.1.1",
+version: "1.7.5",
 icon: './image/icon.ico',
 
 'app-bundle-id': 'jp.co.michinari_nukazawa/lina_dicto',

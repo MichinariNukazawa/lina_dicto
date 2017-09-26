@@ -7,7 +7,7 @@ out: '../release',
 name: config.name,
 platform: 'darwin',
 arch: 'x64',
-version: "0.1.1",
+version: "1.7.5",
 icon: './image/icon.icns',
 
 'app-bundle-id': 'jp.co.michinari_nukazawa/lina_dicto',
