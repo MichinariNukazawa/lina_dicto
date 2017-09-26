@@ -15,6 +15,21 @@ window.onload = function(e){
 	}
 }
 
+/** @brief スペル修正候補を返す */
+function get_candidate_word_from_keyword(keyword)
+{
+	const candidates = esperanto_get_candidates(keyword);
+	for(const candidate of candidates){
+		let index = dictionary_get_index_from_incremental_keyword(candidate);
+		let item = dictionary_get_item_from_index(index);
+		if(item){
+			return item;
+		}
+	}
+
+	return null;
+}
+
 function get_new_timeline_item_element_from_keyword(keyword)
 {
 	timeline_item_id++;
@@ -59,6 +74,12 @@ function get_new_timeline_item_element_from_keyword(keyword)
 	query_text = "`" + keyword + "`";
 	if(! item){
 		explanation_text = "`" + keyword + "` is not match.";
+		// スペル修正候補を探索
+		let candidate_item = get_candidate_word_from_keyword(keyword);
+		if(candidate_item){
+			let candidate_word = dictionary_get_root_word_from_item(candidate_item);
+			explanation_text += "if your search to `" + candidate_word + "`?";
+		}
 	}else{
 		let explanation = dictionary_get_explanation_from_item(item);
 		let root_word = dictionary_get_root_word_from_item(item);

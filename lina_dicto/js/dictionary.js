@@ -37,9 +37,10 @@ function init_dictionary()
 
 function dictionary_get_item_from_keyword(keyword)
 {
-	const len = dictionary.length;
+	const dict = dictionary;
+	const len = dict.length;
 	for (let i = 0; i < len; i++) {
-		let show_word = dictionary_get_show_word_from_item(dictionary[i]);
+		let show_word = dictionary_get_show_word_from_item(dict[i]);
 
 		// 代用表記以外の末尾の記号を取り除く
 		keyword = keyword.replace(/[^A-Za-z^~]$/g, "");
@@ -50,7 +51,7 @@ function dictionary_get_item_from_keyword(keyword)
 		show_word = show_word.toLowerCase();
 
 		if(keyword === show_word){
-			return dictionary[i];
+			return dict[i];
 		}
 	}
 

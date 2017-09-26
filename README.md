@@ -9,7 +9,7 @@ lina\_dicto は日本語からEsperantoへ変換する単語辞書アプリケ�
 ![lina\_dicto](document/image/lina_dicto_20170918.png)  
 
 # Project goal
-見た目がよいクロスプラットフォームな日本語/Esperanto変換辞書アプリケーションを提供する。  
+初学者に使いやすく、見た目がよい、クロスプラットフォームな日本語/Esperanto変換辞書アプリケーションを提供する。  
 
 # 辞書データについて
 外部の辞書データを改変し収録させて頂きました。感謝いたします。  
@@ -53,6 +53,7 @@ Depend: nodejs, electron and other npm packages.
 - 代用表現変換表示(^-sistemo)
 - 多代用表記対応(^-sistemo x-sistemo)
 - 簡易検索履歴
+- 「もしかして」機能(スペルミス時の候補推定)
 
 ## Todo
 - デフォルト設定スキンのデザイン
