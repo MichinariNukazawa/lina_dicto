@@ -2,8 +2,9 @@
 
 
 /** @brief x-systemo */
-function esperanto_convert_caret_from_x_sistemo(str){
-	var replaces = [
+function esperanto_convert_caret_from_x_sistemo(str)
+{
+	const replaces = [
 		[/Cx(?!x)/g, "C^"],
 		[/cx(?!x)/g, "c^"],
 		[/Gx(?!x)/g, "G^"],
@@ -29,27 +30,35 @@ function esperanto_convert_caret_from_x_sistemo(str){
 	return str;
 }
 
-function esperanto_convert_diacritical_mark(str) {
-	str = str.replace(/C\^/g,"\u0108");
-	str = str.replace(/c\^/g,"\u0109");
-	str = str.replace(/G\^/g,"\u011C");
-	str = str.replace(/g\^/g,"\u011D");
-	str = str.replace(/H\^/g,"\u0124");
-	str = str.replace(/h\^/g,"\u0125");
-	str = str.replace(/J\^/g,"\u0134");
-	str = str.replace(/j\^/g,"\u0135");
-	str = str.replace(/S\^/g,"\u015C");
-	str = str.replace(/s\^/g,"\u015D");
-	str = str.replace(/U\^/g,"\u016C"); // 公式の変換には無いがとりあえず
-	str = str.replace(/u\^/g,"\u016D"); // 公式の変換には無いがとりあえず
-	str = str.replace(/U\~/g,"\u016C");
-	str = str.replace(/u\~/g,"\u016D");
+function seperanto_convert_native_from_caret_sistemo(str)
+{
+	const replaces = [
+		[/C\^/g, "\u0108"],
+		[/c\^/g, "\u0109"],
+		[/G\^/g, "\u011C"],
+		[/g\^/g, "\u011D"],
+		[/H\^/g, "\u0124"],
+		[/h\^/g, "\u0125"],
+		[/J\^/g, "\u0134"],
+		[/j\^/g, "\u0135"],
+		[/S\^/g, "\u015C"],
+		[/s\^/g, "\u015D"],
+		[/U\^/g, "\u016C"],	// 公式の変換には無いがとりあえず
+		[/u\^/g, "\u016D"],	// 公式の変換には無いがとりあえず
+		[/U\~/g, "\u016C"],
+		[/u\~/g, "\u016D"],
+	];
+
+	for(const replace of replaces){
+		str = str.replace(replace[0], replace[1]);
+	}
 
 	return str;
 }
 
 /** @brief スペル修正候補一覧を返す */
-function esperanto_get_candidates(str){
+function esperanto_get_candidates(str)
+{
 	var candidates = [];
 
 	//! esperantoであまり使わないqwxyと、挿入可能位置に条件のある代用表記を除く

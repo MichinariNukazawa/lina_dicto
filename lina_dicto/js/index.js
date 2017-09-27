@@ -90,8 +90,8 @@ function get_new_timeline_item_element_from_keyword(keyword)
 	}
 
 	// エスペラント代用表記のダイアクリティカルマーク変換
-	query_text = esperanto_convert_diacritical_mark(query_text);
-	explanation_text = esperanto_convert_diacritical_mark(explanation_text);
+	query_text = seperanto_convert_native_from_caret_sistemo(query_text);
+	explanation_text = seperanto_convert_native_from_caret_sistemo(explanation_text);
 
 	const glosses = dictionary_get_glosses_from_item(item);
 	const glosses_text = glosses.join(",");
