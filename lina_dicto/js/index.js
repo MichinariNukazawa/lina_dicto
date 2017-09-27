@@ -68,22 +68,25 @@ function get_new_timeline_item_element_from_keyword(keyword)
 	timeline_item_element.appendChild(response_element);
 
 	// 表示文字列の生成と挿入
-	var item = dictionary_get_item_from_keyword(keyword);
-	var query_text = "";
-	var explanation_text = "internal error.";
-	query_text = "`" + keyword + "`";
-	if(! item){
-		explanation_text = "`" + keyword + "` is not match.";
-		// スペル修正候補を探索
-		let candidate_item = get_candidate_word_from_keyword(keyword);
-		if(candidate_item){
-			let candidate_word = dictionary_get_root_word_from_item(candidate_item);
-			explanation_text += "if your search to `" + candidate_word + "`?";
+	let query_text = "`" + keyword + "`";
+	let explanation_text = "`" + keyword + "` is not match.";
+	let item;
+	if(esperanto_is_esperanto_string(keyword)){
+		item = dictionary_get_item_from_keyword(keyword);
+		if(! item){
+			// スペル修正候補を探索
+			let candidate_item = get_candidate_word_from_keyword(keyword);
+			if(candidate_item){
+				let candidate_word = dictionary_get_root_word_from_item(candidate_item);
+				explanation_text += "if your search to `" + candidate_word + "`?";
+			}
+		}else{
+			let explanation = dictionary_get_explanation_from_item(item);
+			let root_word = dictionary_get_root_word_from_item(item);
+			explanation_text = "`" + root_word + "`:" + explanation + "";
 		}
 	}else{
-		let explanation = dictionary_get_explanation_from_item(item);
-		let root_word = dictionary_get_root_word_from_item(item);
-		explanation_text = "`" + root_word + "`:" + explanation + "";
+		// is not esperanto keyword
 	}
 
 	// エスペラント代用表記のダイアクリティカルマーク変換

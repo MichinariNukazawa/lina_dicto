@@ -110,3 +110,9 @@ function esperanto_get_candidates(str){
 	return candidates;
 }
 
+/** @brief 文字列がesperantoかどうか(大まかには[\w\s^]で構成されているか)を返す */
+function esperanto_is_esperanto_string(str)
+{
+	return /^[\x20-\x7E\u0108-\u016D\s^]+$/.test(str);
+}
+
