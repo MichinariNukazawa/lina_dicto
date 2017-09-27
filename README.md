@@ -51,7 +51,7 @@ Depend: nodejs, electron and other npm packages.
 - エス和辞書
 - インクリメンタルサーチ(検索候補表示)
 - 代用表現変換表示(^-sistemo)
-- 多代用表記対応(^-sistemo x-sistemo)
+- 多代用表記対応(^-sistemo x-sistemo alfabeto)
 - 簡易検索履歴
 - 「もしかして」機能(スペルミス時の候補推定)
 

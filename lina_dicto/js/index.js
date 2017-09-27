@@ -90,8 +90,8 @@ function get_new_timeline_item_element_from_keyword(keyword)
 	}
 
 	// エスペラント代用表記のダイアクリティカルマーク変換
-	query_text = seperanto_convert_native_from_caret_sistemo(query_text);
-	explanation_text = seperanto_convert_native_from_caret_sistemo(explanation_text);
+	query_text = seperanto_convert_alfabeto_from_caret_sistemo(query_text);
+	explanation_text = seperanto_convert_alfabeto_from_caret_sistemo(explanation_text);
 
 	const glosses = dictionary_get_glosses_from_item(item);
 	const glosses_text = glosses.join(",");
@@ -151,7 +151,7 @@ function on_keypress_by_query_input_element(e)
 	var keyword = obj_input.value;
 	obj_input.value = "";
 
-	keyword = esperanto_convert_caret_from_x_sistemo(keyword);
+	keyword = esperanto_caret_sistemo_from_str(keyword);
 
 	if(0 == keyword.length){
 		return;
@@ -172,7 +172,7 @@ function on_keyup_by_query_input_element(e)
 {
 	var obj_input = document.getElementById('query-area__query-input__input');
 	var keyword = obj_input.value;
-	keyword = esperanto_convert_caret_from_x_sistemo(keyword);
+	keyword = esperanto_caret_sistemo_from_str(keyword);
 
 	update_query_input_element_datalist(keyword);
 }

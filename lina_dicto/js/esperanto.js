@@ -30,7 +30,7 @@ function esperanto_convert_caret_from_x_sistemo(str)
 	return str;
 }
 
-function seperanto_convert_native_from_caret_sistemo(str)
+function seperanto_convert_alfabeto_from_caret_sistemo(str)
 {
 	const replaces = [
 		[/C\^/g, "\u0108"],
@@ -52,6 +52,39 @@ function seperanto_convert_native_from_caret_sistemo(str)
 	for(const replace of replaces){
 		str = str.replace(replace[0], replace[1]);
 	}
+
+	return str;
+}
+
+function seperanto_convert_caret_from_alfabeto_sistemo(str)
+{
+	const replaces = [
+		[/\u0108/g, "C^"],
+		[/\u0109/g, "c^"],
+		[/\u011C/g, "G^"],
+		[/\u011D/g, "g^"],
+		[/\u0124/g, "H^"],
+		[/\u0125/g, "h^"],
+		[/\u0134/g, "J^"],
+		[/\u0135/g, "j^"],
+		[/\u015C/g, "S^"],
+		[/\u015D/g, "s^"],
+		[/\u016C/g, "U^"],	// 公式の変換には無いがとりあえず
+		[/\u016D/g, "u^"],	// 公式の変換には無いがとりあえず
+	];
+
+	for(const replace of replaces){
+		str = str.replace(replace[0], replace[1]);
+	}
+
+	return str;
+}
+
+/** @brief 雑多な文字列(x-sistemo, alfabeto)を^-sistemoに変換する */
+function esperanto_caret_sistemo_from_str(str)
+{
+	str = esperanto_convert_caret_from_x_sistemo(str);
+	str = seperanto_convert_caret_from_alfabeto_sistemo(str);
 
 	return str;
 }
