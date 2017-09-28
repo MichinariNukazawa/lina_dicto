@@ -18,12 +18,12 @@ function init_dictionary()
 {
 	console.log("init_dictionary");
 
-	var datafile = path.join(__dirname, 'data/dictionary00.json');
-	var t = fs.readFileSync(datafile, 'utf8');
-	var dict = JSON.parse(t);
+	const datafile = path.join(__dirname, 'data/dictionary00.json');
+	const t = fs.readFileSync(datafile, 'utf8');
+	let dict = JSON.parse(t);
 
-	var arrayLength = dict.length;
-	for (var i = 0; i < arrayLength; i++) {
+	let arrayLength = dict.length;
+	for (let i = 0; i < arrayLength; i++) {
 		dict[i][2] = dict[i][0].replace(/\//g, "");
 
 		if(0 == i % 100){
