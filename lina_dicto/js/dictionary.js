@@ -4,6 +4,8 @@ const fs = require('fs');
 const path = require('path');
 
 var dictionary;
+/** @brief 先頭characterと、その最初の辞書itemを指すindexの集合 */
+var hash_of_esperanto;
 
 function dictionary_is_init()
 {
@@ -12,6 +14,22 @@ function dictionary_is_init()
 	}else{
 		return false;
 	}
+}
+
+function init_hash_of_esperanto()
+{
+	hash_of_esperanto = [];
+
+	const arrayLength = dictionary.length;
+	for (let i = 0; i < arrayLength; i++) {
+		const root_word = dictionary_get_root_word_from_item(dictionary[i]).toLowerCase();
+		if(0 == hash_of_esperanto.length
+				|| hash_of_esperanto[hash_of_esperanto.length - 1][0] != root_word[0]){
+			let hash = [root_word[0], i];
+			hash_of_esperanto.push(hash);
+		}
+	}
+
 }
 
 function init_dictionary()
@@ -33,6 +51,8 @@ function init_dictionary()
 	}
 
 	dictionary = dict;
+
+	init_hash_of_esperanto();
 }
 
 function dictionary_get_item_from_keyword(keyword)
@@ -58,6 +78,29 @@ function dictionary_get_item_from_keyword(keyword)
 	return null;
 }
 
+/** @brief 受け取った先頭文字を使用しているitemの範囲情報をオブジェクトで返す
+ *	@return 見つからなければnullを返す
+ */
+function dictionary_get_hash_info_from_character(character)
+{
+	const hash_length = hash_of_esperanto.length;
+	for(let i = 0; i < hash_length; i++){
+		if(character === hash_of_esperanto[i][0]){
+			let hash_info = {};
+			hash_info.head_index = hash_of_esperanto[i][1];
+			if(i < (hash_length - 1)){
+				hash_info.foot_index = hash_of_esperanto[i + 1][1];
+			}else{
+				hash_info.foot_index = dictionary.length;
+			}
+
+			return hash_info;
+		}
+	}
+
+	return null;
+}
+
 //! インクリメンタルサーチ(先頭マッチ)
 function dictionary_get_index_from_incremental_keyword(keyword)
 {
@@ -65,8 +108,12 @@ function dictionary_get_index_from_incremental_keyword(keyword)
 		return -1;
 	}
 
-	const arrayLength = dictionary.length;
-	for (let i = 0; i < arrayLength; i++) {
+	let hash_info = dictionary_get_hash_info_from_character(keyword[0]);
+	if(! hash_info){
+		return -1;
+	}
+
+	for (let i = hash_info.head_index; i < hash_info.foot_index; i++) {
 		if(0 === dictionary[i][2].toLowerCase().indexOf(keyword.toLowerCase())){
 			return i;
 		}
