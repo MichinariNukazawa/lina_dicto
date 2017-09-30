@@ -20,8 +20,8 @@ function init_hash_of_esperanto()
 {
 	hash_of_esperanto = [];
 
-	const arrayLength = dictionary.length;
-	for (let i = 0; i < arrayLength; i++) {
+	const array_length = dictionary.length;
+	for (let i = 0; i < array_length; i++) {
 		const root_word = dictionary_get_root_word_from_item(dictionary[i]).toLowerCase();
 		if(0 == hash_of_esperanto.length
 				|| hash_of_esperanto[hash_of_esperanto.length - 1][0] != root_word[0]){
@@ -40,13 +40,13 @@ function init_dictionary()
 	const t = fs.readFileSync(datafile, 'utf8');
 	let dict = JSON.parse(t);
 
-	let arrayLength = dict.length;
-	for (let i = 0; i < arrayLength; i++) {
+	const array_length = dict.length;
+	for (let i = 0; i < array_length; i++) {
 		dict[i][2] = dict[i][0].replace(/\//g, "");
 
-		if(0 == i % 100){
+		if(0 == i % 1000){
 			console.log("%d/%d: `%s`,`%s`",
-					i, arrayLength, dict[i][2], dict[i][0]);
+					i, array_length, dict[i][2], dict[i][0]);
 		}
 	}
 
@@ -127,8 +127,8 @@ function dictionary_get_index_from_incremental_keyword(keyword)
 
 function dictionary_get_item_from_index(index)
 {
-	const arrayLength = dictionary.length;
-	if(index < 0 || arrayLength <= index){
+	const array_length = dictionary.length;
+	if(index < 0 || array_length <= index){
 		return null;
 	}
 
