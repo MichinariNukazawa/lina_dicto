@@ -54,4 +54,5 @@ doxygen/
 node_modules/
 lina_dicto-*/
 release/
+lina_dicto/package-lock.json
 
