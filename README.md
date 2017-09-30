@@ -17,7 +17,7 @@ lina\_dicto は日本語/Esperanto変換を検索できる辞書アプリケー�
 
 # Get lina\_dicto
 get source:  
-`git clone https://github.com/MichianriNukazawa/lina_dicto`  
+`git clone git@github.com:MichinariNukazawa/lina_dicto.git`  
 
 [Download for latest release](https://github.com/MichinariNukazawa/lina_dicto/releases)  
 
