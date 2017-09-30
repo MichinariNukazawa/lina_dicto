@@ -3,8 +3,14 @@
 const fs = require('fs');
 const path = require('path');
 
+/** @brief エス和 辞書データ */
 var dictionary;
-/** @brief 先頭characterと、その最初の辞書itemを指すindexの集合 */
+/** @brief 和エス 辞書データ */
+var jdictionary;
+
+/** @brief エス和 辞書データ 高速化用ハッシュ
+ * 先頭characterと、その最初の辞書itemを指すindexの集合
+ */
 var hash_of_esperanto;
 
 function dictionary_is_init()
@@ -27,6 +33,48 @@ function init_hash_of_esperanto()
 				|| hash_of_esperanto[hash_of_esperanto.length - 1][0] != root_word[0]){
 			let hash = [root_word[0], i];
 			hash_of_esperanto.push(hash);
+		}
+	}
+}
+
+function dictionary_generate_jkeywords_from_explanation(explanation)
+{
+	let glosses = dictionary_generate_glosses_from_explanation(explanation);
+
+	for(let i = 0; i < glosses.length; i++){
+		// 先頭の括弧を除去
+		glosses[i] = glosses[i].replace(/（.+?）/g, "");
+	}
+
+	return glosses;
+}
+
+function dictionary_generate_jdictionary_from_index_item(index, item)
+{
+	let jdict = [];
+	const explanation = dictionary_get_explanation_from_item(item);
+	const jkeywords = dictionary_generate_jkeywords_from_explanation(explanation);
+	for(let i = 0; i < jkeywords.length; i++){
+		jdict[i] = [jkeywords[i], index];
+	}
+
+	return jdict;
+}
+
+/** @brief 和エス辞書生成 */
+function init_jdictionary()
+{
+	jdictionary = [];
+
+	const dict = dictionary;
+	const array_length = dict.length;
+	for (let i = 0; i < array_length; i++) {
+		const jdict = dictionary_generate_jdictionary_from_index_item(i, dict[i]);
+		Array.prototype.push.apply(jdictionary, jdict);
+
+		if(0 == i % 1000){
+			console.log("%d/%d:", i, array_length);
+			console.log(jdict);
 		}
 	}
 
@@ -53,8 +101,31 @@ function init_dictionary()
 	dictionary = dict;
 
 	init_hash_of_esperanto();
+	init_jdictionary();
 }
 
+/** @brief エス和 高速化ハッシュ 先頭文字を受けとり、範囲情報を返す */
+function dictionary_get_hash_info_from_character(character)
+{
+	const hash_length = hash_of_esperanto.length;
+	for(let i = 0; i < hash_length; i++){
+		if(character === hash_of_esperanto[i][0]){
+			let hash_info = {};
+			hash_info.head_index = hash_of_esperanto[i][1];
+			if(i < (hash_length - 1)){
+				hash_info.foot_index = hash_of_esperanto[i + 1][1];
+			}else{
+				hash_info.foot_index = dictionary.length;
+			}
+
+			return hash_info;
+		}
+	}
+
+	return null;
+}
+
+/** @brief エス和 完全一致検索 */
 function dictionary_get_item_from_keyword(keyword)
 {
 	const dict = dictionary;
@@ -78,30 +149,7 @@ function dictionary_get_item_from_keyword(keyword)
 	return null;
 }
 
-/** @brief 受け取った先頭文字を使用しているitemの範囲情報をオブジェクトで返す
- *	@return 見つからなければnullを返す
- */
-function dictionary_get_hash_info_from_character(character)
-{
-	const hash_length = hash_of_esperanto.length;
-	for(let i = 0; i < hash_length; i++){
-		if(character === hash_of_esperanto[i][0]){
-			let hash_info = {};
-			hash_info.head_index = hash_of_esperanto[i][1];
-			if(i < (hash_length - 1)){
-				hash_info.foot_index = hash_of_esperanto[i + 1][1];
-			}else{
-				hash_info.foot_index = dictionary.length;
-			}
-
-			return hash_info;
-		}
-	}
-
-	return null;
-}
-
-//! インクリメンタルサーチ(先頭マッチ)
+/** @brief エス和 インクリメンタルサーチ(先頭一致) */
 function dictionary_get_index_from_incremental_keyword(keyword)
 {
 	if( 0 == keyword.length){
@@ -125,6 +173,70 @@ function dictionary_get_index_from_incremental_keyword(keyword)
 	return -1;
 }
 
+/** @brief 和エス 完全一致検索 */
+function dictionary_get_indexes_from_jkeyword(jkeyword)
+{
+	let indexes = [];
+	const jdict = jdictionary;
+	const len = jdict.length;
+	for (let i = 0; i < len; i++) {
+		let word = jdict[i][0];
+
+		// 末尾の記号と空白を取り除く
+		jkeyword = jkeyword.replace(/[!！?？\s　]$/g, "");
+		word = word.replace(/[!！?？\s　]$/g, "");
+
+		if(jkeyword === word){
+			const index = jdict[i][1];
+			if(! indexes.includes(index)){
+				indexes.push(index);
+			}
+		}
+	}
+
+	return indexes;
+}
+
+/** @brief 和エス 部分一致検索 */
+function dictionary_get_glosses_info_from_jkeyword(jkeyword)
+{
+	let glosses_head = [];
+	let glosses_other = [];
+
+	const jdict = jdictionary;
+	const len = jdict.length;
+	for (let i = 0; i < len; i++) {
+		const word_src = jdict[i][0];
+
+		// 末尾の記号と空白を取り除く
+		jkeyword = jkeyword.replace(/[!！?？\s　]$/g, "");
+		const word = word_src.replace(/[!！?？\s　]$/g, "");
+
+		const iof = word.indexOf(jkeyword);
+		if(-1 !== iof){
+			if(0 === iof){
+				if(! glosses_head.includes(word_src)){
+					glosses_head.push(word_src);
+				}
+			}else{
+				if(! glosses_other.includes(word_src)){
+					glosses_other.push(word_src);
+				}
+			}
+			if(3 <= glosses_head.length){
+				break;
+			}
+		}
+	}
+
+	let glosses = glosses_head.concat(glosses_other);
+	if(3 < glosses.length){
+		glosses.length = 3;
+	}
+
+	return glosses;
+}
+
 function dictionary_get_item_from_index(index)
 {
 	const array_length = dictionary.length;
@@ -135,7 +247,7 @@ function dictionary_get_item_from_index(index)
 	return dictionary[index];
 }
 
-//! keyword(ユーザ入力形式)を返す
+//! keyword (分かち書きなしesperanto単語) を返す
 function dictionary_get_show_word_from_item(item)
 {
 	if(! item){
@@ -145,7 +257,7 @@ function dictionary_get_show_word_from_item(item)
 	return item[2];
 }
 
-//! 意味を返す
+//! 意味(日本語訳等)を返す
 function dictionary_get_explanation_from_item(item)
 {
 	if(! item){
@@ -170,8 +282,16 @@ function dictionary_get_root_word_from_item(item)
  */
 function dictionary_get_glosses_from_item(item)
 {
+	const explanation = dictionary_get_explanation_from_item(item)
+	return dictionary_generate_glosses_from_explanation(explanation);
+}
+
+/** @brief 訳語の配列を生成して返す
+ *	test文字列: abismo, aboco
+ */
+function dictionary_generate_glosses_from_explanation(explanation)
+{
 	let glosses = [];
-	let explanation = dictionary_get_explanation_from_item(item);
 
 	let mean_words = explanation.split(";");		// 語義を切り出し
 	for(let i = 0; i < mean_words.length; i++){
@@ -196,7 +316,6 @@ function dictionary_get_glosses_from_item(item)
 	}
 
 	glosses = glosses.filter(function(e){return e !== "";});	// 空文字を除去
-	console.log(glosses);
 
 	return glosses;
 }

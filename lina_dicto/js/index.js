@@ -89,7 +89,28 @@ function get_new_timeline_item_element_from_keyword(keyword)
 		const glosses = dictionary_get_glosses_from_item(item);
 		response_text = glosses.join(",");
 	}else{
-		// is not esperanto keyword
+		// is not esperanto keyword (japanese)
+		const indexes = dictionary_get_indexes_from_jkeyword(keyword);
+		if(0 == indexes.length){
+			if(1 < keyword.length){
+				let glosses = dictionary_get_glosses_info_from_jkeyword(keyword);
+				if(0 < glosses.length){
+					let candidate_words = glosses.join(",");
+					response_sub_text += "if your search to `" + candidate_words + "`?";
+				}
+			}
+		}else{
+			let root_words = [];
+			let explanations = [];
+			for(let i = 0; i < indexes.length; i++){
+				const item = dictionary_get_item_from_index(indexes[i]);
+				root_words.push(dictionary_get_root_word_from_item(item));
+
+				explanations.push(dictionary_get_explanation_from_item(item));
+			}
+			response_text = root_words.join(', ');
+			response_sub_text = explanations.join(', ');
+		}
 	}
 
 	// エスペラント代用表記のダイアクリティカルマーク変換
