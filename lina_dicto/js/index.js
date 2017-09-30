@@ -69,36 +69,36 @@ function get_new_timeline_item_element_from_keyword(keyword)
 
 	// 表示文字列の生成と挿入
 	let query_text = "`" + keyword + "`";
-	let explanation_text = "`" + keyword + "` is not match.";
-	let item;
+	let response_text = "";
+	let response_sub_text = "`" + keyword + "` is not match.";
 	if(esperanto_is_esperanto_string(keyword)){
-		item = dictionary_get_item_from_keyword(keyword);
+		const item = dictionary_get_item_from_keyword(keyword);
 		if(! item){
 			// スペル修正候補を探索
 			let candidate_item = get_candidate_word_from_keyword(keyword);
 			if(candidate_item){
 				let candidate_word = dictionary_get_root_word_from_item(candidate_item);
-				explanation_text += "if your search to `" + candidate_word + "`?";
+				response_sub_text += "if your search to `" + candidate_word + "`?";
 			}
 		}else{
 			let explanation = dictionary_get_explanation_from_item(item);
 			let root_word = dictionary_get_root_word_from_item(item);
-			explanation_text = "`" + root_word + "`:" + explanation + "";
+			response_sub_text = "`" + root_word + "`:" + explanation + "";
 		}
+
+		const glosses = dictionary_get_glosses_from_item(item);
+		response_text = glosses.join(",");
 	}else{
 		// is not esperanto keyword
 	}
 
 	// エスペラント代用表記のダイアクリティカルマーク変換
 	query_text = seperanto_convert_alfabeto_from_caret_sistemo(query_text);
-	explanation_text = seperanto_convert_alfabeto_from_caret_sistemo(explanation_text);
-
-	const glosses = dictionary_get_glosses_from_item(item);
-	const glosses_text = glosses.join(",");
+	response_sub_text = seperanto_convert_alfabeto_from_caret_sistemo(response_sub_text);
 
 	query_string_element.textContent = query_text;
-	response_string_main_element.textContent = glosses_text;
-	response_string_sub_element.textContent = explanation_text;
+	response_string_main_element.textContent = response_text;
+	response_string_sub_element.textContent = response_sub_text;
 
 	return timeline_item_element;
 }
