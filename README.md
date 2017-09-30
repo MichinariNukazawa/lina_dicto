@@ -21,7 +21,7 @@ get source:
 
 [Download for latest release](https://github.com/MichinariNukazawa/lina_dicto/releases)  
 
-<img src="document/image/download_link.png" width="200">  
+<img src="document/image/download_link.png" width="500">  
 
 
 # Donate/Buy
