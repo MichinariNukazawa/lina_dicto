@@ -3,7 +3,7 @@ lina\_dicto
 \- Dictionary for Japanese to Esperanto -
 
 # About
-lina\_dicto は日本語からEsperantoへ変換する単語辞書アプリケーションです。  
+lina\_dicto は日本語/Esperanto変換を検索できる辞書アプリケーションです。  
 
 # Screenshot/Image
 ![lina\_dicto](document/image/lina_dicto_20170918.png)  
@@ -49,11 +49,13 @@ Depend: nodejs, electron and other npm packages.
 
 ## Already implement
 - エス和辞書
-- インクリメンタルサーチ(検索候補表示)
-- 代用表現変換表示(^-sistemo)
-- 多代用表記対応(^-sistemo x-sistemo alfabeto)
+ - インクリメンタルサーチ(検索候補表示)
+ - 代用表現変換表示(^-sistemo)
+ - 多代用表記対応(^-sistemo x-sistemo alfabeto)
+ - 「もしかして」機能(スペルミス時の候補推定)
+- 和エス辞書
+ - 候補推定(ミスヒット時の部分一致候補推定)
 - 簡易検索履歴
-- 「もしかして」機能(スペルミス時の候補推定)
 
 ## Todo
 - デフォルト設定スキンのデザイン
@@ -62,7 +64,6 @@ Depend: nodejs, electron and other npm packages.
 
 ## Long Todo
 やるかどうかわからないものたち  
-- 和エス辞書
 - 語根表示(接頭辞・接尾辞解析)
 - 語根推定検索
 - 辞書編集機能(項目追加等)
