@@ -1,6 +1,6 @@
 {
   "name": "lina_dicto",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Dictionary of Japanese to Esperanto",
   "main": "index.js",
   "scripts": {
