@@ -1,8 +1,5 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
-
 /** @brief エス和 辞書データ */
 var dictionary;
 /** @brief 和エス 辞書データ */
@@ -84,9 +81,7 @@ function init_dictionary()
 {
 	console.log("init_dictionary");
 
-	const datafile = path.join(__dirname, 'data/dictionary00.json');
-	const t = fs.readFileSync(datafile, 'utf8');
-	let dict = JSON.parse(t);
+	let dict = dictionary_loader();
 
 	const array_length = dict.length;
 	for (let i = 0; i < array_length; i++) {
