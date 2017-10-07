@@ -99,9 +99,19 @@ function init_dictionary()
 	init_jdictionary();
 }
 
+function manual_lowercase_from_character(character) {
+	if(/[A-Z]/.test(character)){
+		return String.fromCharCode(character.charCodeAt(0) | 32);
+	}
+
+	return character;
+}
+
 /** @brief エス和 高速化ハッシュ 先頭文字を受けとり、範囲情報を返す */
 function dictionary_get_hash_info_from_character(character)
 {
+	character = manual_lowercase_from_character(character);
+
 	const hash_length = hash_of_esperanto.length;
 	for(let i = 0; i < hash_length; i++){
 		if(character === hash_of_esperanto[i][0]){
