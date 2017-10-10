@@ -26,6 +26,13 @@ function init_hash_of_esperanto()
 	const array_length = dictionary.length;
 	for (let i = 0; i < array_length; i++) {
 		const root_word = dictionary_get_root_word_from_item(dictionary[i]).toLowerCase();
+		/** 辞書の並び順に'-'で始まる単語などが混じっているので、
+		 * 先頭文字が[A-Za-z]でない単語は、先頭文字変化のチェックを無視
+		 */
+		if(/^[^A-Za-z]/.test(root_word)){
+			continue;
+		}
+		//! 新しい先頭文字をハッシュに追加
 		if(0 == hash_of_esperanto.length
 				|| hash_of_esperanto[hash_of_esperanto.length - 1][0] != root_word[0]){
 			let hash = [root_word[0], i];
