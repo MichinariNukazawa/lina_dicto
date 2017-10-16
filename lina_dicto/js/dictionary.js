@@ -76,10 +76,12 @@ function init_jdictionary()
 		const jdict = dictionary_generate_jdictionary_from_index_item(i, dict[i]);
 		Array.prototype.push.apply(jdictionary, jdict);
 
-		if(0 == i % 1000){
-			console.log("%d/%d:", i, array_length);
-			console.log(jdict);
-		}
+		/*
+		   if(0 == i % 1000){
+		   console.log("%d/%d:", i, array_length);
+		   console.log(jdict);
+		   }
+		 */
 	}
 
 }
@@ -94,7 +96,7 @@ function init_dictionary()
 	for (let i = 0; i < array_length; i++) {
 		dict[i][2] = dict[i][0].replace(/\//g, "");
 
-		if(0 == i % 1000){
+		if(0 == i % 10000){
 			console.log("%d/%d: `%s`,`%s`",
 					i, array_length, dict[i][2], dict[i][0]);
 		}
@@ -294,7 +296,7 @@ function dictionary_get_root_word_from_item(item)
  */
 function dictionary_get_glosses_from_item(item)
 {
-	const explanation = dictionary_get_explanation_from_item(item)
+	const explanation = dictionary_get_explanation_from_item(item);
 	return dictionary_generate_glosses_from_explanation(explanation);
 }
 
