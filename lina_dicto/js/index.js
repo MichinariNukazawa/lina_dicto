@@ -70,12 +70,8 @@ function get_response_element(response)
 	return response_element;
 }
 
-function get_new_timeline_item_element_from_keyword(keyword)
+function get_response_from_keyword(keyword)
 {
-	timeline_item_id++;
-
-	// 表示文字列の生成と挿入
-	let query_text = "`" + keyword + "`";
 	let response = {};
 	response.main_text = "";
 	response.sub_text = "`" + keyword + "` is not match.";
@@ -120,6 +116,17 @@ function get_new_timeline_item_element_from_keyword(keyword)
 			response.sub_text = explanations.join(', ');
 		}
 	}
+
+	return response;
+}
+
+function get_new_timeline_item_element_from_keyword(keyword)
+{
+	timeline_item_id++;
+
+	// 表示文字列の生成と挿入
+	let query_text = "`" + keyword + "`";
+	let response = get_response_from_keyword(keyword);
 
 	// エスペラント代用表記のダイアクリティカルマーク変換
 	query_text = seperanto_convert_alfabeto_from_caret_sistemo(query_text);
