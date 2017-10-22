@@ -47,7 +47,7 @@ function get_query_element(query_text)
 	return query_element;
 }
 
-function get_response_element(response_text, response_sub_text)
+function get_response_element(response)
 {
 	let response_element = document.createElement('div');
 	response_element.classList.add('timeline__item__response');
@@ -64,8 +64,8 @@ function get_response_element(response_text, response_sub_text)
 	response_string_element.appendChild(response_string_main_element);
 	response_string_element.appendChild(response_string_sub_element);
 
-	response_string_main_element.textContent = response_text;
-	response_string_sub_element.textContent = response_sub_text;
+	response_string_main_element.textContent = response.main_text;
+	response_string_sub_element.textContent = response.sub_text;
 
 	return response_element;
 }
@@ -76,8 +76,9 @@ function get_new_timeline_item_element_from_keyword(keyword)
 
 	// 表示文字列の生成と挿入
 	let query_text = "`" + keyword + "`";
-	let response_text = "";
-	let response_sub_text = "`" + keyword + "` is not match.";
+	let response = {};
+	response.main_text = "";
+	response.sub_text = "`" + keyword + "` is not match.";
 	if(esperanto_is_esperanto_string(keyword)){
 		const item = dictionary_get_item_from_keyword(keyword);
 		if(! item){
@@ -85,16 +86,16 @@ function get_new_timeline_item_element_from_keyword(keyword)
 			let candidate_item = get_candidate_word_from_keyword(keyword);
 			if(candidate_item){
 				let candidate_word = dictionary_get_root_word_from_item(candidate_item);
-				response_sub_text += "if your search to `" + candidate_word + "`?";
+				response.sub_text += "if your search to `" + candidate_word + "`?";
 			}
 		}else{
 			let explanation = dictionary_get_explanation_from_item(item);
 			let root_word = dictionary_get_root_word_from_item(item);
-			response_sub_text = "`" + root_word + "`:" + explanation + "";
+			response.sub_text = "`" + root_word + "`:" + explanation + "";
 		}
 
 		const glosses = dictionary_get_glosses_from_item(item);
-		response_text = glosses.join(",");
+		response.main_text = glosses.join(",");
 	}else{
 		// is not esperanto keyword (japanese)
 		const indexes = dictionary_get_indexes_from_jkeyword(keyword);
@@ -103,7 +104,7 @@ function get_new_timeline_item_element_from_keyword(keyword)
 				let glosses = dictionary_get_glosses_info_from_jkeyword(keyword);
 				if(0 < glosses.length){
 					let candidate_words = glosses.join(",");
-					response_sub_text += "if your search to `" + candidate_words + "`?";
+					response.sub_text += "if your search to `" + candidate_words + "`?";
 				}
 			}
 		}else{
@@ -115,14 +116,14 @@ function get_new_timeline_item_element_from_keyword(keyword)
 
 				explanations.push(dictionary_get_explanation_from_item(item));
 			}
-			response_text = root_words.join(', ');
-			response_sub_text = explanations.join(', ');
+			response.main_text = root_words.join(', ');
+			response.sub_text = explanations.join(', ');
 		}
 	}
 
 	// エスペラント代用表記のダイアクリティカルマーク変換
 	query_text = seperanto_convert_alfabeto_from_caret_sistemo(query_text);
-	response_sub_text = seperanto_convert_alfabeto_from_caret_sistemo(response_sub_text);
+	response.sub_text = seperanto_convert_alfabeto_from_caret_sistemo(response.sub_text);
 	// elementの生成
 	let timeline_item_element = document.createElement('div');
 	timeline_item_element.classList.add('timeline__item');
@@ -130,7 +131,7 @@ function get_new_timeline_item_element_from_keyword(keyword)
 	timeline_item_element.id = timeline_item_id_str;
 
 	let query_element = get_query_element(query_text);
-	let response_element = get_response_element(response_text, response_sub_text);
+	let response_element = get_response_element(response);
 
 	// elementの挿入
 	timeline_item_element.appendChild(query_element);
