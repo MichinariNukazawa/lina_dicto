@@ -117,6 +117,7 @@ function get_response_from_keyword(keyword)
 		}
 	}
 
+	response.sub_text = seperanto_convert_alfabeto_from_caret_sistemo(response.sub_text);
 	return response;
 }
 
@@ -126,11 +127,9 @@ function get_new_timeline_item_element_from_keyword(keyword)
 
 	// 表示文字列の生成と挿入
 	let query_text = "`" + keyword + "`";
+	query_text = seperanto_convert_alfabeto_from_caret_sistemo(query_text);
 	let response = get_response_from_keyword(keyword);
 
-	// エスペラント代用表記のダイアクリティカルマーク変換
-	query_text = seperanto_convert_alfabeto_from_caret_sistemo(query_text);
-	response.sub_text = seperanto_convert_alfabeto_from_caret_sistemo(response.sub_text);
 	// elementの生成
 	let timeline_item_element = document.createElement('div');
 	timeline_item_element.classList.add('timeline__item');
