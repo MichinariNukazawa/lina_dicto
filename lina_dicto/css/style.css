@@ -24,6 +24,12 @@ div#query-area
 	padding-bottom: 85px;		/* #query-area + マージン */
 }
 
+.timeline__item__query__string{
+	border-radius: 5pt;
+	background-size: cover;
+	background-color: rgba(255, 255, 255, 0.25);
+}
+
 #query-area__query-input__input{
 	width:100%;
 	font-size:150%;

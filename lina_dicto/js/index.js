@@ -47,78 +47,159 @@ function get_query_element(query_text)
 	return query_element;
 }
 
-function get_response_element(response)
+function get_response_element(response, is_display_keyword)
 {
 	let response_element = document.createElement('div');
 	response_element.classList.add('timeline__item__response');
 	let response_icon_element = document.createElement('div');
 	response_icon_element.classList.add('timeline__item__response__icon');
+	let response_keyword_element = document.createElement('div');
+	response_keyword_element.classList.add('timeline__item__response__keyword');
 	let response_string_element = document.createElement('div');
 	response_string_element.classList.add('timeline__item__response__string');
 	let response_string_main_element = document.createElement('div');
 	response_string_main_element.classList.add('timeline__item__response__string__main');
 	let response_string_sub_element = document.createElement('div');
 	response_string_sub_element.classList.add('timeline__item__response__string__sub');
+
+	if(! is_display_keyword){
+		response_keyword_element.style.display="none";
+	}
+
 	response_element.appendChild(response_icon_element);
+	response_element.appendChild(response_keyword_element);
 	response_element.appendChild(response_string_element);
 	response_string_element.appendChild(response_string_main_element);
 	response_string_element.appendChild(response_string_sub_element);
 
+	response_keyword_element.textContent = response.keyword;
 	response_string_main_element.textContent = response.main_text;
 	response_string_sub_element.textContent = response.sub_text;
 
 	return response_element;
 }
 
-function get_response_from_keyword(keyword)
+function get_reponse_from_jkeyword(response, keyword)
 {
-	let response = {};
-	response.main_text = "";
-	response.sub_text = "`" + keyword + "` is not match.";
-	if(esperanto_is_esperanto_string(keyword)){
-		const item = dictionary_get_item_from_keyword(keyword);
-		if(! item){
-			// スペル修正候補を探索
-			let candidate_item = get_candidate_word_from_keyword(keyword);
-			if(candidate_item){
-				let candidate_word = dictionary_get_root_word_from_item(candidate_item);
-				response.sub_text += "if your search to `" + candidate_word + "`?";
-			}
-		}else{
-			let explanation = dictionary_get_explanation_from_item(item);
-			let root_word = dictionary_get_root_word_from_item(item);
-			response.sub_text = "`" + root_word + "`:" + explanation + "";
-		}
+	response.keyword = keyword;
 
-		const glosses = dictionary_get_glosses_from_item(item);
-		response.main_text = glosses.join(",");
+	// is not esperanto keyword (japanese)
+	const indexes = dictionary_get_indexes_from_jkeyword(keyword);
+	if(0 == indexes.length){
+		if(1 < keyword.length){
+			let glosses = dictionary_get_glosses_info_from_jkeyword(keyword);
+			if(0 < glosses.length){
+				let candidate_words = glosses.join(",");
+				response.sub_text += "if your search to `" + candidate_words + "`?";
+			}
+		}
 	}else{
-		// is not esperanto keyword (japanese)
-		const indexes = dictionary_get_indexes_from_jkeyword(keyword);
-		if(0 == indexes.length){
-			if(1 < keyword.length){
-				let glosses = dictionary_get_glosses_info_from_jkeyword(keyword);
-				if(0 < glosses.length){
-					let candidate_words = glosses.join(",");
-					response.sub_text += "if your search to `" + candidate_words + "`?";
-				}
-			}
-		}else{
-			let root_words = [];
-			let explanations = [];
-			for(let i = 0; i < indexes.length; i++){
-				const item = dictionary_get_item_from_index(indexes[i]);
-				root_words.push(dictionary_get_root_word_from_item(item));
+		let root_words = [];
+		let explanations = [];
+		for(let i = 0; i < indexes.length; i++){
+			const item = dictionary_get_item_from_index(indexes[i]);
+			root_words.push(dictionary_get_root_word_from_item(item));
 
-				explanations.push(dictionary_get_explanation_from_item(item));
-			}
-			response.main_text = root_words.join(', ');
-			response.sub_text = explanations.join(', ');
+			explanations.push(dictionary_get_explanation_from_item(item));
 		}
+
+		response.main_text = root_words.join(', ');
+		response.sub_text = explanations.join(', ');
 	}
 
-	response.sub_text = seperanto_convert_alfabeto_from_caret_sistemo(response.sub_text);
 	return response;
+}
+
+function get_kw(words, head, c_word)
+{
+	let kw = "";
+	if(words.length < (head + c_word)){
+		return "";
+	}
+	let ws = [];
+	for(let i = 0; i < c_word; i++){
+		ws.push(words[head + i]);
+	}
+
+	kw = ws.join(" ");
+
+	return kw;
+}
+
+function get_responses_from_keyword(keyword)
+{
+	let responses = [];
+
+	// 先頭の空白を取り除く
+	keyword = keyword.replace(/^[\s　]*/g, "");
+	// keywordをword毎に分割
+	const words = keyword.split(/\s/);
+
+	let head = 0;
+	while(head < words.length){
+		let response = {};
+		response.keyword = "";
+		response.main_text = "";
+		response.sub_text = "`" + words[head] + "` is not match.";
+
+		// 検索
+		if(! esperanto_is_esperanto_string(words[head])){
+			// 日本語検索
+			response = get_reponse_from_jkeyword(response, words[head]);
+			head++;
+		}else{
+			// エスペラント検索
+			// 先頭3文字分から単語検索
+			let c_word;
+			let kw;
+			let item = null;
+			for(c_word = 3; 0 < c_word; c_word--){
+				kw = get_kw(words, head, c_word);
+				item = dictionary_get_item_from_keyword(kw);
+				if(item){
+					break;
+				}
+			}
+			head += (0 != c_word)? c_word : 1;
+			response.keyword = kw;
+
+			if(! item){
+				response.sub_text = "`" + kw + "` is not match.";
+				// スペル修正候補を探索
+				let candidate_item = get_candidate_word_from_keyword(kw);
+				if(candidate_item){
+					let candidate_word = dictionary_get_root_word_from_item(candidate_item);
+					response.sub_text += "if your search to `" + candidate_word + "`?";
+				}
+			}else{
+				let explanation = dictionary_get_explanation_from_item(item);
+				let root_word = dictionary_get_root_word_from_item(item);
+				response.sub_text = "`" + root_word + "`:" + explanation + "";
+				const glosses = dictionary_get_glosses_from_item(item);
+				response.main_text = glosses.join(",");
+			}
+		}
+
+		response.sub_text = seperanto_convert_alfabeto_from_caret_sistemo(response.sub_text);
+		responses.push(response);
+	}
+
+	return responses;
+}
+
+function get_responses_element(responses)
+{
+	let responses_element = document.createElement('div');
+	responses_element.classList.add('timeline__item__responses');
+
+	const is_display_keyword = (1 != responses.length);
+	const len = responses.length;
+	for(let i = 0; i < len; i++){
+		let response_element = get_response_element(responses[i], is_display_keyword);
+		responses_element.appendChild(response_element);
+	}
+
+	return responses_element;
 }
 
 function get_new_timeline_item_element_from_keyword(keyword)
@@ -128,7 +209,7 @@ function get_new_timeline_item_element_from_keyword(keyword)
 	// 表示文字列の生成と挿入
 	let query_text = "`" + keyword + "`";
 	query_text = seperanto_convert_alfabeto_from_caret_sistemo(query_text);
-	let response = get_response_from_keyword(keyword);
+	let responses = get_responses_from_keyword(keyword);
 
 	// elementの生成
 	let timeline_item_element = document.createElement('div');
@@ -137,11 +218,11 @@ function get_new_timeline_item_element_from_keyword(keyword)
 	timeline_item_element.id = timeline_item_id_str;
 
 	let query_element = get_query_element(query_text);
-	let response_element = get_response_element(response);
+	let responses_element = get_responses_element(responses);
 
 	// elementの挿入
 	timeline_item_element.appendChild(query_element);
-	timeline_item_element.appendChild(response_element);
+	timeline_item_element.appendChild(responses_element);
 
 	return timeline_item_element;
 }
