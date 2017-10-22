@@ -30,16 +30,9 @@ function get_candidate_word_from_keyword(keyword)
 	return null;
 }
 
-function get_new_timeline_item_element_from_keyword(keyword)
+function get_query_element(query_text)
 {
-	timeline_item_id++;
-
 	// elementの生成
-	var timeline_item_element = document.createElement('div');
-	timeline_item_element.classList.add('timeline__item');
-	var timeline_item_id_str = "timeline__item_" + timeline_item_id;
-	timeline_item_element.id = timeline_item_id_str;
-
 	var query_element = document.createElement('div');
 	query_element.classList.add('timeline__item__query');
 	var query_icon_element = document.createElement('div');
@@ -49,6 +42,13 @@ function get_new_timeline_item_element_from_keyword(keyword)
 	query_element.appendChild(query_icon_element);
 	query_element.appendChild(query_string_element);
 
+	query_string_element.textContent = query_text;
+
+	return query_element;
+}
+
+function get_response_element(response_text, response_sub_text)
+{
 	var response_element = document.createElement('div');
 	response_element.classList.add('timeline__item__response');
 	var response_icon_element = document.createElement('div');
@@ -64,8 +64,15 @@ function get_new_timeline_item_element_from_keyword(keyword)
 	response_string_element.appendChild(response_string_main_element);
 	response_string_element.appendChild(response_string_sub_element);
 
-	timeline_item_element.appendChild(query_element);
-	timeline_item_element.appendChild(response_element);
+	response_string_main_element.textContent = response_text;
+	response_string_sub_element.textContent = response_sub_text;
+
+	return response_element;
+}
+
+function get_new_timeline_item_element_from_keyword(keyword)
+{
+	timeline_item_id++;
 
 	// 表示文字列の生成と挿入
 	let query_text = "`" + keyword + "`";
@@ -116,10 +123,18 @@ function get_new_timeline_item_element_from_keyword(keyword)
 	// エスペラント代用表記のダイアクリティカルマーク変換
 	query_text = seperanto_convert_alfabeto_from_caret_sistemo(query_text);
 	response_sub_text = seperanto_convert_alfabeto_from_caret_sistemo(response_sub_text);
+	// elementの生成
+	var timeline_item_element = document.createElement('div');
+	timeline_item_element.classList.add('timeline__item');
+	var timeline_item_id_str = "timeline__item_" + timeline_item_id;
+	timeline_item_element.id = timeline_item_id_str;
 
-	query_string_element.textContent = query_text;
-	response_string_main_element.textContent = response_text;
-	response_string_sub_element.textContent = response_sub_text;
+	let query_element = get_query_element(query_text);
+	let response_element = get_response_element(response_text, response_sub_text);
+
+	// elementの挿入
+	timeline_item_element.appendChild(query_element);
+	timeline_item_element.appendChild(response_element);
 
 	return timeline_item_element;
 }
