@@ -92,7 +92,7 @@ function esperanto_caret_sistemo_from_str(str)
 /** @brief スペル修正候補一覧を返す */
 function esperanto_get_candidates(str)
 {
-	var candidates = [];
+	let candidates = [];
 
 	//! esperantoであまり使わないqwxyと、挿入可能位置に条件のある代用表記を除く
 	const alphabets = 'abcdefghijklmnoprstuvz';

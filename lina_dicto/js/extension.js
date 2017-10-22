@@ -8,8 +8,8 @@ class Extension{
 	 */
 	init(){
 		// extensionのCSSをページに挿入する
-		var css_path = "./default_extension/style.css";
-		var link = document.createElement('link');
+		let css_path = "./default_extension/style.css";
+		let link = document.createElement('link');
 		link.setAttribute('rel', 'stylesheet');
 		link.setAttribute('href', css_path);
 		document.head.appendChild(link);

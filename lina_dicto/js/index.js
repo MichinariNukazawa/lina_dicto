@@ -33,11 +33,11 @@ function get_candidate_word_from_keyword(keyword)
 function get_query_element(query_text)
 {
 	// elementの生成
-	var query_element = document.createElement('div');
+	let query_element = document.createElement('div');
 	query_element.classList.add('timeline__item__query');
-	var query_icon_element = document.createElement('div');
+	let query_icon_element = document.createElement('div');
 	query_icon_element.classList.add('timeline__item__query__icon');
-	var query_string_element = document.createElement('div');
+	let query_string_element = document.createElement('div');
 	query_string_element.classList.add('timeline__item__query__string');
 	query_element.appendChild(query_icon_element);
 	query_element.appendChild(query_string_element);
@@ -49,15 +49,15 @@ function get_query_element(query_text)
 
 function get_response_element(response_text, response_sub_text)
 {
-	var response_element = document.createElement('div');
+	let response_element = document.createElement('div');
 	response_element.classList.add('timeline__item__response');
-	var response_icon_element = document.createElement('div');
+	let response_icon_element = document.createElement('div');
 	response_icon_element.classList.add('timeline__item__response__icon');
-	var response_string_element = document.createElement('div');
+	let response_string_element = document.createElement('div');
 	response_string_element.classList.add('timeline__item__response__string');
-	var response_string_main_element = document.createElement('div');
+	let response_string_main_element = document.createElement('div');
 	response_string_main_element.classList.add('timeline__item__response__string__main');
-	var response_string_sub_element = document.createElement('div');
+	let response_string_sub_element = document.createElement('div');
 	response_string_sub_element.classList.add('timeline__item__response__string__sub');
 	response_element.appendChild(response_icon_element);
 	response_element.appendChild(response_string_element);
@@ -124,9 +124,9 @@ function get_new_timeline_item_element_from_keyword(keyword)
 	query_text = seperanto_convert_alfabeto_from_caret_sistemo(query_text);
 	response_sub_text = seperanto_convert_alfabeto_from_caret_sistemo(response_sub_text);
 	// elementの生成
-	var timeline_item_element = document.createElement('div');
+	let timeline_item_element = document.createElement('div');
 	timeline_item_element.classList.add('timeline__item');
-	var timeline_item_id_str = "timeline__item_" + timeline_item_id;
+	let timeline_item_id_str = "timeline__item_" + timeline_item_id;
 	timeline_item_element.id = timeline_item_id_str;
 
 	let query_element = get_query_element(query_text);
@@ -141,23 +141,23 @@ function get_new_timeline_item_element_from_keyword(keyword)
 
 function update_query_input_element_datalist(keyword)
 {
-	var query_incrementals_element = document.getElementById('query-area__query-incrementals');
+	let query_incrementals_element = document.getElementById('query-area__query-incrementals');
 
 	query_incrementals_element.textContent = ''; // clear
 
-	var index = dictionary_get_index_from_incremental_keyword(keyword);
+	let index = dictionary_get_index_from_incremental_keyword(keyword);
 	if(-1 == index){
 		return;
 	}
 
-	var options_text = '';
-	var options = '';
+	let options_text = '';
+	let options = '';
 	for(var i = 0; i < 3; i++){
-		var item = dictionary_get_item_from_index(index + i);
+		let item = dictionary_get_item_from_index(index + i);
 		if(! item){
 			break;
 		}
-		var show_word = dictionary_get_show_word_from_item(item);
+		let show_word = dictionary_get_show_word_from_item(item);
 
 		if(0 != i){
 			options_text += ' | ';
@@ -170,7 +170,7 @@ function update_query_input_element_datalist(keyword)
 
 function on_keypress_by_query_input_element(e)
 {
-	var code = e.charCode;
+	let code = e.charCode;
 
 	//エンターキー押下以外は終了
 	if(13 !== code)
@@ -183,8 +183,8 @@ function on_keypress_by_query_input_element(e)
 		return;
 	}
 
-	var obj_input = document.getElementById('query-area__query-input__input');
-	var keyword = obj_input.value;
+	let obj_input = document.getElementById('query-area__query-input__input');
+	let keyword = obj_input.value;
 	obj_input.value = "";
 
 	keyword = esperanto_caret_sistemo_from_str(keyword);
@@ -193,21 +193,21 @@ function on_keypress_by_query_input_element(e)
 		return;
 	}
 
-	var obj_timeline = document.getElementById('timeline');
+	let obj_timeline = document.getElementById('timeline');
 
-	var timeline_item_element = get_new_timeline_item_element_from_keyword(keyword);
+	let timeline_item_element = get_new_timeline_item_element_from_keyword(keyword);
 
 	obj_timeline.appendChild(timeline_item_element);
 
 	// 追加したtimeline_item(最下部)へスクロール
-	var positionY = timeline_item_element.offsetTop; // 変更点
+	let positionY = timeline_item_element.offsetTop; // 変更点
 	scrollTo(0, positionY);
 }
 
 function on_keyup_by_query_input_element(e)
 {
-	var obj_input = document.getElementById('query-area__query-input__input');
-	var keyword = obj_input.value;
+	let obj_input = document.getElementById('query-area__query-input__input');
+	let keyword = obj_input.value;
 	keyword = esperanto_caret_sistemo_from_str(keyword);
 
 	update_query_input_element_datalist(keyword);
