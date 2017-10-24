@@ -155,6 +155,8 @@ function get_responses_from_keyword(keyword)
 			let item = null;
 			for(c_word = 3; 0 < c_word; c_word--){
 				kw = get_kw(words, head, c_word);
+				// 代用表記以外の末尾の記号を取り除く(word間の記号は除かない)
+				kw = kw.replace(/[^A-Za-z^~]$/g, "");
 				item = dictionary_get_item_from_keyword(kw);
 				if(item){
 					break;
