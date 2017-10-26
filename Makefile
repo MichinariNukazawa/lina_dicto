@@ -11,10 +11,10 @@ run:
 clean:
 	rm -rf release
 
-.PHONY: packaging packaging_desktop
-packaging: packaging_desktop
+.PHONY: package package_desktop
+package: package_desktop
 
-packaging_desktop:
+package_desktop:
 	bash ./packaging_win64.sh
 	bash ./packaging_macosx.sh
 
