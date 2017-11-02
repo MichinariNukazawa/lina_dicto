@@ -10,7 +10,7 @@ arch: 'x64',
 version: "1.7.5",
 icon: './image/icon.icns',
 
-'app-bundle-id': 'jp.co.michinari_nukazawa/lina_dicto',
+'app-bundle-id': 'com.michinari_nukazawa/lina_dicto',
 
 'app-version': config.version,
 
