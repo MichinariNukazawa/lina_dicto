@@ -1,6 +1,7 @@
 'use strict';
 
 var extension = new Extension();
+var platform = new Platform();
 
 var timeline_item_id = 0;
 
@@ -12,6 +13,10 @@ window.onload = function(e){
 
 	if(!extension.init()){
 		alart("extension not initialized.");
+	}
+
+	if(!platform.init()){
+		alart("platform not initialized.");
 	}
 }
 
