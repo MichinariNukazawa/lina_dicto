@@ -18,6 +18,59 @@ window.onload = function(e){
 	if(!platform.init()){
 		alart("platform not initialized.");
 	}
+
+	window.addEventListener('resize', function(){
+		resize_query_input(get_window_height());
+	}, true);
+}
+
+var query_input_default = {
+	'input_height':-1,
+	'timeline_padding_bottom':-1,
+};
+
+function resize_query_input(window_height)
+{
+	// console.log("resize:%d x %d", get_window_width(), get_window_height());
+
+	let input_input_element = document.getElementById('query-area__query-input__input');
+	let input_button_element = document.getElementById('query-area__query-input__button');
+	let timeline_element = document.getElementById('timeline');
+	if(-1 == query_input_default['input_height']){
+		query_input_default['input_height'] = input_input_element.style.height;
+		query_input_default['timeline_padding_bottom'] = timeline_element.style.paddingBottom;
+	}
+
+	if(250 > window_height){
+		input_input_element.style.height = "30px";
+		input_button_element.style.height = "30px";
+		timeline_element.style.paddingBottom = "55px";
+	}else{
+		input_input_element.style.height = query_input_default['input_height']
+		input_button_element.style.height = query_input_default['input_height']
+		timeline_element.style.paddingBottom = query_input_default['timeline_padding_bottom'];
+	}
+
+	// 最下部へスクロール
+	scrollTo(0, timeline_element.offsetHeight);
+}
+
+function get_window_width()
+{
+	let width = window.innerWidth
+		|| document.documentElement.clientWidth
+		|| document.body.clientWidth;
+
+	return width;
+}
+
+function get_window_height()
+{
+	let height = window.innerHeight
+		|| document.documentElement.clientHeight
+		|| document.body.clientHeight;
+
+	return height;
 }
 
 /** @brief スペル修正候補を返す */
@@ -280,11 +333,11 @@ function query_input_element()
 		return;
 	}
 
-	let obj_timeline = document.getElementById('timeline');
+	let timeline_element = document.getElementById('timeline');
 
 	let timeline_item_element = get_new_timeline_item_element_from_keyword(keyword);
 
-	obj_timeline.appendChild(timeline_item_element);
+	timeline_element.appendChild(timeline_item_element);
 
 	// 追加したtimeline_item(最下部)へスクロール
 	let positionY = timeline_item_element.offsetTop; // 変更点
