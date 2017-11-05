@@ -263,16 +263,8 @@ function update_query_input_element_datalist(keyword)
 	query_incrementals_element.textContent = options_text;
 }
 
-function on_keypress_by_query_input_element(e)
+function query_input_element()
 {
-	let code = e.charCode;
-
-	//エンターキー押下以外は終了
-	if(13 !== code)
-	{
-		return;
-	}
-
 	if(! dictionary_is_init()){
 		console.log("dictionary not init.");
 		return;
@@ -297,6 +289,19 @@ function on_keypress_by_query_input_element(e)
 	// 追加したtimeline_item(最下部)へスクロール
 	let positionY = timeline_item_element.offsetTop; // 変更点
 	scrollTo(0, positionY);
+}
+
+function on_keypress_by_query_input_element(e)
+{
+	let code = e.charCode;
+
+	//エンターキー押下以外は終了
+	if(13 !== code)
+	{
+		return;
+	}
+
+	query_input_element();
 }
 
 function on_keyup_by_query_input_element(e)
