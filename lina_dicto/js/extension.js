@@ -11,6 +11,7 @@ class Extension{
 		let css_path = "./default_extension/style.css";
 		let link = document.createElement('link');
 		link.setAttribute('rel', 'stylesheet');
+		link.setAttribute('type', 'text/css');
 		link.setAttribute('href', css_path);
 		document.head.appendChild(link);
 

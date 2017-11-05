@@ -36,11 +36,21 @@ div#query-area
 	font-family: Consolas, 'Courier New', Courier, Monaco, monospace;
 }
 
+#query-area__query-input{
+}
+
 #query-area__query-input__input{
-	width:100%;
+	width:99%;
 	font-size:150%;
 	height:60px;
+	vertical-align: middle;
 	/*font-family: Consolas, 'Courier New', Courier, Monaco, monospace;*/
+}
+
+#query-area__query-input__button{
+	height:60px;
+	vertical-align: middle;
+	display:none;
 }
 
 #query-area__query-incrementals{
