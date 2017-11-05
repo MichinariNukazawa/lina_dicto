@@ -30,6 +30,12 @@ div#query-area
 	background-color: rgba(255, 255, 255, 0.25);
 }
 
+.timeline__item__response__string__sub{
+	/* ex. "`bon/a`:{Ｂ}良い,善良な,りっぱな" */
+	font-size:40%;
+	font-family: Consolas, 'Courier New', Courier, Monaco, monospace;
+}
+
 #query-area__query-input__input{
 	width:100%;
 	font-size:150%;
