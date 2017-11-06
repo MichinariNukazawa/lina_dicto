@@ -5,6 +5,9 @@ lina\_dicto
 # About
 lina\_dicto は日本語/Esperanto変換を検索できる辞書アプリケーションです。  
 
+その他のバージョン：  
+[lina\_dicto for android](https://github.com/MichinariNukazawa/lina_dicto_for_android)  
+
 # Screenshot/Image
 ![lina\_dicto](document/image/lina_dicto_0_1_3_windows.png)  
 
