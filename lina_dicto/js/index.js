@@ -130,7 +130,7 @@ function get_response_element(response, is_display_keyword)
 	response_string_element.appendChild(response_string_main_element);
 	response_string_element.appendChild(response_string_sub_element);
 
-	response_keyword_element.textContent = response.keyword;
+	response_keyword_element.textContent = response.matching_keyword;
 	response_string_main_element.textContent = response.match_results.join(', ');;
 	response_string_sub_element.textContent = response.sub_text;
 
@@ -139,7 +139,7 @@ function get_response_element(response, is_display_keyword)
 
 function get_reponse_from_jkeyword(response, keyword)
 {
-	response.keyword = keyword;
+	response.matching_keyword = keyword;
 
 	// is not esperanto keyword (japanese)
 	const indexes = dictionary_get_indexes_from_jkeyword(keyword);
@@ -196,7 +196,7 @@ function get_responses_from_keyword(keyword)
 	let head = 0;
 	while(head < words.length){
 		let response = {};
-		response.macth_keyword = "";
+		response.matching_keyword = "";
 		response.match_results = [];
 		response.sub_text = "`" + words[head] + "` is not match.";
 
@@ -221,7 +221,7 @@ function get_responses_from_keyword(keyword)
 				}
 			}
 			head += (0 != c_word)? c_word : 1;
-			response.keyword = kw;
+			response.matching_keyword = kw;
 
 			if(! item){
 				response.sub_text = "`" + kw + "` is not match.";
