@@ -54,9 +54,18 @@ div#query-area
 }
 
 #query-area__query-incrementals{
+	margin-top:3px;
 	width:100%;
 	font-size:40%;
 	height:15px;
 	font-family: Consolas, 'Courier New', Courier, Monaco, monospace;
+}
+
+.query-area__query-incrementals__candidate{
+	margin-left:5px;
+	margin-right:5px;
+	border: 1px solid;
+	border-color: rgba( 0, 0, 0, 0.1);
+	cursor: pointer;	/* リンクカーソル */
 }
 

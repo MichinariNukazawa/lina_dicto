@@ -287,11 +287,22 @@ function get_new_timeline_item_element_from_keyword(keyword)
 	return timeline_item_element;
 }
 
+function create_span_from_text(text)
+{
+	let element = document.createElement('span');
+	element.textContent = text;
+
+	return element;
+}
+
 function update_query_input_element_datalist(keyword)
 {
 	let query_incrementals_element = document.getElementById('query-area__query-incrementals');
 
-	query_incrementals_element.textContent = ''; // clear
+	// clear
+	while (query_incrementals_element.firstChild) {
+		query_incrementals_element.removeChild(query_incrementals_element.firstChild);
+	}
 
 	let index = dictionary_get_index_from_incremental_keyword(keyword);
 	if(-1 == index){
@@ -308,12 +319,21 @@ function update_query_input_element_datalist(keyword)
 		let show_word = dictionary_get_show_word_from_item(item);
 
 		if(0 != i){
-			options_text += ' | ';
+			let element = create_span_from_text('|');
+			query_incrementals_element.appendChild(element);
 		}
-		options_text += '' + show_word + '';
-	}
 
-	query_incrementals_element.textContent = options_text;
+		let element = create_span_from_text(show_word);
+		element.classList.add('query-area__query-incrementals__candidate');
+		query_incrementals_element.appendChild(element);
+		element.addEventListener('click', function(e){
+			let element = e.target;
+			let input_element = document.getElementById('query-area__query-input__input');
+			input_element.value = element.textContent;
+
+			document.getElementById('query-area__query-input__input').focus();
+		}, true);
+	}
 }
 
 function query_input_element()
