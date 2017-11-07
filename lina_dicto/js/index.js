@@ -131,7 +131,7 @@ function get_response_element(response, is_display_keyword)
 	response_string_element.appendChild(response_string_sub_element);
 
 	response_keyword_element.textContent = response.keyword;
-	response_string_main_element.textContent = response.main_text;
+	response_string_main_element.textContent = response.match_results.join(', ');;
 	response_string_sub_element.textContent = response.sub_text;
 
 	return response_element;
@@ -161,7 +161,7 @@ function get_reponse_from_jkeyword(response, keyword)
 			explanations.push(dictionary_get_explanation_from_item(item));
 		}
 
-		response.main_text = root_words.join(', ');
+		response.match_results = root_words;
 		response.sub_text = explanations.join(', ');
 	}
 
@@ -196,8 +196,8 @@ function get_responses_from_keyword(keyword)
 	let head = 0;
 	while(head < words.length){
 		let response = {};
-		response.keyword = "";
-		response.main_text = "";
+		response.macth_keyword = "";
+		response.match_results = [];
 		response.sub_text = "`" + words[head] + "` is not match.";
 
 		// 検索
@@ -236,7 +236,7 @@ function get_responses_from_keyword(keyword)
 				let root_word = dictionary_get_root_word_from_item(item);
 				response.sub_text = "`" + root_word + "`:" + explanation + "";
 				const glosses = dictionary_get_glosses_from_item(item);
-				response.main_text = glosses.join(",");
+				response.match_results = glosses;
 			}
 		}
 
