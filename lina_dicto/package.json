@@ -12,7 +12,7 @@
   "repository": "<project_name>",
   "license": "BSD-2-Clause",
   "devDependencies": {
-    "electron": "1.8.1",
+    "electron": "^1.8.1",
     "electron-packager": "9.0.0"
   }
 }
