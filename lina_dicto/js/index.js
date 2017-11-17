@@ -2,6 +2,7 @@
 
 var extension = new Extension();
 var platform = new Platform();
+let dictionary = new Dictionary();
 
 var timeline_item_id = 0;
 
@@ -9,7 +10,7 @@ window.onload = function(e){
 	// 入力欄にフォーカスを与える
 	document.getElementById('query-area__query-input__input').focus();
 
-	init_dictionary();
+	dictionary.init_dictionary();
 
 	if(!extension.init()){
 		alart("extension not initialized.");
@@ -78,8 +79,8 @@ function get_candidate_word_from_keyword(keyword)
 {
 	const candidates = esperanto_get_candidates(keyword);
 	for(const candidate of candidates){
-		let index = dictionary_get_index_from_incremental_keyword(candidate);
-		let item = dictionary_get_item_from_index(index);
+		let index = dictionary.get_index_from_incremental_keyword(candidate);
+		let item = dictionary.get_item_from_index(index);
 		if(item){
 			return item;
 		}
@@ -142,10 +143,10 @@ function get_reponse_from_jkeyword(response, keyword)
 	response.matching_keyword = keyword;
 
 	// is not esperanto keyword (japanese)
-	const indexes = dictionary_get_indexes_from_jkeyword(keyword);
+	const indexes = dictionary.get_indexes_from_jkeyword(keyword);
 	if(0 == indexes.length){
 		if(1 < keyword.length){
-			let glosses = dictionary_get_glosses_info_from_jkeyword(keyword);
+			let glosses = dictionary.get_glosses_info_from_jkeyword(keyword);
 			if(0 < glosses.length){
 				let candidate_words = glosses.join(",");
 				response.sub_text += "if your search to `" + candidate_words + "`?";
@@ -155,10 +156,10 @@ function get_reponse_from_jkeyword(response, keyword)
 		let root_words = [];
 		let explanations = [];
 		for(let i = 0; i < indexes.length; i++){
-			const item = dictionary_get_item_from_index(indexes[i]);
-			root_words.push(dictionary_get_root_word_from_item(item));
+			const item = dictionary.get_item_from_index(indexes[i]);
+			root_words.push(dictionary.get_root_word_from_item(item));
 
-			explanations.push(dictionary_get_explanation_from_item(item));
+			explanations.push(dictionary.get_explanation_from_item(item));
 		}
 
 		response.match_results = root_words;
@@ -215,7 +216,7 @@ function get_responses_from_keyword(keyword)
 				kw = get_kw(words, head, c_word);
 				// 代用表記以外の末尾の記号を取り除く(word間の記号は除かない)
 				kw = kw.replace(/[^A-Za-z^~]$/g, "");
-				item = dictionary_get_item_from_keyword(kw);
+				item = dictionary.get_item_from_keyword(kw);
 				if(item){
 					break;
 				}
@@ -228,14 +229,14 @@ function get_responses_from_keyword(keyword)
 				// スペル修正候補を探索
 				let candidate_item = get_candidate_word_from_keyword(kw);
 				if(candidate_item){
-					let candidate_word = dictionary_get_root_word_from_item(candidate_item);
+					let candidate_word = dictionary.get_root_word_from_item(candidate_item);
 					response.sub_text += "if your search to `" + candidate_word + "`?";
 				}
 			}else{
-				let explanation = dictionary_get_explanation_from_item(item);
-				let root_word = dictionary_get_root_word_from_item(item);
+				let explanation = dictionary.get_explanation_from_item(item);
+				let root_word = dictionary.get_root_word_from_item(item);
 				response.sub_text = "`" + root_word + "`:" + explanation + "";
-				const glosses = dictionary_get_glosses_from_item(item);
+				const glosses = dictionary.get_glosses_from_item(item);
 				response.match_results = glosses;
 			}
 		}
@@ -304,7 +305,7 @@ function update_query_input_element_datalist(keyword)
 		query_incrementals_element.removeChild(query_incrementals_element.firstChild);
 	}
 
-	let index = dictionary_get_index_from_incremental_keyword(keyword);
+	let index = dictionary.get_index_from_incremental_keyword(keyword);
 	if(-1 == index){
 		return;
 	}
@@ -312,11 +313,11 @@ function update_query_input_element_datalist(keyword)
 	let options_text = '';
 	let options = '';
 	for(var i = 0; i < 3; i++){
-		let item = dictionary_get_item_from_index(index + i);
+		let item = dictionary.get_item_from_index(index + i);
 		if(! item){
 			break;
 		}
-		let show_word = dictionary_get_show_word_from_item(item);
+		let show_word = dictionary.get_show_word_from_item(item);
 
 		if(0 != i){
 			let element = create_span_from_text('|');
@@ -338,7 +339,7 @@ function update_query_input_element_datalist(keyword)
 
 function query_input_element()
 {
-	if(! dictionary_is_init()){
+	if(! dictionary.is_init()){
 		console.log("dictionary not init.");
 		return;
 	}
