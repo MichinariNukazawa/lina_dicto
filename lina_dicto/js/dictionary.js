@@ -86,10 +86,8 @@ function init_jdictionary()
 
 }
 
-function init_dictionary()
+function init_edictionary()
 {
-	console.log("init_dictionary");
-
 	let dict = dictionary_loader();
 
 	const array_length = dict.length;
@@ -103,7 +101,13 @@ function init_dictionary()
 	}
 
 	dictionary = dict;
+}
 
+function init_dictionary()
+{
+	console.log("init_dictionary");
+
+	init_edictionary();
 	init_hash_of_esperanto();
 	init_jdictionary();
 }
