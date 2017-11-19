@@ -83,6 +83,7 @@ function seperanto_convert_caret_from_alfabeto_sistemo(str)
 /** @brief 雑多な文字列(x-sistemo, alfabeto)を^-sistemoに変換する */
 function esperanto_caret_sistemo_from_str(str)
 {
+	str = str.replace("~", "^");
 	str = esperanto_convert_caret_from_x_sistemo(str);
 	str = seperanto_convert_caret_from_alfabeto_sistemo(str);
 
