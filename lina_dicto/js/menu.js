@@ -66,6 +66,15 @@ var template = [
 		click: function () { require('electron').shell.openExternal('https://daisy-bell.booth.pm/') }
 	},
 	{
+		label: 'Donate',
+		submenu: [
+		{
+			label: 'Donate(Amazon)',
+			click: function () { require('electron').shell.openExternal('http://amzn.asia/gxaSPhE') }
+		},
+		]
+	},
+	{
 		label: 'bug report',
 		submenu: [
 		{
