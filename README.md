@@ -37,10 +37,13 @@ Linux. (Ubuntu 16.04LTS+), Windows. (64bit)
 
 ## Build
 setup:`sudo bash setup/library_for_ubuntu.sh`  
-```
-cd lina_dict/lina_dict/
-npm run build
-```
+in `cd lina_dicto`  
+`npm run build`  
+
+## test
+in `cd lina_dicto`  
+`npm test`  
+test to test(mocha)' `npm run testtotest`  
 
 ### Windows package
 `bash packaging_win64.sh`  
