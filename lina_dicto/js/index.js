@@ -3,6 +3,7 @@
 var extension = new Extension();
 var platform = new Platform();
 let dictionary = new Dictionary();
+let esperanto = new Esperanto();
 
 var timeline_item_id = 0;
 
@@ -77,7 +78,7 @@ function get_window_height()
 /** @brief スペル修正候補を返す */
 function get_candidate_word_from_keyword(keyword)
 {
-	const candidates = esperanto_get_candidates(keyword);
+	const candidates = esperanto.get_candidates(keyword);
 	for(const candidate of candidates){
 		let index = dictionary.get_index_from_incremental_keyword(candidate);
 		let item = dictionary.get_item_from_index(index);
@@ -202,7 +203,7 @@ function get_responses_from_keyword(keyword)
 		response.sub_text = "`" + words[head] + "` is not match.";
 
 		// 検索
-		if(! esperanto_is_esperanto_string(words[head])){
+		if(! esperanto.is_esperanto_string(words[head])){
 			// 日本語検索
 			response = get_reponse_from_jkeyword(response, words[head]);
 			head++;
@@ -241,7 +242,7 @@ function get_responses_from_keyword(keyword)
 			}
 		}
 
-		response.sub_text = seperanto_convert_alfabeto_from_caret_sistemo(response.sub_text);
+		response.sub_text = esperanto.convert_alfabeto_from_caret_sistemo(response.sub_text);
 		responses.push(response);
 	}
 
@@ -269,7 +270,7 @@ function get_new_timeline_item_element_from_keyword(keyword)
 
 	// 表示文字列の生成と挿入
 	let query_text = "`" + keyword + "`";
-	query_text = seperanto_convert_alfabeto_from_caret_sistemo(query_text);
+	query_text = esperanto.convert_alfabeto_from_caret_sistemo(query_text);
 	let responses = get_responses_from_keyword(keyword);
 
 	// elementの生成
@@ -348,7 +349,7 @@ function query_input_element()
 	let keyword = obj_input.value;
 	obj_input.value = "";
 
-	keyword = esperanto_caret_sistemo_from_str(keyword);
+	keyword = esperanto.caret_sistemo_from_str(keyword);
 
 	if(0 == keyword.length){
 		return;
@@ -382,7 +383,7 @@ function on_keyup_by_query_input_element(e)
 {
 	let obj_input = document.getElementById('query-area__query-input__input');
 	let keyword = obj_input.value;
-	keyword = esperanto_caret_sistemo_from_str(keyword);
+	keyword = esperanto.caret_sistemo_from_str(keyword);
 
 	update_query_input_element_datalist(keyword);
 }
