@@ -1,7 +1,7 @@
 'use strict';
 
 
-class Esperanto{
+export default class Esperanto{
 
 	/** @brief x-systemo */
 	convert_caret_from_x_sistemo(str)
@@ -86,8 +86,8 @@ class Esperanto{
 	caret_sistemo_from_str(str)
 	{
 		str = str.replace("~", "^");
-		str = esperanto.convert_caret_from_x_sistemo(str);
-		str = esperanto.convert_caret_from_alfabeto_sistemo(str);
+		str = this.convert_caret_from_x_sistemo(str);
+		str = this.convert_caret_from_alfabeto_sistemo(str);
 
 		return str;
 	}
