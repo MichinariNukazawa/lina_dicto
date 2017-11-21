@@ -6,7 +6,7 @@
   "scripts": {
     "build": "node_modules/.bin/electron .",
     "package": "node_modules/.bin/electron-packager . lina_dicto --platform=all --arch=x64",
-    "test": "mocha --require babel-register",
+    "test": "bash ./pretest.sh && mocha --require babel-register",
     "testtotest": "mocha test/mocha.js"
   },
   "author": "michinari.nukazawa@gmail.com",

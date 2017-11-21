@@ -1,7 +1,7 @@
 'use strict';
 
 
-export default class Esperanto{
+/*export default*/ class Esperanto{
 
 	/** @brief x-systemo */
 	convert_caret_from_x_sistemo(str)

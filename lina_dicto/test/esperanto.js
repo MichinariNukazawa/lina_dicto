@@ -1,6 +1,6 @@
 var assert = require("power-assert"); // assertモジュールのinclude
 
-import Esperanto from '../js/esperanto';
+import Esperanto from '../object/esperanto';
 const esperanto = new Esperanto();
 
 it ("caret_sistemo_from_str", function() {
