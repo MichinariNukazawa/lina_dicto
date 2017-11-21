@@ -14,3 +14,21 @@ it ("caret_sistemo_from_str", function() {
 	assert("alau^do" === esperanto.caret_sistemo_from_str("alaŭdo"));
 	assert("alau^do" === esperanto.caret_sistemo_from_str("alau~do"));
 });
+
+it ("get_candidates", function() {
+	let candidates;
+
+	candidates = esperanto.get_candidates("vekig^is");
+	assert(-1 !== candidates.indexOf("vekig^i"));
+	candidates = esperanto.get_candidates("voco");
+	assert(-1 !== candidates.indexOf("voc^o"));
+	candidates = esperanto.get_candidates("vok^o");
+	assert(-1 !== candidates.indexOf("voc^o"));
+	candidates = esperanto.get_candidates("amlilato");
+	assert(-1 !== candidates.indexOf("amrilato"));
+	candidates = esperanto.get_candidates("amrilarto");
+	assert(-1 !== candidates.indexOf("amrilato"));
+	candidates = esperanto.get_candidates("alu^do");
+	assert(-1 !== candidates.indexOf("alau^do"));
+});
+
