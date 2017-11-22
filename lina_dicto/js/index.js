@@ -11,7 +11,8 @@ window.onload = function(e){
 	// 入力欄にフォーカスを与える
 	document.getElementById('query-area__query-input__input').focus();
 
-	dictionary.init_dictionary();
+	let dictionary_data = dictionary_loader();
+	dictionary.init_dictionary(dictionary_data);
 
 	if(!extension.init()){
 		alart("extension not initialized.");

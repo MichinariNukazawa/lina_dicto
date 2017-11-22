@@ -90,9 +90,9 @@ class Dictionary{
 
 	}
 
-	init_edictionary()
+	init_edictionary(dictionary_data)
 	{
-		let dict = dictionary_loader();
+		let dict = dictionary_data;
 
 		const array_length = dict.length;
 		for (let i = 0; i < array_length; i++) {
@@ -107,11 +107,11 @@ class Dictionary{
 		this.dictionary = dict;
 	}
 
-	init_dictionary()
+	init_dictionary(dictionary_data)
 	{
 		console.log("init_dictionary");
 
-		this.init_edictionary();
+		this.init_edictionary(dictionary_data);
 		this.init_hash_of_esperanto();
 		this.init_jdictionary();
 	}
