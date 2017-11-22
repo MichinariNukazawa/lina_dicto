@@ -198,6 +198,9 @@
 		}
 
 		candidates = candidates.filter(function(e){return e !== "";});	// 空文字を除去
+		candidates = candidates.filter((cand, index, array) => {
+			return array.indexOf(cand) === index;
+		});	// 重複を除去
 		return candidates;
 	}
 
