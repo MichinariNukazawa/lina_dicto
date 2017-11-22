@@ -1,6 +1,6 @@
 'use strict';
 
-class Dictionary{
+/*export default*/ class Dictionary{
 	constructor()
 	{
 		/** @brief エス和 辞書データ */
