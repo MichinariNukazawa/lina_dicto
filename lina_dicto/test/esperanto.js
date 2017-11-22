@@ -32,3 +32,27 @@ it ("get_candidates", function() {
 	assert(-1 !== candidates.indexOf("alau^do"));
 });
 
+it ("get_candidates verbo", function() {
+	let candidates;
+
+	let list = [
+		"esti",
+		"estas",
+		"estis",
+		"estos",
+		"estus",
+		"estu",
+		"est"
+	];
+
+	for(let i = 0; i < list.length - 1; i++){
+		candidates = esperanto.get_verbo_candidates(list[i]);
+		for(let t = 0; t < list.length; t++){
+			if(i == t){
+				continue;
+			}
+			assert(-1 !== candidates.indexOf(list[t]));
+		}
+	}
+});
+

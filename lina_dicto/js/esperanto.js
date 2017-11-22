@@ -92,10 +92,56 @@
 		return str;
 	}
 
+	/** @brief 動詞語尾変換候補一覧があれば返す */
+	get_verbo_candidates(str)
+	{
+		let candidates = [];
+
+		let radico = null;
+		if(/.+i$/.test(str)){
+			radico = str.slice(0, -1);
+		}else if(/.+as$/.test(str)){
+			radico = str.slice(0, -2);
+		}else if(/.+is$/.test(str)){
+			radico = str.slice(0, -2);
+		}else if(/.+os$/.test(str)){
+			radico = str.slice(0, -2);
+		}else if(/.+us$/.test(str)){
+			radico = str.slice(0, -2);
+		}else if(/.+u$/.test(str)){
+			radico = str.slice(0, -1);
+		}
+
+		if(null === radico){
+			return [];
+		}
+
+		let list = [
+			"i",
+			"as",
+			"is",
+			"os",
+			"us",
+			"u",
+			""
+		];
+		for(let i = 0; i < list.length; i++){
+			let cant = radico + list[i];
+			if(cant === str){
+				continue;
+			}
+			candidates.push(cant);
+		}
+
+		return candidates;
+	}
+
 	/** @brief スペル修正候補一覧を返す */
 	get_candidates(str)
 	{
 		let candidates = [];
+
+		candidates = this.get_verbo_candidates(str);
 
 		//! esperantoであまり使わないqwxyと、挿入可能位置に条件のある代用表記を除く
 		const alphabets = 'abcdefghijklmnoprstuvz';
