@@ -15,7 +15,7 @@ clean:
 package: package_desktop
 
 package_desktop:
-	bash ./packaging_win64.sh
-	bash ./packaging_macosx.sh
+	bash ./installer_win32_x64.sh
+	bash ./installer_darwin.sh
 	cd lina_dicto && npm run installer_debian_amd64
 

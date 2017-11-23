@@ -16,8 +16,8 @@ trap 'echo "error:$0($LINENO) \"$BASH_COMMAND\" \"$@\""' ERR
 SCRIPT_DIR=$(cd $(dirname $0); pwd)
 ROOT_DIR=${SCRIPT_DIR}
 SOURCE_DIR=${ROOT_DIR}/lina_dicto
-BUILD_DIR=${ROOT_DIR}/release/lina_dicto-darwin-x64
-PACKAGE_DIR=${ROOT_DIR}/release/lina_dicto-darwin-x64
+BUILD_DIR=${ROOT_DIR}/release/lina_dicto-win32-x64
+PACKAGE_DIR=${ROOT_DIR}/release/lina_dicto-win32-x64
 RELEASE_DIR=${ROOT_DIR}/release
 
 PACKAGE_POSTFIX=
@@ -33,12 +33,12 @@ EX=""
 if [ -n "${GIT_STATUS_SHORT}" ] ; then
 EX="develop"
 fi
-PACKAGE_NAME=lina_dicto-darwin-${SHOW_VERSION}${EX}-${GIT_HASH}${PACKAGE_POSTFIX}
+PACKAGE_NAME=lina_dicto-win64-${SHOW_VERSION}${EX}-${GIT_HASH}${PACKAGE_POSTFIX}
 
 ## build
 rm -rf ${BUILD_DIR}
 pushd ${SOURCE_DIR}
-node release_darwin.js
+node build_win32_x64.js
 popd
 
 
