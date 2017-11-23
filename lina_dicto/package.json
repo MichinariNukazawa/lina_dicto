@@ -4,8 +4,8 @@
   "description": "Dictionary of Japanese to Esperanto",
   "main": "index.js",
   "scripts": {
-    "build": "node_modules/.bin/electron .",
-    "package": "node_modules/.bin/electron-packager . lina_dicto --platform=all --arch=x64",
+    "build_linux_x64": "node ./build_linux_x64.js",
+    "installer_debian_amd64": "npm run build_linux_x64 && electron-installer-debian --config ./installer_debian_amd64_config.json",
     "test": "bash ./pretest.sh && mocha --require intelli-espower-loader --require babel-register ",
     "testtotest": "mocha test/mocha.js"
   },
@@ -20,6 +20,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-register": "^6.26.0",
     "electron": "^1.8.1",
+    "electron-installer-debian": "^0.7.1",
     "electron-packager": "9.0.0",
     "intelli-espower-loader": "^1.0.1",
     "mocha": "^4.0.1",
