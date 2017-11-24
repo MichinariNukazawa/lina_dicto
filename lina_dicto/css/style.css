@@ -25,7 +25,8 @@ div#query-area
 }
 
 .timeline__item__query__string{
-	border-radius: 5pt;
+	margin-left: 2px;
+	border-left: solid 6px rgba(30, 50, 240, 1);
 	background-size: cover;
 	background-color: rgba(255, 255, 255, 0.25);
 }
