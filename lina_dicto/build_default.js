@@ -17,7 +17,12 @@ module.exports =
 	overwrite: true,
 	asar: true,
 	prune: true,
-	ignore: "node_modules/(electron-packager|electron-prebuilt|\.bin)|release\.js",
+	ignore: "node_modules/(electron-packager|electron-prebuilt|\\.bin)"
+		+ "|node_modules/(babel.*|intelli-espower-loader|power-assert.*|mocha)"
+		+ "|.*\\.txt"
+		+ "|work|object|test"
+		+ "|data/.*\\.(zip|sh)"
+		+ "|release\\.js",
 	'version-string': {
 		CompanyName: 'daisy_bell',
 		FileDescription: 'Dictionary Application, Japanese to Esperanto',
