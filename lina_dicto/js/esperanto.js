@@ -159,13 +159,6 @@
 			candidates.push(cand);
 		}
 
-		//! 1文字削除
-		// for(let i = 0; i < str.length; i++){
-		for(let i = str.length - 1; 0 <= i; i--){
-			let cand = str.substr(0, i) + str.substr(i + 1, str.length - 1);
-			candidates.push(cand);
-		}
-
 		//! 1文字入れ替え
 		// for(let i = 0; i < str.length - 1; i++){
 		for(let i = str.length - 2; 0 <= i; i--){
@@ -174,6 +167,13 @@
 			let cand = str.substr(0, i)
 				+ c1 + c0
 				+ str.substr(i + 2, str.length - 1);
+			candidates.push(cand);
+		}
+
+		//! 1文字削除
+		// for(let i = 0; i < str.length; i++){
+		for(let i = str.length - 1; 0 <= i; i--){
+			let cand = str.substr(0, i) + str.substr(i + 1, str.length - 1);
 			candidates.push(cand);
 		}
 
