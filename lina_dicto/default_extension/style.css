@@ -13,8 +13,7 @@ queryとresponse(検索キーワードと意味)は繰り返し登場するの�
  */
 
 body{
-	background: url("image/sky.png") center center / cover no-repeat fixed,
-			linear-gradient(-30deg, rgba(181, 228, 225, 1), rgba(181, 228, 255, 1));
+	background: url("image/sky.png") center center / cover no-repeat fixed
 }
 
 #timeline{
@@ -69,7 +68,6 @@ body{
 }
 #query-area__query-input__input{
 	/* 入力欄Element(<input>) */
-	background-color: rgba(230,230,255,0.2);
 }
 
 #query-area__query-incrementals{
@@ -77,6 +75,5 @@ body{
 	インクリメンタルサーチ(入力候補)
 	ex. "bona | Bonaero | bonaj^o"
 	 */
-color: rgba(0,0,40,0.7);
 }
 

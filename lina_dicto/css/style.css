@@ -9,6 +9,8 @@ html, body{
 	padding: 0;        /* 余白の削除 */
 	width:100%;
 	height:100%;
+
+	background: linear-gradient(-30deg, rgba(190, 255, 190, 1), rgba(215, 255, 215, 1));
 }
 
 div#query-area
@@ -24,15 +26,22 @@ div#query-area
 	padding-bottom: 85px;		/* #query-area + マージン */
 }
 
+/** ex."kio estas cxi tio" */
 .timeline__item__query__string{
-	margin-left: 2px;
-	border-left: solid 6px rgba(30, 50, 240, 1);
+	margin: 3px;
+	border-left: solid 7px rgba(0, 170, 0, 1);
 	background-size: cover;
 	background-color: rgba(255, 255, 255, 0.25);
 }
 
+/** ex. "cxi tio" */
+.timeline__item__response__keyword{
+	margin-left: 3px;
+	border-left: solid 3px rgba(0, 170, 0, 0.5);
+}
+
+/** ex. "`bon/a`:{Ｂ}良い,善良な,りっぱな" */
 .timeline__item__response__string__sub{
-	/* ex. "`bon/a`:{Ｂ}良い,善良な,りっぱな" */
 	font-size:40%;
 	font-family: Consolas, 'Courier New', Courier, Monaco, monospace;
 }
@@ -40,12 +49,14 @@ div#query-area
 #query-area__query-input{
 }
 
+/** 入力欄Element(<input>) */
 #query-area__query-input__input{
 	width:99%;
 	font-size:150%;
 	height:60px;
 	vertical-align: middle;
 	/*font-family: Consolas, 'Courier New', Courier, Monaco, monospace;*/
+	background-color: rgba(230,230,255,0.2);
 }
 
 #query-area__query-input__button{
@@ -54,12 +65,17 @@ div#query-area
 	display:none;
 }
 
+/**
+インクリメンタルサーチ(入力候補)
+ex. "bona | Bonaero | bonaj^o"
+ */
 #query-area__query-incrementals{
 	margin-top:3px;
 	width:100%;
 	font-size:40%;
 	height:15px;
 	font-family: Consolas, 'Courier New', Courier, Monaco, monospace;
+	color: rgba(0, 40, 0, 0.7);
 }
 
 .query-area__query-incrementals__candidate{
