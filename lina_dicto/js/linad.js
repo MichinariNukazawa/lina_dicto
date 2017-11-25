@@ -4,6 +4,7 @@
 
 	get_reponse_from_jkeyword(response, keyword)
 	{
+		response.lang = "ja";
 		response.matching_keyword = keyword;
 
 		// is not esperanto keyword (japanese)
@@ -12,22 +13,14 @@
 			if(1 < keyword.length){
 				let glosses = dictionary.get_glosses_info_from_jkeyword(keyword);
 				if(0 < glosses.length){
-					let candidate_words = glosses.join(",");
-					response.sub_text += "if your search to `" + candidate_words + "`?";
+					response.glosses = glosses;
 				}
 			}
 		}else{
-			let root_words = [];
-			let explanations = [];
 			for(let i = 0; i < indexes.length; i++){
 				const item = dictionary.get_item_from_index(indexes[i]);
-				root_words.push(dictionary.get_root_word_from_item(item));
-
-				explanations.push(dictionary.get_explanation_from_item(item));
+				response.match_items.push(item);
 			}
-
-			response.match_results = root_words;
-			response.sub_text = explanations.join(', ');
 		}
 
 		return response;
@@ -61,9 +54,11 @@
 		let head = 0;
 		while(head < words.length){
 			let response = {};
-			response.matching_keyword = "";
-			response.match_results = [];
-			response.sub_text = "`" + words[head] + "` is not match.";
+			response.lang = "esp";			//! キーワードの言語
+			response.matching_keyword = "";		//! 検索キーワード
+			response.match_items = [];		//! esperanto/日本語検索 マッチ項目
+			response.glosses = [];			//! 日本語検索失敗時 もしかして日本語単語
+			response.candidate_items = [];		//! esperanto検索失敗時 もしかして項目
 
 			// 検索
 			if(! esperanto.is_esperanto_string(words[head])){
@@ -89,23 +84,16 @@
 				response.matching_keyword = kw;
 
 				if(! item){
-					response.sub_text = "`" + kw + "` is not match.";
 					// スペル修正候補を探索
 					let candidate_item = get_candidate_word_from_keyword(kw);
-					if(candidate_item){
-						let candidate_word = dictionary.get_root_word_from_item(candidate_item);
-						response.sub_text += "if your search to `" + candidate_word + "`?";
+					if(null != candidate_item){
+						response.candidate_items.push(candidate_item);
 					}
 				}else{
-					let explanation = dictionary.get_explanation_from_item(item);
-					let root_word = dictionary.get_root_word_from_item(item);
-					response.sub_text = "`" + root_word + "`:" + explanation + "";
-					const glosses = dictionary.get_glosses_from_item(item);
-					response.match_results = glosses;
+					response.match_items.push(item);
 				}
 			}
 
-			response.sub_text = esperanto.convert_alfabeto_from_caret_sistemo(response.sub_text);
 			responses.push(response);
 		}
 

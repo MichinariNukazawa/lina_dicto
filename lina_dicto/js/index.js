@@ -124,20 +124,109 @@ function get_responses_element(responses)
 	return responses_element;
 }
 
+function create_keyword_element(keyword)
+{
+	let response_keyword_element = document.createElement('div');
+	response_keyword_element.classList.add('timeline__item__response__keyword');
+
+	let response_keyword_element_span = document.createElement('span');
+	response_keyword_element_span.textContent = keyword;
+
+	response_keyword_element.appendChild(response_keyword_element_span);
+
+	return response_keyword_element;
+}
+
+function create_string_main_element(response)
+{
+	let response_string_main_element = document.createElement('div');
+	response_string_main_element.classList.add('timeline__item__response__string__main');
+
+	const items = response.match_items;
+	let main_text;
+	if("esp" === response.lang){
+		// esp
+		if(0 < items.length){
+			const glosses = dictionary.get_glosses_from_item(items[0]);
+			main_text = glosses.join(', ');;
+
+			let explanation = dictionary.get_explanation_from_item(items[0]);
+			let root_word = dictionary.get_root_word_from_item(items[0]);
+			response.sub_text = "`" + root_word + "`:" + explanation + "";
+		}
+
+		if(1 < items.length){
+			console.error(response); //! not implement.
+		}
+	}else if("ja" === response.lang){
+		if(0 < items.length){
+			let root_words = [];
+			let explanations = [];
+			for(let i = 0; i < items.length; i++){
+				root_words.push(dictionary.get_root_word_from_item(items[i]));
+
+				explanations.push(dictionary.get_explanation_from_item(items[i]));
+			}
+			main_text = root_words.join(', ');
+			response.sub_text = explanations.join(', ');
+		}
+	}else{
+		console.error(response);
+	}
+
+	let response_string_main_element_span = document.createElement('span');
+	response_string_main_element_span.textContent = main_text;
+
+	response_string_main_element.appendChild(response_string_main_element_span);
+
+	return response_string_main_element;
+}
+
+function create_string_sub_element(response)
+{
+	let response_string_sub_element = document.createElement('div');
+	response_string_sub_element.classList.add('timeline__item__response__string__sub');
+
+	if(! response.sub_text){
+		response.sub_text = "`" + response.matching_keyword + "` is not match.";
+		if("esp" == response.lang){
+			if(0 !== response.candidate_items.length){
+				let candidate_word = dictionary.get_root_word_from_item(response.candidate_items[0]);
+				response.sub_text += "if your search to `" + candidate_word + "`?";
+			}
+
+			if(1 < response.candidate_items.length){
+				console.error(response); //! not implement.
+			}
+		}else if("ja" == response.lang){
+			if(0 !== response.glosses.length){
+				let candidate_words = response.glosses.join(",");
+				response.sub_text += "if your search to `" + candidate_words + "`?";
+			}
+		}else{
+			console.error(response);
+		}
+	}
+
+	let response_string_sub_element_span = document.createElement('span');
+	response_string_sub_element_span.textContent = response.sub_text;
+
+	response_string_sub_element.appendChild(response_string_sub_element_span);
+
+	return response_string_sub_element;
+}
+
 function get_response_element(response, is_display_keyword)
 {
 	let response_element = document.createElement('div');
 	response_element.classList.add('timeline__item__response');
 	let response_icon_element = document.createElement('div');
 	response_icon_element.classList.add('timeline__item__response__icon');
-	let response_keyword_element = document.createElement('div');
-	response_keyword_element.classList.add('timeline__item__response__keyword');
+	let response_keyword_element = create_keyword_element(response.matching_keyword);
 	let response_string_element = document.createElement('div');
 	response_string_element.classList.add('timeline__item__response__string');
-	let response_string_main_element = document.createElement('div');
-	response_string_main_element.classList.add('timeline__item__response__string__main');
-	let response_string_sub_element = document.createElement('div');
-	response_string_sub_element.classList.add('timeline__item__response__string__sub');
+	let response_string_main_element = create_string_main_element(response);
+	let response_string_sub_element = create_string_sub_element(response);
 
 	if(! is_display_keyword){
 		response_keyword_element.style.display="none";
@@ -148,10 +237,6 @@ function get_response_element(response, is_display_keyword)
 	response_element.appendChild(response_string_element);
 	response_string_element.appendChild(response_string_main_element);
 	response_string_element.appendChild(response_string_sub_element);
-
-	response_keyword_element.textContent = response.matching_keyword;
-	response_string_main_element.textContent = response.match_results.join(', ');;
-	response_string_sub_element.textContent = response.sub_text;
 
 	return response_element;
 }
