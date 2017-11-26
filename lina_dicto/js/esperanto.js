@@ -85,6 +85,7 @@
 	/** @brief 雑多な文字列(x-sistemo, alfabeto)を^-sistemoに変換する */
 	caret_sistemo_from_str(str)
 	{
+		str = str.replace("/", ""); // 語根区切りを除去 (ex. "est/i" -> "esti")
 		str = str.replace("~", "^");
 		str = this.convert_caret_from_x_sistemo(str);
 		str = this.convert_caret_from_alfabeto_sistemo(str);
