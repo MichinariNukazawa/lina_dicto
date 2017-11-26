@@ -6,6 +6,32 @@ const MenuItem = remote.MenuItem;
 
 var menu = new Menu();
 
+function message_dialog(strtype, strtitle, strmessage) {
+	const {dialog} = require('electron').remote;
+	dialog.showMessageBox(
+			remote.getCurrentWindow(),
+			{
+				type: strtype,
+				buttons: ['OK'],
+				title: strtitle,
+				message: strmessage,
+			});
+}
+
+function confirm_dialog(strtitle, strmessage) {
+	const {dialog} = require('electron').remote;
+	let choice = dialog.showMessageBox(
+			remote.getCurrentWindow(),
+			{
+				type: 'question',
+				buttons: ['Yes', 'No'],
+				title: strtitle,
+				message: strmessage,
+			});
+
+	return choice === 0;
+};
+
 var template = [
 {
 	label: 'File',
@@ -55,6 +81,38 @@ var template = [
 			if (focusedWindow) focusedWindow.toggleDevTools()
 		}
 	}
+	]
+},
+{
+	label: 'History',
+	submenu: [
+	{
+		label: 'Open History File',
+		click: function () {
+			//! file exist check is dirty hack(shell.openExternal error callback is not work)
+			if(! history.is_exist_file()){
+				message_dialog('warning', 'Open History File', 'history is not exist.');
+			}else{
+				require('electron').shell.openExternal(
+						"file://" + history.get_filepath(),
+						true,
+						function(err){
+							message_dialog("Open History File", err.message);
+						});
+			}
+		}
+	},
+	{
+		label: 'Delete History File',
+		click: function () {
+			if(!confirm_dialog('Delete History File', 'Delete?')){
+				console.debug("Delete History File cancel.");
+			}else{
+				console.debug("Delete History File do.");
+				message_dialog('info', "Delete History File", history.delete_history());
+			}
+		}
+	},
 	]
 },
 {

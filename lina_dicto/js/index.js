@@ -5,6 +5,7 @@ var platform = new Platform();
 let dictionary = new Dictionary();
 let esperanto = new Esperanto();
 let linad = new Linad();
+let history = new History();
 
 var timeline_item_id = 0;
 
@@ -367,6 +368,8 @@ function query_input_element()
 	// 追加したtimeline_item(最下部)へスクロール
 	let positionY = timeline_item_element.offsetTop; // 変更点
 	scrollTo(0, positionY);
+
+	history.append_keyword(keyword, null);
 }
 
 function on_keypress_by_query_input_element(e)
