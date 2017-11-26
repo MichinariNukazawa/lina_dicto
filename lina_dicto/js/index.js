@@ -182,17 +182,37 @@ function create_string_main_element(response)
 	return response_string_main_element;
 }
 
+function create_element_with_callback_input_replace(keyword)
+{
+	let element = create_span_from_text(keyword);
+	set_callback_input_replace(element);
+
+	return element;
+}
+
+function append_child_of_input_replace(parent_element, header, keyword, footer)
+{
+	parent_element.appendChild(create_span_from_text(header));
+	parent_element.appendChild(create_element_with_callback_input_replace(keyword));
+	parent_element.appendChild(create_span_from_text(footer));
+}
+
 function create_string_sub_element(response)
 {
 	let response_string_sub_element = document.createElement('div');
 	response_string_sub_element.classList.add('timeline__item__response__string__sub');
 
 	if(! response.sub_text){
-		response.sub_text = "`" + response.matching_keyword + "` is not match.";
+		append_child_of_input_replace(
+				response_string_sub_element,
+				'`', response.matching_keyword, '` is not match.');
+
 		if("esp" == response.lang){
 			if(0 !== response.candidate_items.length){
 				let candidate_word = dictionary.get_root_word_from_item(response.candidate_items[0]);
-				response.sub_text += "if your search to `" + candidate_word + "`?";
+				append_child_of_input_replace(
+						response_string_sub_element,
+						' If your search to `', candidate_word, '`?');
 			}
 
 			if(1 < response.candidate_items.length){
@@ -200,18 +220,24 @@ function create_string_sub_element(response)
 			}
 		}else if("ja" == response.lang){
 			if(0 !== response.glosses.length){
-				let candidate_words = response.glosses.join(",");
-				response.sub_text += "if your search to `" + candidate_words + "`?";
+				response_string_sub_element.appendChild(create_span_from_text(' If your search to `'));
+				for(let i = 0; i < response.glosses.length; i++){
+					if(0 != i){
+						response_string_sub_element.appendChild(create_span_from_text(','));
+					}
+
+					response_string_sub_element.appendChild(
+							create_element_with_callback_input_replace(response.glosses[i]));
+				}
+				response_string_sub_element.appendChild(create_span_from_text('`?'));
 			}
 		}else{
 			console.error(response);
 		}
+	}else{
+		response_string_sub_element.textContent = response.sub_text;
 	}
 
-	let response_string_sub_element_span = document.createElement('span');
-	response_string_sub_element_span.textContent = response.sub_text;
-
-	response_string_sub_element.appendChild(response_string_sub_element_span);
 
 	return response_string_sub_element;
 }
