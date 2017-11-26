@@ -274,6 +274,18 @@ function create_span_from_text(text)
 	return element;
 }
 
+function set_callback_input_replace(element)
+{
+	element.classList.add('query-area__query-incrementals__candidate');
+	element.addEventListener('click', function(e){
+		let element = e.target;
+		let input_element = document.getElementById('query-area__query-input__input');
+		input_element.value = element.textContent;
+
+		document.getElementById('query-area__query-input__input').focus();
+	}, true);
+}
+
 function update_query_input_element_datalist(keyword)
 {
 	let query_incrementals_element = document.getElementById('query-area__query-incrementals');
@@ -303,15 +315,9 @@ function update_query_input_element_datalist(keyword)
 		}
 
 		let element = create_span_from_text(show_word);
-		element.classList.add('query-area__query-incrementals__candidate');
-		query_incrementals_element.appendChild(element);
-		element.addEventListener('click', function(e){
-			let element = e.target;
-			let input_element = document.getElementById('query-area__query-input__input');
-			input_element.value = element.textContent;
+		set_callback_input_replace(element);
 
-			document.getElementById('query-area__query-input__input').focus();
-		}, true);
+		query_incrementals_element.appendChild(element);
 	}
 }
 
