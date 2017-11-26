@@ -78,7 +78,7 @@ ex. "bona | Bonaero | bonaj^o"
 	color: rgba(0, 40, 0, 0.7);
 }
 
-.query-area__query-incrementals__candidate{
+.input-replace-button{
 	margin-left:5px;
 	margin-right:5px;
 	border: 1px solid;

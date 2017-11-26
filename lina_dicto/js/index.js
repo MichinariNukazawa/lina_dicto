@@ -302,7 +302,7 @@ function create_span_from_text(text)
 
 function set_callback_input_replace(element)
 {
-	element.classList.add('query-area__query-incrementals__candidate');
+	element.classList.add('input-replace-button');
 	element.addEventListener('click', function(e){
 		let element = e.target;
 		let input_element = document.getElementById('query-area__query-input__input');
