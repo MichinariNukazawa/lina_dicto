@@ -326,24 +326,18 @@ function update_query_input_element_datalist(keyword)
 		return;
 	}
 
-	let options_text = '';
-	let options = '';
-	for(var i = 0; i < 3; i++){
-		let item = dictionary.get_item_from_index(index + i);
+	for(let i = 0; i < 3; i++){
+		const item = dictionary.get_item_from_index(index + i);
 		if(! item){
 			break;
 		}
-		let show_word = dictionary.get_show_word_from_item(item);
+		const show_word = dictionary.get_show_word_from_item(item);
 
 		if(0 != i){
-			let element = create_span_from_text('|');
-			query_incrementals_element.appendChild(element);
+			query_incrementals_element.appendChild(create_span_from_text('|'));
 		}
 
-		let element = create_span_from_text(show_word);
-		set_callback_input_replace(element);
-
-		query_incrementals_element.appendChild(element);
+		query_incrementals_element.appendChild(create_element_with_callback_input_replace(show_word));
 	}
 }
 
