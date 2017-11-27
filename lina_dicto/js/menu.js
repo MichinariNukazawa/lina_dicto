@@ -87,6 +87,12 @@ var template = [
 	label: 'History',
 	submenu: [
 	{
+		label: 'Statistics History',
+		click: function () {
+			message_dialog('info', "Statistics History", history.get_statistics_string());
+		}
+	},
+	{
 		label: 'Open History File',
 		click: function () {
 			//! file exist check is dirty hack(shell.openExternal error callback is not work)

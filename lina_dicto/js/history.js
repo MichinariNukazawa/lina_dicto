@@ -64,5 +64,45 @@
 			console.error('The "data to append" was appended to file!');
 		});
 	}
+
+	get_statistics_string()
+	{
+		if(! this.is_exist_file()){
+			return "statistics none.";
+		}
+
+		let s = '';
+		try{
+			s = fs.readFileSync(this.filepath, 'utf-8');
+		}catch(err){
+			return err.message;
+		}
+
+		s = s.replace(/,\s*$/, '');
+		let hists = [];
+		try{
+			hists = JSON.parse('[' + s + ']');
+		}catch(err){
+			return err.message;
+		}
+
+		let map = new Map();
+		const len = hists.length;
+		for(let i = 0; i < len; i++){
+			const keyword = hists[i]['keyword'];
+			if(map.has(keyword)){
+				map.set(keyword, 1);
+			}else{
+				let v = map.get(keyword);
+				v++;
+				map.set(keyword, v);
+			}
+		}
+
+		let str = 'search keyword:\n' + hists.length
+			+ '\nunique keyword:\n' + map.size;
+
+		return str;
+	}
 }
 
