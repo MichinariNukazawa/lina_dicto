@@ -25,6 +25,8 @@ function convert_json(){
 	echo -e "]" >> "${OUTPUT_FILE}"
 }
 
+pushd ${SCRIPT_DIR}
+
 mkdir -p w_dict/
 pushd w_dict/
 
@@ -44,6 +46,8 @@ INPUT_FILE="pejvo_utf8.txt"
 OUTPUT_FILE="../dictionary00.json"
 convert_json
 rm ${INPUT_FILE}
+
+popd
 
 popd
 

@@ -8,6 +8,9 @@ all:
 run:
 	cd lina_dicto && npm run build
 
+dictionary:
+	cd lina_dicto && bash ./data/gen_dictionary.sh
+
 clean:
 	rm -rf release
 
