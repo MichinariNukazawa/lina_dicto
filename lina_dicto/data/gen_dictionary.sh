@@ -49,5 +49,7 @@ rm ${INPUT_FILE}
 
 popd
 
+node conv_pejvo_dictionary.js
+
 popd
 
