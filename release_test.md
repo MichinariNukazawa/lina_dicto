@@ -66,8 +66,13 @@ am/rilat/o
 
 # もしかして機能(candidates)
 ## kalviklo estas
+esperantoの単語で検索ヒットしなかった場合  
 期待する挙動：
-- esperantoの単語で検索ヒットしなかった場合に、keywordに編集距離が近く検索ヒットする単語を「もしかして機能」する。
+- keywordに編集距離が近く検索ヒットする単語を「もしかして機能」する
+- `goto google translete`を表示
+``` : 表示例
+`kalviklo` is not match. If your search to `klavikl/o`?(goto google translate)
+```
 ``` : 正誤対応表
 kalviklo	-> klaviklo	// type順番ミス( https://twitter.com/MNukazawa/status/934076015806070785 )
 estas		-> esti		// 動詞末尾変換による
@@ -75,27 +80,33 @@ amlirato	-> amrilato	// 間違えやすい文字(未実装！)
 ```
 
 ## 恋愛
+日本語の文章(単語扱い)で検索ヒットしなかった場合  
 期待する挙動：
-- 日本語の文章(単語扱い)で検索ヒットしなかった場合に、keywordを含む検索ヒットする単語を「もしかして機能」する。
+- keywordを含む検索ヒットする単語を「もしかして機能」する
+- `goto google translete`を表示
 ``` : 表示例
 `恋愛`
-`恋愛` is not match.if your search to `恋愛事件,恋愛関係,恋愛詩`?
+`恋愛` is not match.if your search to `恋愛事件,恋愛関係,恋愛詩`? (goto google translate)
 ```
 
 # 該当なし
 ## あああ
+検索ヒットせず「もしかして機能」も該当がない場合  
 期待する挙動：
-- 検索ヒットせず「もしかして機能」も該当がない場合に、該当なしの旨を表示。
+- 該当なしの旨を表示
+- `goto google translete`を表示
 ``` : 表示例
 `あああ`
-`あああ` is not match.
+`あああ` is not match. (goto google translate)
 ```
 
 ## xxxxxx
+検索ヒットせず「もしかして機能」も該当がない場合  
 期待する挙動：
-- 検索ヒットせず「もしかして機能」も該当がない場合に、該当なしの旨を表示。
+- 該当なしの旨を表示
+- `goto google translete`を表示
 ``` : 表示例
 `xxxxx`
-`xxxxx` is not match.
+`xxxxx` is not match. (goto google translate)
 ```
 
