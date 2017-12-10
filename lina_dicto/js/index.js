@@ -243,6 +243,8 @@ function create_string_sub_element(response)
 				dst_lang = 'eo';
 			}
 
+			response_string_sub_element.appendChild(document.createElement('br'));
+
 			let element = ExternalBrowser.create_onclick_google_translate(
 					response.matching_keyword, src_lang, dst_lang);
 			response_string_sub_element.appendChild(element);
