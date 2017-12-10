@@ -197,22 +197,6 @@ function append_child_of_input_replace(parent_element, header, keyword, footer)
 	parent_element.appendChild(create_span_from_text(footer));
 }
 
-function create_onclick_google_translate(keyword, src_lang, dst_lang)
-{
-	let element = create_span_from_text('(goto google translate)');
-
-	element.classList.add('goto-google-translate-button');
-	element.addEventListener('click', function(e){
-		e.preventDefault();
-
-		ExternalBrowser.open_google_translate(keyword, src_lang, dst_lang);
-
-		document.getElementById('query-area__query-input__input').focus();
-	}, true);
-
-	return element;
-}
-
 function create_string_sub_element(response)
 {
 	let response_string_sub_element = document.createElement('div');
@@ -259,7 +243,7 @@ function create_string_sub_element(response)
 				dst_lang = 'eo';
 			}
 
-			let element = create_onclick_google_translate(
+			let element = ExternalBrowserPlatform.create_onclick_google_translate(
 					response.matching_keyword, src_lang, dst_lang);
 			response_string_sub_element.appendChild(element);
 		}

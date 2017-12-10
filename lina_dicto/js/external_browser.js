@@ -17,5 +17,22 @@ class ExternalBrowser{
 			+ '/' + encodeURIComponent(keyword);
 		this.open(link);
 	}
+
+	static create_onclick_google_translate(keyword, src_lang, dst_lang)
+	{
+		let element = create_span_from_text('(goto google translate)');
+
+		element.classList.add('goto-google-translate-button');
+		element.addEventListener('click', function(e){
+			e.preventDefault();
+
+			ExternalBrowser.open_google_translate(keyword, src_lang, dst_lang);
+
+			document.getElementById('query-area__query-input__input').focus();
+		}, true);
+
+		return element;
+	}
+
 };
 
