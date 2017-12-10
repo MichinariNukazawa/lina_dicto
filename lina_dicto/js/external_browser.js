@@ -5,17 +5,18 @@ class ExternalBrowser{
 		return true;
 	}
 
-	static open(link){
-		require('electron').shell.openExternal(link)
-	}
-
-	static open_google_translate(keyword, src_lang, dst_lang){
+	static get_google_translate_url(keyword, src_lang, dst_lang)
+	{
 		// ex. eo to ja, `https://translate.google.co.jp/#eo/ja/bona`
 		const link = 'https://translate.google.co.jp'
 			+ '/#' + src_lang
 			+ '/' + dst_lang
 			+ '/' + encodeURIComponent(keyword);
-		this.open(link);
+		return link;
+	}
+
+	static open(link){
+		require('electron').shell.openExternal(link)
 	}
 
 	static create_onclick_google_translate(keyword, src_lang, dst_lang)
@@ -26,7 +27,9 @@ class ExternalBrowser{
 		element.addEventListener('click', function(e){
 			e.preventDefault();
 
-			ExternalBrowser.open_google_translate(keyword, src_lang, dst_lang);
+			const link = ExternalBrowser.get_google_translate_url(
+					keyword, src_lang, dst_lang);
+			ExternalBrowser.open(link);
 
 			document.getElementById('query-area__query-input__input').focus();
 		}, true);
