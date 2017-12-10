@@ -4,7 +4,7 @@
 /*export default*/ class Esperanto{
 
 	/** @brief x-systemo */
-	convert_caret_from_x_sistemo(str)
+	static convert_caret_from_x_sistemo(str)
 	{
 		const replaces = [
 			[/Cx(?!x)/g, "C^"],
@@ -32,7 +32,7 @@
 			return str;
 	}
 
-	convert_alfabeto_from_caret_sistemo(str)
+	static convert_alfabeto_from_caret_sistemo(str)
 	{
 		const replaces = [
 			[/C\^/g, "\u0108"],
@@ -58,7 +58,7 @@
 			return str;
 	}
 
-	convert_caret_from_alfabeto_sistemo(str)
+	static convert_caret_from_alfabeto_sistemo(str)
 	{
 		const replaces = [
 			[/\u0108/g, "C^"],
@@ -83,7 +83,7 @@
 	}
 
 	/** @brief 雑多な文字列(x-sistemo, alfabeto)を^-sistemoに変換する */
-	caret_sistemo_from_str(str)
+	static caret_sistemo_from_str(str)
 	{
 		str = str.replace("/", ""); // 語根区切りを除去 (ex. "est/i" -> "esti")
 		str = str.replace("~", "^");
@@ -94,7 +94,7 @@
 	}
 
 	/** @brief 動詞語尾変換候補一覧があれば返す */
-	get_verbo_candidates(str)
+	static get_verbo_candidates(str)
 	{
 		let candidates = [];
 
@@ -138,7 +138,7 @@
 	}
 
 	/** @brief スペル修正候補一覧を返す */
-	get_candidates(str)
+	static get_candidates(str)
 	{
 		let candidates = [];
 
@@ -206,7 +206,7 @@
 	}
 
 	/** @brief 文字列がesperantoかどうか(大まかには[\w\s^~]で構成されているか)を返す */
-	is_esperanto_string(str)
+	static is_esperanto_string(str)
 	{
 		return /^[\x20-\x7E\u0108-\u016D\s^~]+$/.test(str);
 	}

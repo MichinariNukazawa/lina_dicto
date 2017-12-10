@@ -61,7 +61,7 @@
 			response.candidate_items = [];		//! esperanto検索失敗時 もしかして項目
 
 			// 検索
-			if(! esperanto.is_esperanto_string(words[head])){
+			if(! Esperanto.is_esperanto_string(words[head])){
 				// 日本語検索
 				response = this.get_reponse_from_jkeyword(response, words[head]);
 				head++;

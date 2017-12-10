@@ -3,7 +3,6 @@
 var extension = new Extension();
 var platform = new Platform();
 let dictionary = new Dictionary();
-let esperanto = new Esperanto();
 let linad = new Linad();
 let history = new History();
 
@@ -81,7 +80,7 @@ function get_window_height()
 /** @brief スペル修正候補を返す */
 function get_candidate_word_from_keyword(keyword)
 {
-	const candidates = esperanto.get_candidates(keyword);
+	const candidates = Esperanto.get_candidates(keyword);
 	for(const candidate of candidates){
 		let index = dictionary.get_index_from_incremental_keyword(candidate);
 		let item = dictionary.get_item_from_index(index);
@@ -303,7 +302,7 @@ function get_new_timeline_item_element_from_keyword(keyword)
 
 	// 表示文字列の生成と挿入
 	let query_text = "`" + keyword + "`";
-	query_text = esperanto.convert_alfabeto_from_caret_sistemo(query_text);
+	query_text = Esperanto.convert_alfabeto_from_caret_sistemo(query_text);
 	let responses = linad.get_responses_from_keyword(keyword);
 
 	// elementの生成
@@ -382,7 +381,7 @@ function query_input_element()
 	let keyword = obj_input.value;
 	obj_input.value = "";
 
-	keyword = esperanto.caret_sistemo_from_str(keyword);
+	keyword = Esperanto.caret_sistemo_from_str(keyword);
 
 	if(0 == keyword.length){
 		return;
@@ -418,7 +417,7 @@ function on_keyup_by_query_input_element(e)
 {
 	let obj_input = document.getElementById('query-area__query-input__input');
 	let keyword = obj_input.value;
-	keyword = esperanto.caret_sistemo_from_str(keyword);
+	keyword = Esperanto.caret_sistemo_from_str(keyword);
 
 	update_query_input_element_datalist(keyword);
 }
