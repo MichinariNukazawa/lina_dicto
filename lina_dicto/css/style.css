@@ -46,6 +46,10 @@ div#query-area
 	font-family: Consolas, 'Courier New', Courier, Monaco, monospace;
 }
 
+#query-area{
+	background: rgba(190, 255, 190, 0.9);
+}
+
 #query-area__query-input{
 }
 
@@ -56,7 +60,7 @@ div#query-area
 	height:60px;
 	vertical-align: middle;
 	/*font-family: Consolas, 'Courier New', Courier, Monaco, monospace;*/
-	background-color: rgba(230,230,255,0.2);
+	background-color: rgba(230, 255, 230, 0.7);
 }
 
 #query-area__query-input__button{
