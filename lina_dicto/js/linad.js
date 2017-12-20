@@ -50,7 +50,11 @@
 		keyword = keyword.replace(/^[\s　]*/g, "");
 		// keywordをword毎に分割
 		keyword = keyword.replace(/\s+/, " ");
-		const words = keyword.split(/\s/);
+		let words = keyword.split(/\s/);
+
+		words = words.filter((word, index, array) => {
+			return word != '';
+		});	// 空wordを除去
 
 		let head = 0;
 		while(head < words.length){
