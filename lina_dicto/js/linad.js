@@ -47,7 +47,7 @@
 		let responses = [];
 
 		// 先頭の空白を取り除く
-		keyword = keyword.replace(/^[\s　]*/g, "");
+		keyword = keyword.replace(/^[\s]*/g, "");
 		// keywordをword毎に分割
 		keyword = keyword.replace(/\s+/, " ");
 		let words = keyword.split(/\s/);
