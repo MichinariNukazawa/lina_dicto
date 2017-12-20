@@ -79,6 +79,9 @@ estas		-> esti		// 動詞末尾変換による
 amlirato	-> amrilato	// 間違えやすい文字(未実装！)
 ```
 
+`amlyrato`と入力すると検索ヒットせず、もしかして機能の候補に`amrilato`(`am/rilat/o`)が表示される。
+[issue 4]( https://github.com/MichinariNukazawa/lina_dicto/issues/4 )  
+
 `am/rilat/o`と入力すると検索ヒットする。  
 [issue ]( https://github.com/MichinariNukazawa/lina_dicto/issues/7 )  
 

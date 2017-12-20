@@ -55,3 +55,20 @@ it ("get_candidates verbo", function() {
 	}
 });
 
+it ("castle_char_pairs", function() {
+	let data = [
+		['disk','disc'],
+		['tooth','toos'],
+		['amlirato','amrilato'],
+	];
+
+	for(let i = 0; i < data.length; i++){
+		let cands;
+		cands = Esperanto.get_candidates_of_castle_char_pairs(data[i][0]);
+		assert(-1 !== cands.indexOf(data[i][1]));
+
+		cands = Esperanto.get_candidates_of_castle_char_pairs(data[i][1]);
+		assert(-1 !== cands.indexOf(data[i][0]));
+	}
+});
+

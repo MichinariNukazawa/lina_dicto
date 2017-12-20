@@ -137,6 +137,75 @@
 		return candidates;
 	}
 
+	static castle_char_pairs_inline_(str, index)
+	{
+		const char_pairs = [
+			['l', 'r'],	// ex. melanchory
+			['k', 'c'],	// ex. disk/disc
+			['i', 'y'],	// ex. lyric
+			['s', 'th'],	// ex. tooth
+			['v', 'b'],	// ex. void
+			['t', 'c'],
+			['s', 'j'],
+		];
+
+		for(let i = 0; i < char_pairs.length; i++){
+			if(index === str.indexOf(char_pairs[i][0], index)){
+				return char_pairs[i];
+			}else if(index === str.indexOf(char_pairs[i][1], index)){
+				return [char_pairs[i][1], char_pairs[i][0]];
+			}
+		}
+
+		return null;
+	}
+
+	static castle_char_pairs_mask(src, mask)
+	{
+		let dst = '';
+		let i_char = 0;
+		while(i_char < src.length){
+			const b = mask & (0x1 << i_char);
+			let pair = null;
+			if(0 != b){
+				pair = this.castle_char_pairs_inline_(src, i_char);
+			}
+
+			if(null != pair){
+				dst += pair[1];
+				i_char += pair[0].length;
+			}else{
+				dst += src[i_char];
+				i_char++;
+			}
+		}
+
+		return dst;
+	}
+
+	static get_candidates_of_castle_char_pairs(str){
+		//! 2文字以上の変換を含む文字の交換castle
+		//! 音の近い文字の交換
+		// 字形の近い文字の交換も必要？
+
+		let cands = [];
+		const n_char = (16 < str.length)? 16 : str.length; //! 16文字まで
+		const n_mask = 0x1 << n_char;
+		for(let i = 1; i < n_mask; i++){
+			const mask = i;
+			const dst = this.castle_char_pairs_mask(str, mask);
+			if(dst != str){
+				cands.push(dst);
+			}
+		}
+
+		cands = cands.filter((cand, index, array) => {
+			return array.indexOf(cand) === index;
+		});	// 重複を除去
+
+		return cands;
+	}
+
 	/** @brief スペル修正候補一覧を返す */
 	static get_candidates(str)
 	{
@@ -197,6 +266,9 @@
 				candidates.push(cand);
 			}
 		}
+
+		const cands = this.get_candidates_of_castle_char_pairs(str);
+		candidates = candidates.concat(cands);
 
 		candidates = candidates.filter(function(e){return e !== "";});	// 空文字を除去
 		candidates = candidates.filter((cand, index, array) => {
