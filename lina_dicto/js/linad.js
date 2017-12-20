@@ -49,6 +49,7 @@
 		// 先頭の空白を取り除く
 		keyword = keyword.replace(/^[\s　]*/g, "");
 		// keywordをword毎に分割
+		keyword = keyword.replace(/\s+/, " ");
 		const words = keyword.split(/\s/);
 
 		let head = 0;
