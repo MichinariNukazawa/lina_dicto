@@ -130,7 +130,7 @@ function create_keyword_element(keyword)
 	response_keyword_element.classList.add('timeline__item__response__keyword');
 
 	let response_keyword_element_span = document.createElement('span');
-	response_keyword_element_span.textContent = keyword;
+	response_keyword_element_span.textContent = '`' + keyword + '`';
 
 	response_keyword_element.appendChild(response_keyword_element_span);
 
