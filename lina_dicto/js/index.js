@@ -369,7 +369,7 @@ function query_input_element()
 
 	keyword = Esperanto.caret_sistemo_from_str(keyword);
 
-	if(0 == keyword.length){
+	if(/^\s*$/.test(keyword)){
 		return;
 	}
 

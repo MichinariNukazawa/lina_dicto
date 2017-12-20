@@ -85,6 +85,10 @@ amlirato	-> amrilato	// 間違えやすい文字(未実装！)
 `am/rilat/o`と入力すると検索ヒットする。  
 [issue ]( https://github.com/MichinariNukazawa/lina_dicto/issues/7 )  
 
+空文字・半角空白文字のみの文字・全角空白文字のみの文字を入力して検索実行すると、検索されない。
+[issue 5]( https://github.com/MichinariNukazawa/lina_dicto/issues/5 )  
+(先頭・末尾に空白を含む有効なesperantoまたは日本語文字は検索実行できる)  
+
 ## 恋愛
 日本語の文章(単語扱い)で検索ヒットしなかった場合  
 期待する挙動：
