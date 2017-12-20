@@ -79,6 +79,9 @@ estas		-> esti		// 動詞末尾変換による
 amlirato	-> amrilato	// 間違えやすい文字(未実装！)
 ```
 
+`am/rilat/o`と入力すると検索ヒットする。  
+[issue ]( https://github.com/MichinariNukazawa/lina_dicto/issues/7 )  
+
 ## 恋愛
 日本語の文章(単語扱い)で検索ヒットしなかった場合  
 期待する挙動：
