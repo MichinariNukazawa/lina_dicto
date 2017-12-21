@@ -20,7 +20,7 @@ module.exports =
 	ignore: "node_modules/(electron-packager|electron-prebuilt|\\.bin)"
 		+ "|node_modules/(babel.*|intelli-espower-loader|power-assert.*|mocha)"
 		+ "|.*\\.txt"
-		+ "|work|object|test"
+		+ "|work/.*|test/.*"
 		+ "|data/.*\\.(zip|sh)"
 		+ "|release\\.js",
 	'version-string': {
