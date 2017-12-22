@@ -84,6 +84,8 @@ amlirato	-> amrilato	// 間違えやすい文字(未実装！)
 
 `am/rilat/o`と入力すると検索ヒットする。  
 [issue ]( https://github.com/MichinariNukazawa/lina_dicto/issues/7 )  
+本アプリはslashによる語根区切りを、検索時に単に無視する。  
+よって語根区切りが間違っていても検索結果に影響しない。  
 
 空文字・半角空白文字のみの文字・全角空白文字のみの文字を入力して検索実行すると、検索されない。
 [issue 5]( https://github.com/MichinariNukazawa/lina_dicto/issues/5 )  
