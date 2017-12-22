@@ -96,7 +96,9 @@
 
 		const array_length = dict.length;
 		for (let i = 0; i < array_length; i++) {
-			dict[i][2] = dict[i][0].replace(/\//g, "");
+			//! 検索用keyword
+			//! (語根の分かち書き除去済み・lowercase済みのesperanto単語)
+			dict[i][2] = dict[i][0].replace(/\//g, "").toLowerCase();
 
 			if(0 == i % 10000){
 				console.log("%d/%d: `%s`,`%s`",
@@ -178,16 +180,14 @@
 			return -1;
 		}
 
-		let hash_info = this.get_hash_info_from_character(keyword[0]);
+		const hash_info = this.get_hash_info_from_character(keyword[0]);
 		if(! hash_info){
 			return -1;
 		}
 
+		const keyword_lowercased = keyword.toLowerCase();
 		for (let i = hash_info.head_index; i < hash_info.foot_index; i++) {
-			if(0 === this.dictionary[i][2].toLowerCase().indexOf(keyword.toLowerCase())){
-				return i;
-			}
-			if(0 === this.dictionary[i][0].toLowerCase().indexOf(keyword.toLowerCase())){
+			if(0 === this.dictionary[i][2].indexOf(keyword_lowercased)){
 				return i;
 			}
 		}
@@ -269,14 +269,14 @@
 		return this.dictionary[index];
 	}
 
-	//! keyword (分かち書きなしesperanto単語) を返す
+	//! keyword (語根の分かち書き除去済みのesperanto単語) を返す
 	get_show_word_from_item(item)
 	{
 		if(! item){
 			return "";
 		}
 
-		return item[2];
+		return item[0].replace(/\//g, "");
 	}
 
 	//! 意味(日本語訳等)を返す
