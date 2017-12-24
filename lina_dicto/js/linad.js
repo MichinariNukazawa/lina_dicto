@@ -42,6 +42,21 @@
 		return kw;
 	}
 
+	/** @brief スペル修正候補を返す */
+	get_candidate_word_from_keyword(keyword)
+	{
+		const candidates = Esperanto.get_candidates(keyword);
+		for(const candidate of candidates){
+			let index = dictionary.get_index_from_incremental_keyword(candidate);
+			let item = dictionary.get_item_from_index(index);
+			if(item){
+				return item;
+			}
+		}
+
+		return null;
+	}
+
 	get_responses_from_keyword(keyword)
 	{
 		let responses = [];
@@ -90,7 +105,7 @@
 
 				if(! item){
 					// スペル修正候補を探索
-					let candidate_item = get_candidate_word_from_keyword(kw);
+					let candidate_item = this.get_candidate_word_from_keyword(kw);
 					if(null != candidate_item){
 						response.candidate_items.push(candidate_item);
 					}

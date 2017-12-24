@@ -77,21 +77,6 @@ function get_window_height()
 	return height;
 }
 
-/** @brief スペル修正候補を返す */
-function get_candidate_word_from_keyword(keyword)
-{
-	const candidates = Esperanto.get_candidates(keyword);
-	for(const candidate of candidates){
-		let index = dictionary.get_index_from_incremental_keyword(candidate);
-		let item = dictionary.get_item_from_index(index);
-		if(item){
-			return item;
-		}
-	}
-
-	return null;
-}
-
 function get_query_element(query_text)
 {
 	// elementの生成
