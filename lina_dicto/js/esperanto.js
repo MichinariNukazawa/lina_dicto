@@ -160,10 +160,14 @@
 		return null;
 	}
 
-	static castle_char_pairs_mask(src, mask)
+	/**
+	  @param max 交換する文字の最大数
+	*/
+	static castle_char_pairs_mask(src, mask, max)
 	{
 		let dst = '';
 		let i_char = 0;
+		let change = 0;
 		while(i_char < src.length){
 			const b = mask & (0x1 << i_char);
 			let pair = null;
@@ -171,7 +175,8 @@
 				pair = this.castle_char_pairs_inline_(src, i_char);
 			}
 
-			if(null != pair){
+			if(change < max && null != pair){
+				change++;
 				dst += pair[1];
 				i_char += pair[0].length;
 			}else{
@@ -189,11 +194,13 @@
 		// 字形の近い文字の交換も必要？
 
 		let cands = [];
-		const n_char = (16 < str.length)? 16 : str.length; //! 16文字まで
+		//! 先頭から16文字までを交換対象とする
+		const n_char = (16 < str.length)? 16 : str.length;
 		const n_mask = 0x1 << n_char;
 		for(let i = 1; i < n_mask; i++){
 			const mask = i;
-			const dst = this.castle_char_pairs_mask(str, mask);
+			//! 最大3文字まで交換する
+			const dst = this.castle_char_pairs_mask(str, mask, 3);
 			if(dst != str){
 				cands.push(dst);
 			}
