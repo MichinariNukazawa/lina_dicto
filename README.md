@@ -7,6 +7,7 @@ lina\_dicto は日本語/Esperanto変換を検索できる辞書アプリケー�
 
 その他のバージョン：  
 [lina\_dicto for android](https://github.com/MichinariNukazawa/lina_dicto_for_android)  
+[lina\_dicto for webextension](https://github.com/MichinariNukazawa/lina_dicto_for_webextension)  
 
 # Screenshot/Image
 ![lina\_dicto](document/image/lina_dicto_0_1_3_windows.png)  
@@ -70,7 +71,6 @@ Depend: nodejs, electron and other npm packages.
 - 検索履歴の保持
 
 ## Todo
-- デフォルト設定スキンのデザイン
 - ユーザー設定スキン(ユーザ設定フォント)
 
 ## Long Todo
