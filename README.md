@@ -17,7 +17,7 @@ lina\_dicto は日本語/Esperanto変換を検索できる辞書アプリケー�
 
 # 辞書データについて
 外部の辞書データを改変し収録させて頂きました。感謝いたします。  
-[data/README.md](lina_dicto/data/README.md)参照  
+[辞書データのREADME](lina_dicto/dictionary/README.md)参照  
 
 # Get lina\_dicto
 get source:  
