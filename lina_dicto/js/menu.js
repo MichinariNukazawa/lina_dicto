@@ -150,6 +150,14 @@ var template = [
 			click: function () { require('electron').shell.openExternal('https://twitter.com/MNukazawa') }
 		},
 		]
+	},
+	{
+		label: 'Help',
+		click: function () {
+			message_dialog(
+					'info', "Help",
+					"`:help` to query input.\nShow all command.");
+		}
 	}
 	]
 }

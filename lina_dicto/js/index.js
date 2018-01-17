@@ -2,6 +2,7 @@
 
 var extension = new Extension();
 var platform = new Platform();
+const Language = new EsperantoLanguage();
 let dictionary = new Dictionary();
 let linad = new Linad();
 let history = new History();
@@ -32,6 +33,33 @@ var query_input_default = {
 	'input_height':-1,
 	'timeline_padding_bottom':-1,
 };
+
+// HTMLタグなどをエスケープする
+function htmlspecialchars(code) { 
+	code = code.replace(/&/g,"&amp;") ;
+	code = code.replace(/"/g,"&quot;") ;
+	code = code.replace(/'/g,"&#039;") ;
+	code = code.replace(/</g,"&lt;") ;
+	code = code.replace(/>/g,"&gt;") ;
+	// 半角空白を処理する
+	//code = code.replace(/ /g,"&#32;") ;
+	code = code.replace(/\x20/g,"&ensp;") ;
+	// タブを処理する
+	var tab = '<pre style="margin-top:0pt;margin-bottom:0pt;'
+		+ 'display: inline-block; _display: inline;" >&#x0009;</pre>' + "";
+	code = code.replace(/\t/g, tab);
+	return code ;
+}
+
+function conv_text_html_from_plain(text)
+{
+
+	// HTML改行(行末<br />)を加える
+	text = htmlspecialchars(text);
+	text = text.replace(/\n/g,"<br />\n");
+
+	return text;
+}
 
 function resize_query_input(window_height)
 {
@@ -341,6 +369,20 @@ function update_query_input_element_datalist(keyword)
 	}
 }
 
+function command(keyword)
+{
+	let res = Language.command(keyword);
+	if(null !== res){
+		return res;
+	}
+
+	if(0 === keyword.indexOf(":help")){
+		return ":help " + Language.get_command_list().join(" ");
+	}
+
+	return null;
+}
+
 function query_input_element()
 {
 	if(! dictionary.is_init()){
@@ -358,17 +400,35 @@ function query_input_element()
 		return;
 	}
 
+	let timeline_item_element = null;
+	let res = command(keyword);
+	if(null !== res){
+		timeline_item_element = document.createElement('div');
+		timeline_item_element.classList.add('timeline__item');
+
+		let query_text = "`" + keyword + "`";
+		let query_element = get_query_element(query_text);
+
+		let responses_element = document.createElement('div');
+		responses_element.classList.add('timeline__item__response');
+		responses_element.innerHTML = conv_text_html_from_plain(res);
+
+		// elementの挿入
+		timeline_item_element.appendChild(query_element);
+		timeline_item_element.appendChild(responses_element);
+
+	}else{
+		timeline_item_element = get_new_timeline_item_element_from_keyword(keyword);
+
+		history.append_keyword(keyword, null);
+	}
+
 	let timeline_element = document.getElementById('timeline');
-
-	let timeline_item_element = get_new_timeline_item_element_from_keyword(keyword);
-
 	timeline_element.appendChild(timeline_item_element);
 
 	// 追加したtimeline_item(最下部)へスクロール
 	let positionY = timeline_item_element.offsetTop; // 変更点
 	scrollTo(0, positionY);
-
-	history.append_keyword(keyword, null);
 }
 
 function on_keypress_by_query_input_element(e)
