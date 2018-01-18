@@ -44,6 +44,8 @@ rm ${INPUT_FILE}
 
 popd
 
+rm -rf w_dict/
+
 node conv_pejvo_dictionary.js
 
 popd

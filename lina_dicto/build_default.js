@@ -19,8 +19,9 @@ module.exports =
 	prune: true,
 	ignore: "node_modules/(electron-packager|electron-prebuilt|\\.bin)"
 		+ "|node_modules/(babel.*|intelli-espower-loader|power-assert.*|mocha)"
-		+ "|.*\\.txt"
+		// + "|.*\\.txt"
 		+ "|work/.*|test/.*"
+		+ "|w_dict/.*"
 		+ "|data/.*\\.(zip|sh)"
 		+ "|release\\.js",
 	'version-string': {
