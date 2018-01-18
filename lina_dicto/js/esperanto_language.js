@@ -1,15 +1,6 @@
 'use strict';
 
-// var remote = require('remote')
-// var app = remote.require('app')
-
 /*export default*/ class EsperantoLanguage{
-	constructor(){
-		const {app} = require('electron').remote;
-		const fs = require('fs');
-		const path = require('path');
-	}
-
 	readfile(filepath){
 		let s = '';
 		try{
@@ -23,12 +14,10 @@
 
 	command(keyword){
 		if(0 === keyword.indexOf(":legumin")){
-			const filepath = path.join(__dirname, "dictionary/esperanto/legumin.txt");
-			let str = this.readfile(filepath);
+			let str = read_textfile('dictionary/esperanto/legumin.txt');
 			return str;
 		}else if(0 === keyword.indexOf(":gvidilo")){
-			const filepath = path.join(__dirname, "dictionary/esperanto/gvidilo.txt");
-			let str = this.readfile(filepath);
+			let str = read_textfile('dictionary/esperanto/gvidilo.txt');
 			return str;
 		}else 
 

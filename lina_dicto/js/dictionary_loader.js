@@ -1,12 +1,8 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
-
 function dictionary_loader()
 {
-	const datafile = path.join(__dirname, 'dictionary/esperanto/dictionary00.json');
-	const t = fs.readFileSync(datafile, 'utf8');
+	const t = read_textfile('dictionary/esperanto/dictionary00.json');
 	let dict = JSON.parse(t);
 
 	return dict;
