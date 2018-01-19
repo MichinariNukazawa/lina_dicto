@@ -19,8 +19,7 @@
 		}else if(0 === keyword.indexOf(":gvidilo")){
 			let str = read_textfile('dictionary/esperanto/gvidilo.txt');
 			return str;
-		}else 
-
+		}
 
 		return null;
 	}
