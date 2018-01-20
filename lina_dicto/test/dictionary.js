@@ -5,7 +5,7 @@ const esperanto = new Esperanto();
 import Dictionary from '../object/dictionary';
 const dictionary = new Dictionary();
 
-import data00 from '../data/dictionary00.json';
+import data00 from '../dictionary/esperanto/dictionary00.json';
 
 it ("dictionary", function() {
 	let dictionary_data = data00;

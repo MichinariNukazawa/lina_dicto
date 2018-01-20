@@ -12,7 +12,7 @@ test:
 	cd lina_dicto && npm run test
 
 dictionary:
-	cd lina_dicto && bash ./data/gen_dictionary.sh
+	cd lina_dicto && bash ./dictionary/esperanto/gen_dictionary.sh
 
 clean:
 	rm -rf release
