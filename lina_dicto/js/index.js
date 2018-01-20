@@ -2,7 +2,7 @@
 
 var extension = new Extension();
 var platform = new Platform();
-const Language = new EsperantoLanguage();
+// const Language = new Language();
 let dictionary = new Dictionary();
 let linad = new Linad();
 let history = new History();

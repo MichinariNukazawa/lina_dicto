@@ -1,18 +1,7 @@
 'use strict';
 
-/*export default*/ class EsperantoLanguage{
-	readfile(filepath){
-		let s = '';
-		try{
-			s = fs.readFileSync(filepath, 'utf-8');
-		}catch(err){
-			return err.message;
-		}
-
-		return s;
-	}
-
-	command(keyword){
+/*export default*/ class Language{
+	static command(keyword){
 		if(0 === keyword.indexOf(":legumin")){
 			let str = read_textfile('dictionary/esperanto/legumin.txt');
 			return str;
@@ -24,7 +13,7 @@
 		return null;
 	}
 
-	get_command_list(){
+	static get_command_list(){
 		return [":legumin", ":gvidilo"];
 	}
 
