@@ -16,8 +16,11 @@ trap 'echo "error:$0($LINENO) \"$BASH_COMMAND\" \"$@\""' ERR
 SCRIPT_DIR=$(cd $(dirname $0); pwd)
 ROOT_DIR=${SCRIPT_DIR}
 SOURCE_DIR=${ROOT_DIR}/lina_dicto
-BUILD_DIR=${ROOT_DIR}/release/lina_dicto-darwin-x64
-PACKAGE_DIR=${ROOT_DIR}/release/lina_dicto-darwin-x64
+
+APP_NAME=$(cat ${SOURCE_DIR}/package.json | grep '"name"' | sed -e 's/.\+:.*"\([-A-Za-z_0-9.]\+\)".\+/\1/g')
+
+BUILD_DIR=${ROOT_DIR}/release/${APP_NAME}-darwin-x64
+PACKAGE_DIR=${ROOT_DIR}/release/${APP_NAME}-darwin-x64
 RELEASE_DIR=${ROOT_DIR}/release
 
 PACKAGE_POSTFIX=
@@ -33,7 +36,7 @@ EX=""
 if [ -n "${GIT_STATUS_SHORT}" ] ; then
 EX="develop"
 fi
-PACKAGE_NAME=lina_dicto-darwin-${SHOW_VERSION}${EX}-${GIT_HASH}${PACKAGE_POSTFIX}
+PACKAGE_NAME=${APP_NAME}-darwin-${SHOW_VERSION}${EX}-${GIT_HASH}${PACKAGE_POSTFIX}
 
 ## build
 rm -rf ${BUILD_DIR}
