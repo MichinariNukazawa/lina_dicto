@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "electron .",
-    "build_linux_x64": "node ./build_linux_x64.js",
-    "installer_debian_amd64": "npm run build_linux_x64 && electron-installer-debian --config ./installer_debian_amd64_config.json",
+    "debian_installer_debian": "electron-installer-debian --config ./installer_debian_amd64_config.json",
     "test": "bash ./pretest.sh && mocha --require intelli-espower-loader --require babel-register ",
     "testtotest": "mocha test/mocha.js"
   },

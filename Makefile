@@ -23,5 +23,5 @@ package: package_desktop
 package_desktop:
 	bash ./installer_win32_x64.sh
 	bash ./installer_darwin.sh
-	cd lina_dicto && npm run installer_debian_amd64
+	bash ./installer_debian.sh
 
