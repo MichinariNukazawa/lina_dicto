@@ -5,35 +5,47 @@ lina\_dicto
 # About
 lina\_dicto は日本語/Esperanto変換を検索できる辞書アプリケーションです。  
 
-その他のバージョン：  
-[lina\_dicto for android](https://github.com/MichinariNukazawa/lina_dicto_for_android)  
-[lina\_dicto for webextension](https://github.com/MichinariNukazawa/lina_dicto_for_webextension)  
-
-# Screenshot/Image
 ![lina\_dicto](document/image/lina_dicto_0_1_3_windows.png)  
 
-# Project goal
-初学者に使いやすく、見た目がよい、クロスプラットフォームな日本語/Esperanto変換辞書アプリケーションを提供する。  
+## アプリケーションの特徴
+- アプリケーション画面上で過去の検索結果が簡単に確認できる、タイムライン風のUI
+- ユーザの和エス・エス和辞書検索を助ける機能を複数搭載
+ - 入力中に単語の候補を表示する「インクリメンタルサーチ」
+ - スペルミスに対してエスペラント単語の候補を自動で推定する「もしかして機能」
+ - エスペラントの文章を入れると、自動で単語ごとに分割して検索してくれる「文章検索」
+ - 和エス検索でヒットしなかった際に、入力と部分一致する日本語の単語を候補として示す「候補推定」
+ - 入力補助リンク (インクリメンタルサーチ・もしかして機能などによる単語は、表示がリンクボタンとなっており、クリックで一発入力できる)
+ - 検索がヒットしなかった場合に、ブラウザでgoogle translateを開くリンクを提示 (フォールバック機能)
+- 複数のエスペラント代用表記に対応(^-sistemo x-sistemo alfabeto)
+- 検索履歴
+ - 検索履歴をファイルへ自動保存(簡易統計機能あり)
+
+# Download
+[Download for latest release](https://github.com/MichinariNukazawa/lina_dicto/releases)  
+<img src="document/image/download_link.png" width="500">  
 
 # 辞書データについて
 外部の辞書データを改変し収録させて頂きました。感謝いたします。  
 [辞書データのREADME](lina_dicto/dictionary/README.md)参照  
-
-# Get lina\_dicto
-get source:  
-`git clone git@github.com:MichinariNukazawa/lina_dicto.git`  
-
-[Download for latest release](https://github.com/MichinariNukazawa/lina_dicto/releases)  
-
-<img src="document/image/download_link.png" width="500">  
-
 
 # Donate/Buy
 @todo  
 Online store [project daisy bell][pixiv_booth_project_daisy_bell] and [RuneAMN fonts Pro][gumroad_runeamn_fonts_pro] is product by daisy bell.  
 And please contact.  
 
-# Environment
+# Other variation
+[lina\_dicto for android](https://github.com/MichinariNukazawa/lina_dicto_for_android)  
+[lina\_dicto for webextension](https://github.com/MichinariNukazawa/lina_dicto_for_webextension)  
+
+# Develop
+## Project goal
+初学者に使いやすく、見た目がよい、クロスプラットフォームな日本語/Esperanto変換辞書アプリケーションを提供する。  
+
+## Get lina\_dicto
+get source:  
+`git clone git@github.com:MichinariNukazawa/lina_dicto.git`  
+
+## Environment
 Linux. (Ubuntu 16.04LTS+), Windows. (64bit)  
 
 ## Build
@@ -52,8 +64,8 @@ test to test(mocha)' `npm run testtotest`
 ### MacOSX package
 `bash packaging_darwin.sh`  
 
-## Develop
-Depend: nodejs, electron and other npm packages.  
+## Depend
+nodejs, electron and other npm packages.  
 
 # Specification
 
