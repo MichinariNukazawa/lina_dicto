@@ -157,7 +157,7 @@ function create_string_main_element(response)
 
 	const items = response.match_items;
 	let main_text;
-	if("esp" === response.lang){
+	if(Language.get_code() === response.lang){
 		// esp
 		if(0 < items.length){
 			const glosses = dictionary.get_glosses_from_item(items[0]);
@@ -220,7 +220,7 @@ function create_string_sub_element(response)
 				response_string_sub_element,
 				'`', response.matching_keyword, '` is not match.');
 
-		if("esp" == response.lang){
+		if(Language.get_code() === response.lang){
 			if(0 !== response.candidate_items.length){
 				let candidate_word = dictionary.get_root_word_from_item(response.candidate_items[0]);
 				append_child_of_input_replace(
@@ -249,11 +249,11 @@ function create_string_sub_element(response)
 		}
 
 		if(ExternalBrowser.is_enable()){
-			let src_lang = 'eo';
+			let src_lang = Language.get_code_by_google();
 			let dst_lang = 'ja';
 			if("ja" == response.lang){
 				src_lang = 'ja';
-				dst_lang = 'eo';
+				dst_lang = Language.get_code_by_google();
 			}
 
 			response_string_sub_element.appendChild(document.createElement('br'));

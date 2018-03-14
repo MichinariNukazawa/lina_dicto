@@ -74,7 +74,7 @@
 		let head = 0;
 		while(head < words.length){
 			let response = {};
-			response.lang = "esp";			//! キーワードの言語
+			response.lang = Language.get_code();	//! キーワードの言語
 			response.matching_keyword = "";		//! 検索キーワード
 			response.match_items = [];		//! esperanto/日本語検索 マッチ項目
 			response.glosses = [];			//! 日本語検索失敗時 もしかして日本語単語

@@ -1,6 +1,14 @@
 'use strict';
 
 /*export default*/ class Language{
+	static get_code(){
+		return 'eo';
+	}
+
+	static get_code_by_google(){
+		return 'eo';
+	}
+
 	static command(keyword){
 		if(0 === keyword.indexOf(":legumin")){
 			let str = read_textfile('dictionary/esperanto/legumin.txt');
