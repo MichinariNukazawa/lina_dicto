@@ -27,6 +27,13 @@ window.onload = function(e){
 	window.addEventListener('resize', function(){
 		resize_query_input(get_window_height());
 	}, true);
+
+	document.onkeydown = function(e) {
+		if (e.ctrlKey && e.key === 'v') {
+			// Ctrl+V(paste)を、Focusが無くてもInputに対して行う
+			document.getElementById('query-area__query-input__input').focus();
+		}
+	}
 }
 
 var query_input_default = {

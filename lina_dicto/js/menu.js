@@ -44,6 +44,36 @@ var template = [
 	]
 },
 {
+	label: 'Edit',
+	submenu: [
+	{
+		label: 'Focusing Input',
+		accelerator: 'Alt+C',
+		click: function (item, focusedWindow) {
+			// 入力欄にフォーカスする
+			let input_elem = document.getElementById('query-area__query-input__input');
+			input_elem.focus();
+		}
+	},
+	{
+		label: 'Paste',
+		accelerator: 'CmdOrCtrl+V',
+		click: function (item, focusedWindow) {
+			// キーボード・ショートカット表示用のダミー(js/index.js onloadにて処理)
+		}
+	},
+	{
+		label: 'Clear',
+		accelerator: 'Esc',
+		click: function (item, focusedWindow) {
+			let input_elem = document.getElementById('query-area__query-input__input');
+			input_elem.focus();
+			input_elem.value = '';
+		}
+	},
+	]
+},
+{
 	label: 'View',
 	submenu: [
 	{
