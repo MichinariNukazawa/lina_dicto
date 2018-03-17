@@ -35,20 +35,20 @@ function confirm_dialog(strtitle, strmessage) {
 
 var template = [
 {
-	label: 'File',
+	label: '&File',
 	submenu: [
 	{
-		label: 'Quit',
+		label: '&Quit',
 		accelerator: 'CmdOrCtrl+Q',
 		role: 'close'
 	},
 	]
 },
 {
-	label: 'Edit',
+	label: '&Edit',
 	submenu: [
 	{
-		label: 'Paste',
+		label: '&Paste',
 		accelerator: 'CmdOrCtrl+V',
 		click: function (item, focusedWindow) {
 			// キーボード・ショートカット表示用のダミー(js/index.js onloadにて処理)
@@ -65,7 +65,7 @@ var template = [
 		}
 	},
 	{
-		label: 'Prev from history',
+		label: '&Prev from history',
 		accelerator: 'Alt+Up',
 		click: function (item, focusedWindow) {
 			let input_elem = document.getElementById('query-area__query-input__input');
@@ -81,7 +81,7 @@ var template = [
 		}
 	},
 	{
-		label: 'Next from history',
+		label: '&Next from history',
 		accelerator: 'Alt+Down',
 		click: function (item, focusedWindow) {
 			let input_elem = document.getElementById('query-area__query-input__input');
@@ -97,7 +97,7 @@ var template = [
 		}
 	},
 	{
-		label: 'Clear Input',
+		label: '&Clear Input',
 		accelerator: 'Esc',
 		click: function (item, focusedWindow) {
 			let input_elem = document.getElementById('query-area__query-input__input');
@@ -110,7 +110,7 @@ var template = [
 	]
 },
 {
-	label: 'View',
+	label: '&View',
 	submenu: [
 	{
 		label: 'Reload',
@@ -150,16 +150,16 @@ var template = [
 	]
 },
 {
-	label: 'History',
+	label: '&History',
 	submenu: [
 	{
-		label: 'Statistics History',
+		label: '&Statistics History',
 		click: function () {
 			message_dialog('info', "Statistics History", history.get_statistics_string());
 		}
 	},
 	{
-		label: 'Open History File',
+		label: '&Open History File',
 		click: function () {
 			//! file exist check is dirty hack(shell.openExternal error callback is not work)
 			if(! history.is_exist_file()){
@@ -175,7 +175,7 @@ var template = [
 		}
 	},
 	{
-		label: 'Delete History File',
+		label: '&Delete History File',
 		click: function () {
 			if(!confirm_dialog('Delete History File', 'Delete?')){
 				console.debug("Delete History File cancel.");
@@ -188,7 +188,7 @@ var template = [
 	]
 },
 {
-	label: 'Help',
+	label: '&Help',
 	role: 'help',
 	submenu: [
 	{
@@ -196,29 +196,29 @@ var template = [
 		click: function () { require('electron').shell.openExternal('https://daisy-bell.booth.pm/') }
 	},
 	{
-		label: 'Donate',
+		label: '&Donate',
 		submenu: [
 		{
-			label: 'Donate(Amazon)',
+			label: '&Donate(Amazon)',
 			click: function () { require('electron').shell.openExternal('http://amzn.asia/gxaSPhE') }
 		},
 		]
 	},
 	{
-		label: 'bug report',
+		label: '&bug report',
 		submenu: [
 		{
-			label: 'mailto:michinari.nukazawa@gmail.com',
+			label: '&mailto:michinari.nukazawa@gmail.com',
 			click: function () { require('electron').shell.openExternal('mailto:michinari.nukazawa@gmail.com') }
 		},
 		{
-			label: 'twitter:@MNukazawa',
+			label: '&twitter:@MNukazawa',
 			click: function () { require('electron').shell.openExternal('https://twitter.com/MNukazawa') }
 		},
 		]
 	},
 	{
-		label: 'Help',
+		label: '&Help',
 		click: function () {
 			message_dialog(
 					'info', "Help",
