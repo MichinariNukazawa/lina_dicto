@@ -10,6 +10,51 @@
 
 		this.filepath = path.join(app.getPath('userData'), 'history.log');
 		console.debug("history:" + this.filepath);
+
+		this.history_index = -1;
+	}
+
+	reset_history_index()
+	{
+		this.history_index = -1;
+	}
+
+	increment_history_index()
+	{
+		this.history_index++;
+		const len = this.get_history_data_length_();
+		if(len <= this.history_index){
+			this.history_index = ((0 === len)? 0 : len - 1);
+		}
+	}
+
+	decrement_history_index()
+	{
+		this.history_index--;
+		if(this.history_index < 0){
+			this.history_index = 0;
+		}
+	}
+
+	get_history_index()
+	{
+		return this.history_index;
+	}
+
+	get_history_item_from_index(index)
+	{
+		let err = {};
+		const hists = this.read_history_data_from_file_(err);
+		if(null === hists){
+			return null;
+		}
+
+		index = (hists.length - 1) - index;
+		if(index < 0 || hists.length <= index){
+			return null;
+		}
+
+		return hists[index];
 	}
 
 	get_filepath()
@@ -46,6 +91,8 @@
 
 	append_keyword(keyword, extra)
 	{
+		this.reset_history_index();
+
 		if(! this.filepath){
 			console.error("");
 			return;
@@ -65,6 +112,17 @@
 			}
 			// console.debug('The "data to append" was appended to file!');
 		});
+	}
+
+	get_history_data_length_()
+	{
+		let err = {};
+		const hists = this.read_history_data_from_file_(err);
+		if(null === hists){
+			return 0;
+		}
+
+		return hists.length;
 	}
 
 	read_history_data_from_file_(err)

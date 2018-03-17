@@ -48,6 +48,14 @@ var template = [
 	label: 'Edit',
 	submenu: [
 	{
+		label: 'Paste',
+		accelerator: 'CmdOrCtrl+V',
+		click: function (item, focusedWindow) {
+			// キーボード・ショートカット表示用のダミー(js/index.js onloadにて処理)
+		}
+	},
+	{type: 'separator'},
+	{
 		label: 'Focusing Input',
 		accelerator: 'Alt+C',
 		click: function (item, focusedWindow) {
@@ -57,19 +65,46 @@ var template = [
 		}
 	},
 	{
-		label: 'Paste',
-		accelerator: 'CmdOrCtrl+V',
+		label: 'Prev from history',
+		accelerator: 'Alt+Up',
 		click: function (item, focusedWindow) {
-			// キーボード・ショートカット表示用のダミー(js/index.js onloadにて処理)
+			let input_elem = document.getElementById('query-area__query-input__input');
+			input_elem.focus();
+
+			history.increment_history_index();
+			const index = history.get_history_index();
+			const history_item = history.get_history_item_from_index(index);
+			console.debug(index, history_item);
+			if(null !== history_item){
+				input_elem.value = history_item.keyword;
+			}
 		}
 	},
 	{
-		label: 'Clear',
+		label: 'Next from history',
+		accelerator: 'Alt+Down',
+		click: function (item, focusedWindow) {
+			let input_elem = document.getElementById('query-area__query-input__input');
+			input_elem.focus();
+
+			history.decrement_history_index();
+			const index = history.get_history_index();
+			const history_item = history.get_history_item_from_index(index);
+			console.debug(index, history_item);
+			if(null !== history_item){
+				input_elem.value = history_item.keyword;
+			}
+		}
+	},
+	{
+		label: 'Clear Input',
 		accelerator: 'Esc',
 		click: function (item, focusedWindow) {
 			let input_elem = document.getElementById('query-area__query-input__input');
 			input_elem.focus();
 			input_elem.value = '';
+
+			history.reset_history_index();
 		}
 	},
 	]
