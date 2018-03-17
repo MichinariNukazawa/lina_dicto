@@ -65,17 +65,19 @@
 		});
 	}
 
-	get_statistics_string()
+	read_history_data_from_file_(err)
 	{
 		if(! this.is_exist_file()){
-			return "statistics none.";
+			err.message = "statistics none.";
+			return null;
 		}
 
 		let s = '';
 		try{
 			s = fs.readFileSync(this.filepath, 'utf-8');
 		}catch(err){
-			return err.message;
+			err.message = err.message;
+			return null;
 		}
 
 		s = s.replace(/,\s*$/, '');
@@ -83,6 +85,18 @@
 		try{
 			hists = JSON.parse('[' + s + ']');
 		}catch(err){
+			err.message = err.message;
+			return null;
+		}
+
+		return hists;
+	}
+
+	get_statistics_string()
+	{
+		let err = {};
+		const hists = this.read_history_data_from_file_(err);
+		if(null === hists){
 			return err.message;
 		}
 
