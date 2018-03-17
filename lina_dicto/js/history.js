@@ -60,8 +60,10 @@
 		};
 		let strdata = JSON.stringify(data, null, '\t');
 		fs.appendFile(this.filepath, strdata + ',\n', (err) => {
-			if (err) throw err;
-			console.error('The "data to append" was appended to file!');
+			if(err){
+				throw err;
+			}
+			// console.debug('The "data to append" was appended to file!');
 		});
 	}
 
