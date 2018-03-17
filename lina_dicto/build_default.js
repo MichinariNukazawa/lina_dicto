@@ -5,7 +5,7 @@ const config = require('./package.json');
 module.exports =
 {
 	dir: './',
-	out: '../release',
+	out: '../release/release',
 
 	'app-bundle-id': 'com.michinari_nukazawa/lina_dicto',
 

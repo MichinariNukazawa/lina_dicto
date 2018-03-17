@@ -15,13 +15,13 @@ dictionary:
 	cd lina_dicto && bash ./dictionary/esperanto/gen_dictionary.sh
 
 clean:
-	rm -rf release
+	rm -rf release/release
 
 .PHONY: package package_desktop
 package: package_desktop
 
 package_desktop:
-	bash ./installer_win32_x64.sh
-	bash ./installer_darwin.sh
-	bash ./installer_debian.sh
+	bash ./release/installer_win32_x64.sh
+	bash ./release/installer_darwin.sh
+	bash ./release/installer_debian.sh
 
