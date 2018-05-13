@@ -54,6 +54,11 @@ setup:
 or  
 `sudo bash setup/library_for_ubuntu.sh`  
 
+```
+cd lina_dicto/
+npm install
+```
+
 ## Run
 `make run`  
 
