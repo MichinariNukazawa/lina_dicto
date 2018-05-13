@@ -15,9 +15,10 @@ ROOT_DIR=${SCRIPT_DIR}/..
 if type npm 2>/dev/null 1>/dev/null ; then
 	echo "npm already exist."
 else
+	# sudo apt install npm -y
 	sudo apt install curl -y
 	curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-	sudo apt-get install -y nodejs
+	sudo apt install -y nodejs
 fi
 
 # pushd ${ROOT_DIR}
