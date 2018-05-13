@@ -43,26 +43,26 @@ And please contact.
 
 ## Get lina\_dicto
 get source:  
-`git clone git@github.com:MichinariNukazawa/lina_dicto.git`  
+`git clone --depth=1 https://github.com/MichinariNukazawa/lina_dicto.git`  
 
 ## Environment
 Linux. (Ubuntu 16.04LTS+), Windows. (64bit)  
 
 ## Build
-setup:`sudo bash setup/library_for_ubuntu.sh`  
-in `cd lina_dicto`  
-`npm run build`  
+setup:  
+`sudo apt install npm -y`  
+or  
+`sudo bash setup/library_for_ubuntu.sh`  
 
-## test
-in `cd lina_dicto`  
-`npm test`  
-test to test(mocha)' `npm run testtotest`  
+## Run
+`make run`  
 
-### Windows package
-`bash packaging_win64.sh`  
+## Test
+`make test`  
 
-### MacOSX package
-`bash packaging_darwin.sh`  
+### Package
+Win64, MacOSX, Linux(deb).  
+`make package`  
 
 ## Depend
 nodejs, electron and other npm packages.  
