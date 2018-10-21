@@ -1,6 +1,7 @@
 'use strict';
 
 const remote = require('electron').remote;
+const app = remote.app;
 const Menu = remote.Menu;
 const MenuItem = remote.MenuItem;
 const join = require('path').join;
