@@ -3,6 +3,8 @@
 const remote = require('electron').remote;
 const Menu = remote.Menu;
 const MenuItem = remote.MenuItem;
+const join = require('path').join;
+const openAboutWindow = require('about-window').default;
 
 var menu = new Menu();
 
@@ -223,6 +225,17 @@ var template = [
 			message_dialog(
 					'info', "Help",
 					"`:help` to query input.\nShow all command.");
+		},
+	},
+	{
+		label: '&About',
+		click: function () {
+			openAboutWindow({
+				icon_path: join(__dirname, 'image/icon.png'),
+				copyright: 'Copyright (c) 2018 project daisy bell',
+				package_json_dir: __dirname,
+				// open_devtools: process.env.NODE_ENV !== 'production',
+			});
 		}
 	}
 	]
