@@ -1,6 +1,8 @@
 'use strict';
 
-/*export default*/ class Dictionary{
+const Esperanto = require('../js/esperanto');
+
+module.exports = class Dictionary{
 	constructor()
 	{
 		/** @brief エス和 辞書データ */

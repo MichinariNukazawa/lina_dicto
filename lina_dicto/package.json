@@ -7,7 +7,7 @@
     "running": "electron .",
     "build": "npm run build:osx && npm run build:win && npm run build:linux",
     "debian_installer_debian": "electron-installer-debian --config ./installer_debian_amd64_config.json",
-    "test": "bash ./pretest.sh && mocha --require intelli-espower-loader --require babel-register ",
+    "test": "mocha --require intelli-espower-loader",
     "clean": "rm -rf ./release",
     "clean:osx": "rm -rf ./release/osx",
     "clean:win": "rm -rf ./release/win",

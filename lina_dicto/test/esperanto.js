@@ -1,6 +1,8 @@
+'use strict';
+
 var assert = require("power-assert"); // assertモジュールのinclude
 
-import Esperanto from '../object/esperanto';
+const Esperanto = require('../js/esperanto');
 
 it ("caret_sistemo_from_str", function() {
 	assert("aaa" === Esperanto.caret_sistemo_from_str("aaa"));

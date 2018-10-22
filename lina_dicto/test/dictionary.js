@@ -1,11 +1,11 @@
+'use strict';
+
 var assert = require("power-assert"); // assertモジュールのinclude
 
-import Esperanto from '../object/esperanto';
-const esperanto = new Esperanto();
-import Dictionary from '../object/dictionary';
-const dictionary = new Dictionary();
+const data00 = require('../dictionary/esperanto/dictionary00.json');
 
-import data00 from '../dictionary/esperanto/dictionary00.json';
+const Dictionary = require('../js/dictionary');
+const dictionary = new Dictionary();
 
 it ("dictionary", function() {
 	let dictionary_data = data00;

@@ -1,7 +1,6 @@
 'use strict';
 
-
-/*export default*/ class Esperanto{
+module.exports = class Esperanto{
 
 	/** @brief x-systemo */
 	static convert_caret_from_x_sistemo(str)
@@ -289,6 +288,5 @@
 	{
 		return /^[\x20-\x7E\u0108-\u016D\s^~]+$/.test(str);
 	}
-
-	};
+};
 
