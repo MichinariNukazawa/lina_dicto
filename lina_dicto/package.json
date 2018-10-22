@@ -36,6 +36,7 @@
     "electron-packager": "^12.1.1",
     "intelli-espower-loader": "^1.0.1",
     "mocha": "^5.2.0",
-    "power-assert": "^1.4.4"
+    "power-assert": "^1.4.4",
+    "spectron": "^4.0.0"
   }
 }
