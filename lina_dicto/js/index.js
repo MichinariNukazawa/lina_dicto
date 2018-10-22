@@ -10,13 +10,15 @@ let linad = new Linad();
 let history = new History();
 
 var timeline_item_id = 0;
+let dictionary_handle = null;
 
 window.onload = function(e){
+
 	// 入力欄にフォーカスを与える
 	document.getElementById('query-area__query-input__input').focus();
 
 	let dictionary_data = dictionary_loader();
-	dictionary.init_dictionary(dictionary_data);
+	dictionary_handle = Dictionary.init_dictionary(dictionary_data);
 
 	if(!extension.init()){
 		alart("extension not initialized.");
@@ -169,11 +171,11 @@ function create_string_main_element(response)
 	if(Language.get_code() === response.lang){
 		// esp
 		if(0 < items.length){
-			const glosses = dictionary.get_glosses_from_item(items[0]);
+			const glosses = Dictionary.get_glosses_from_item(dictionary_handle, items[0]);
 			main_text = glosses.join(', ');;
 
-			let explanation = dictionary.get_explanation_from_item(items[0]);
-			let root_word = dictionary.get_root_word_from_item(items[0]);
+			let explanation = Dictionary.get_explanation_from_item(dictionary_handle, items[0]);
+			let root_word = Dictionary.get_root_word_from_item(dictionary_handle, items[0]);
 			response.sub_text = "`" + root_word + "`:" + explanation + "";
 		}
 
@@ -185,9 +187,9 @@ function create_string_main_element(response)
 			let root_words = [];
 			let explanations = [];
 			for(let i = 0; i < items.length; i++){
-				root_words.push(dictionary.get_root_word_from_item(items[i]));
+				root_words.push(Dictionary.get_root_word_from_item(dictionary_handle, items[i]));
 
-				explanations.push(dictionary.get_explanation_from_item(items[i]));
+				explanations.push(Dictionary.get_explanation_from_item(dictionary_handle, items[i]));
 			}
 			main_text = root_words.join(', ');
 			response.sub_text = explanations.join(', ');
@@ -231,7 +233,7 @@ function create_string_sub_element(response)
 
 		if(Language.get_code() === response.lang){
 			if(0 !== response.candidate_items.length){
-				let candidate_word = dictionary.get_root_word_from_item(response.candidate_items[0]);
+				let candidate_word = Dictionary.get_root_word_from_item(dictionary_handle, response.candidate_items[0]);
 				append_child_of_input_replace(
 						response_string_sub_element,
 						' If your search to `', candidate_word, '`?');
@@ -358,17 +360,17 @@ function update_query_input_element_datalist(keyword)
 		query_incrementals_element.removeChild(query_incrementals_element.firstChild);
 	}
 
-	let index = dictionary.get_index_from_incremental_keyword(keyword);
+	let index = Dictionary.get_index_from_incremental_keyword(dictionary_handle, keyword);
 	if(-1 == index){
 		return;
 	}
 
 	for(let i = 0; i < 3; i++){
-		const item = dictionary.get_item_from_index(index + i);
+		const item = Dictionary.get_item_from_index(dictionary_handle, index + i);
 		if(! item){
 			break;
 		}
-		const show_word = dictionary.get_show_word_from_item(item);
+		const show_word = Dictionary.get_show_word_from_item(dictionary_handle, item);
 
 		if(0 != i){
 			query_incrementals_element.appendChild(create_span_from_text('|'));
@@ -394,7 +396,7 @@ function command(keyword)
 
 function query_input_element()
 {
-	if(! dictionary.is_init()){
+	if(! Dictionary.is_init(dictionary_handle)){
 		console.log("dictionary not init.");
 		return;
 	}

@@ -3,35 +3,42 @@
 const Esperanto = require('../js/esperanto');
 
 module.exports = class Dictionary{
-	constructor()
+	static getHandle_()
 	{
+		let handle = {};
 		/** @brief エス和 辞書データ */
-		this.dictionary = null;
+		handle.dictionary = null;
 		/** @brief 和エス 辞書データ */
-		this.jdictionary = null;
-
+		handle.jdictionary = null;
 		/** @brief エス和 辞書データ 高速化用ハッシュ
 		 * 先頭characterと、その最初の辞書itemを指すindexの集合
 		 */
-		this.hash_of_esperanto = null;
+		handle.hash_of_esperanto = null;
+
+		return handle;
 	}
 
-	is_init()
+	static is_init(handle)
 	{
-		if(this.dictionary){
-			return true;
-		}else{
+		if(null === handle){
 			return false;
 		}
+		if('object' !== typeof handle){
+			return false;
+		}
+		if(! handle.hasOwnProperty('dictionary')){
+			return false;
+		}
+		return true;
 	}
 
-	init_hash_of_esperanto()
+	static init_hash_of_esperanto(handle)
 	{
-		this.hash_of_esperanto = [];
+		handle.hash_of_esperanto = [];
 
-		const array_length = this.dictionary.length;
+		const array_length = handle.dictionary.length;
 		for (let i = 0; i < array_length; i++) {
-			const root_word = this.get_root_word_from_item(this.dictionary[i]).toLowerCase();
+			const root_word = Dictionary.get_root_word_from_item(handle, handle.dictionary[i]).toLowerCase();
 			/** 辞書の並び順に'-'で始まる単語などが混じっているので、
 			 * 先頭文字が[A-Za-z]でない単語は、先頭文字変化のチェックを無視
 			 */
@@ -39,17 +46,17 @@ module.exports = class Dictionary{
 				continue;
 			}
 			//! 新しい先頭文字をハッシュに追加
-			if(0 == this.hash_of_esperanto.length
-					|| this.hash_of_esperanto[this.hash_of_esperanto.length - 1][0] != root_word[0]){
+			if(0 == handle.hash_of_esperanto.length
+					|| handle.hash_of_esperanto[handle.hash_of_esperanto.length - 1][0] != root_word[0]){
 				let hash = [root_word[0], i];
-				this.hash_of_esperanto.push(hash);
+				handle.hash_of_esperanto.push(hash);
 			}
 		}
 	}
 
-	generate_jkeywords_from_explanation(explanation)
+	static generate_jkeywords_from_explanation(handle, explanation)
 	{
-		let glosses = this.generate_glosses_from_explanation(explanation);
+		let glosses = Dictionary.generate_glosses_from_explanation(handle, explanation);
 
 		for(let i = 0; i < glosses.length; i++){
 			// 先頭の括弧を除去
@@ -59,11 +66,11 @@ module.exports = class Dictionary{
 		return glosses;
 	}
 
-	generate_jdictionary_from_index_item(index, item)
+	static generate_jdictionary_from_index_item(handle, index, item)
 	{
 		let jdict = [];
-		const explanation = this.get_explanation_from_item(item);
-		const jkeywords = this.generate_jkeywords_from_explanation(explanation);
+		const explanation = Dictionary.get_explanation_from_item(handle, item);
+		const jkeywords = Dictionary.generate_jkeywords_from_explanation(handle, explanation);
 		for(let i = 0; i < jkeywords.length; i++){
 			jdict[i] = [jkeywords[i], index];
 		}
@@ -72,15 +79,15 @@ module.exports = class Dictionary{
 	}
 
 	/** @brief 和エス辞書生成 */
-	init_jdictionary()
+	static init_jdictionary(handle)
 	{
-		this.jdictionary = [];
+		handle.jdictionary = [];
 
-		const dict = this.dictionary;
+		const dict = handle.dictionary;
 		const array_length = dict.length;
 		for (let i = 0; i < array_length; i++) {
-			const jdict = this.generate_jdictionary_from_index_item(i, dict[i]);
-			Array.prototype.push.apply(this.jdictionary, jdict);
+			const jdict = Dictionary.generate_jdictionary_from_index_item(handle, i, dict[i]);
+			Array.prototype.push.apply(handle.jdictionary, jdict);
 
 			/*
 			   if(0 == i % 1000){
@@ -92,7 +99,7 @@ module.exports = class Dictionary{
 
 	}
 
-	init_edictionary(dictionary_data)
+	static init_edictionary(handle, dictionary_data)
 	{
 		let dict = dictionary_data;
 
@@ -108,19 +115,31 @@ module.exports = class Dictionary{
 			}
 		}
 
-		this.dictionary = dict;
+		handle.dictionary = dict;
 	}
 
-	init_dictionary(dictionary_data)
+	static init_dictionary(dictionary_data)
 	{
 		console.log("init_dictionary");
 
-		this.init_edictionary(dictionary_data);
-		this.init_hash_of_esperanto();
-		this.init_jdictionary();
+		let handle = {
+			/** @brief エス和 辞書データ */
+			dictionary: null,
+			/** @brief 和エス 辞書データ */
+			jdictionary: null,
+			/** @brief エス和 辞書データ 高速化用ハッシュ
+			 * 先頭characterと、その最初の辞書itemを指すindexの集合
+			 */
+			hash_of_esperanto: null,
+		};
+		Dictionary.init_edictionary(handle, dictionary_data);
+		Dictionary.init_hash_of_esperanto(handle);
+		Dictionary.init_jdictionary(handle);
+
+		return handle;
 	}
 
-	manual_lowercase_from_character(character) {
+	static manual_lowercase_from_character(handle, character) {
 		if(/[A-Z]/.test(character)){
 			return String.fromCharCode(character.charCodeAt(0) | 32);
 		}
@@ -129,19 +148,19 @@ module.exports = class Dictionary{
 	}
 
 	/** @brief エス和 高速化ハッシュ 先頭文字を受けとり、範囲情報を返す */
-	get_hash_info_from_character(character)
+	static get_hash_info_from_character(handle, character)
 	{
-		character = this.manual_lowercase_from_character(character);
+		character = Dictionary.manual_lowercase_from_character(handle, character);
 
-		const hash_length = this.hash_of_esperanto.length;
+		const hash_length = handle.hash_of_esperanto.length;
 		for(let i = 0; i < hash_length; i++){
-			if(character === this.hash_of_esperanto[i][0]){
+			if(character === handle.hash_of_esperanto[i][0]){
 				let hash_info = {};
-				hash_info.head_index = this.hash_of_esperanto[i][1];
+				hash_info.head_index = handle.hash_of_esperanto[i][1];
 				if(i < (hash_length - 1)){
-					hash_info.foot_index = this.hash_of_esperanto[i + 1][1];
+					hash_info.foot_index = handle.hash_of_esperanto[i + 1][1];
 				}else{
-					hash_info.foot_index = this.dictionary.length;
+					hash_info.foot_index = handle.dictionary.length;
 				}
 
 				return hash_info;
@@ -152,12 +171,12 @@ module.exports = class Dictionary{
 	}
 
 	/** @brief エス和 完全一致検索 */
-	get_item_from_keyword(keyword)
+	static get_item_from_keyword(handle, keyword)
 	{
-		const dict = this.dictionary;
+		const dict = handle.dictionary;
 		const len = dict.length;
 		for (let i = 0; i < len; i++) {
-			let show_word = this.get_show_word_from_item(dict[i]);
+			let show_word = Dictionary.get_show_word_from_item(handle, dict[i]);
 
 			// 代用表記以外の末尾の記号を取り除く
 			keyword = keyword.replace(/[^A-Za-z^~]$/g, "");
@@ -176,20 +195,20 @@ module.exports = class Dictionary{
 	}
 
 	/** @brief エス和 インクリメンタルサーチ(先頭一致) */
-	get_index_from_incremental_keyword(keyword)
+	static get_index_from_incremental_keyword(handle, keyword)
 	{
 		if( 0 == keyword.length){
 			return -1;
 		}
 
-		const hash_info = this.get_hash_info_from_character(keyword[0]);
+		const hash_info = Dictionary.get_hash_info_from_character(handle, keyword[0]);
 		if(! hash_info){
 			return -1;
 		}
 
 		const keyword_lowercased = keyword.toLowerCase();
 		for (let i = hash_info.head_index; i < hash_info.foot_index; i++) {
-			if(0 === this.dictionary[i][2].indexOf(keyword_lowercased)){
+			if(0 === handle.dictionary[i][2].indexOf(keyword_lowercased)){
 				return i;
 			}
 		}
@@ -198,10 +217,10 @@ module.exports = class Dictionary{
 	}
 
 	/** @brief 和エス 完全一致検索 */
-	get_indexes_from_jkeyword(jkeyword)
+	static get_indexes_from_jkeyword(handle, jkeyword)
 	{
 		let indexes = [];
-		const jdict = this.jdictionary;
+		const jdict = handle.jdictionary;
 		const len = jdict.length;
 		for (let i = 0; i < len; i++) {
 			let word = jdict[i][0];
@@ -222,12 +241,12 @@ module.exports = class Dictionary{
 	}
 
 	/** @brief 和エス 部分一致検索 */
-	get_glosses_info_from_jkeyword(jkeyword)
+	static get_glosses_info_from_jkeyword(handle, jkeyword)
 	{
 		let glosses_head = [];
 		let glosses_other = [];
 
-		const jdict = this.jdictionary;
+		const jdict = handle.jdictionary;
 		const len = jdict.length;
 		for (let i = 0; i < len; i++) {
 			const word_src = jdict[i][0];
@@ -261,18 +280,18 @@ module.exports = class Dictionary{
 		return glosses;
 	}
 
-	get_item_from_index(index)
+	static get_item_from_index(handle, index)
 	{
-		const array_length = this.dictionary.length;
+		const array_length = handle.dictionary.length;
 		if(index < 0 || array_length <= index){
 			return null;
 		}
 
-		return this.dictionary[index];
+		return handle.dictionary[index];
 	}
 
 	//! keyword (語根の分かち書き除去済みのesperanto単語) を返す
-	get_show_word_from_item(item)
+	static get_show_word_from_item(handle, item)
 	{
 		if(! item){
 			return "";
@@ -282,7 +301,7 @@ module.exports = class Dictionary{
 	}
 
 	//! 意味(日本語訳等)を返す
-	get_explanation_from_item(item)
+	static get_explanation_from_item(handle, item)
 	{
 		if(! item){
 			return "";
@@ -292,7 +311,7 @@ module.exports = class Dictionary{
 	}
 
 	//! 語根表記(ex. "Bon/an maten/on!")を返す
-	get_root_word_from_item(item)
+	static get_root_word_from_item(handle, item)
 	{
 		if(! item){
 			return "";
@@ -304,16 +323,16 @@ module.exports = class Dictionary{
 	/** @brief 訳語の配列を返す
 	 *	test文字列: abismo, aboco
 	 */
-	get_glosses_from_item(item)
+	static get_glosses_from_item(handle, item)
 	{
-		const explanation = this.get_explanation_from_item(item);
-		return this.generate_glosses_from_explanation(explanation);
+		const explanation = Dictionary.get_explanation_from_item(handle, item);
+		return Dictionary.generate_glosses_from_explanation(handle, explanation);
 	}
 
 	/** @brief 訳語の配列を生成して返す
 	 *	test文字列: abismo, aboco
 	 */
-	generate_glosses_from_explanation(explanation)
+	static generate_glosses_from_explanation(handle, explanation)
 	{
 		let glosses = [];
 
