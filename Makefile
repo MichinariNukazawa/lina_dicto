@@ -8,15 +8,19 @@ all:
 run:
 	cd lina_dicto && npm run running
 
-test:
-	cd lina_dicto && npm run test
-
-dictionary:
-	cd lina_dicto && bash ./dictionary/esperanto/gen_dictionary.sh
-
 clean:
 	cd lina_dicto && npm run clean
 	rm -rf release/release
+
+.PHONY: test ci-test
+ci-test: test package
+
+test:
+	cd lina_dicto && npm run test
+
+.PHONY: dictionary
+dictionary:
+	cd lina_dicto && bash ./dictionary/esperanto/gen_dictionary.sh
 
 .PHONY: package package_desktop
 package: package_desktop
