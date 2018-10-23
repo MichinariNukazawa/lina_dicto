@@ -6,7 +6,7 @@ var platform = new Platform();
 const Esperanto = require('./js/esperanto');
 const Dictionary = require('./js/dictionary');
 let dictionary = new Dictionary();
-let linad = new Linad();
+const Linad = require('./js/linad');
 let history = new History();
 
 var timeline_item_id = 0;
@@ -313,7 +313,7 @@ function get_new_timeline_item_element_from_keyword(keyword)
 	// 表示文字列の生成と挿入
 	let query_text = "`" + keyword + "`";
 	query_text = Esperanto.convert_alfabeto_from_caret_sistemo(query_text);
-	let responses = linad.get_responses_from_keyword(keyword);
+	let responses = Linad.getResponsesFromKeystring(keyword);
 
 	// elementの生成
 	let timeline_item_element = document.createElement('div');
