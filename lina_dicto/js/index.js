@@ -314,7 +314,7 @@ function get_new_timeline_item_element_from_keyword(keyword)
 	// 表示文字列の生成と挿入
 	let query_text = "`" + keyword + "`";
 	query_text = Esperanto.convert_alfabeto_from_caret_sistemo(query_text);
-	let responses = Linad.getResponsesFromKeystring(keyword);
+	let responses = Linad.getResponsesFromKeystring(dictionary_handle, keyword);
 
 	// elementの生成
 	let timeline_item_element = document.createElement('div');

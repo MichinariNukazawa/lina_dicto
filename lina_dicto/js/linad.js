@@ -5,7 +5,7 @@ const Esperanto = require('../js/esperanto');
 const Dictionary = require('../js/dictionary');
 
 module.exports = class Linad{
-	static getResponseFromJkeyword_(response, keyword)
+	static getResponseFromJkeyword_(dictionary_handle, response, keyword)
 	{
 		response.lang = "ja";
 		response.matching_keyword = keyword;
@@ -29,7 +29,7 @@ module.exports = class Linad{
 		return response;
 	}
 
-	static getKw_(words, head, c_word)
+	static getKw_(dictionary_handle, words, head, c_word)
 	{
 		let kw = "";
 		if(words.length < (head + c_word)){
@@ -46,7 +46,7 @@ module.exports = class Linad{
 	}
 
 	/** @brief スペル修正候補を返す */
-	static getCandidateWordFromKeyword_(keyword)
+	static getCandidateWordFromKeyword_(dictionary_handle, keyword)
 	{
 		const candidates = Esperanto.get_candidates(keyword);
 		for(const candidate of candidates){
@@ -60,7 +60,7 @@ module.exports = class Linad{
 		return null;
 	}
 
-	static getResponsesFromKeystring(keystring)
+	static getResponsesFromKeystring(dictionary_handle, keystring)
 	{
 		let responses = [];
 
@@ -78,7 +78,7 @@ module.exports = class Linad{
 			// 検索
 			if(! Esperanto.is_esperanto_string(words[head])){
 				// 日本語検索
-				response = Linad.getResponseFromJkeyword_(response, words[head]);
+				response = Linad.getResponseFromJkeyword_(dictionary_handle, response, words[head]);
 				head++;
 			}else{
 				// エスペラント検索
@@ -87,7 +87,7 @@ module.exports = class Linad{
 				let kw;
 				let item = null;
 				for(c_word = 3; 0 < c_word; c_word--){
-					kw = Linad.getKw_(words, head, c_word);
+					kw = Linad.getKw_(dictionary_handle, words, head, c_word);
 					// 代用表記以外の末尾の記号を取り除く(word間の記号は除かない)
 					kw = kw.replace(/[^A-Za-z^~]$/g, "");
 					item = Dictionary.get_item_from_keyword(dictionary_handle, kw);
@@ -100,7 +100,7 @@ module.exports = class Linad{
 
 				if(! item){
 					// スペル修正候補を探索
-					let candidate_item = Linad.getCandidateWordFromKeyword_(kw);
+					let candidate_item = Linad.getCandidateWordFromKeyword_(dictionary_handle, kw);
 					if(null != candidate_item){
 						response.candidate_items.push(candidate_item);
 					}
