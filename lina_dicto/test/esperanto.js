@@ -74,3 +74,36 @@ it ("castle_char_pairs", function() {
 	}
 });
 
+it ("splitter", function() {
+	const data = [
+		['disk', ['disk']],
+		['-emulo', ['-emulo']], // 接尾辞表記 [Praktika Esperanto-Japana Vortareto.]( https://www.vastalto.com/jpn/ )
+		['kotonoha amrilato', ['kotonoha', 'amrilato']],
+		['  	  disk', ['disk']], // 空白除去
+		[' kotonoha	amrilato ', ['kotonoha', 'amrilato']],
+		['Kio estas tio?', ['Kio', 'estas', 'tio']], // 末尾記号は消える
+		['Ĉu vi amas s^in?', ['Ĉu', 'vi', 'amas', 's^in']], // ^-sistemo alfabeto
+		['Cxu vi amas s^in?', ['Cxu', 'vi', 'amas', 's^in']], // ^-sistemo x-sistemo
+		['Fomalhaŭt/o', ['Fomalhaŭt/o']],  // alfabeto
+		['Fomalhau~t/o', ['Fomalhau~t/o']], // ^-sistemo && `~`を含む単語の動作確認
+		['Sxia(Rin).', ['Sxia', 'Rin']], // 記号
+		['SukeraSparo', ['Sukera', 'Sparo']], // 大文字始まりは大文字を区切り
+		['kHz', ['kHz']], // 大文字始まりでなければ大文字区切りしない
+		['LKK', ['LKK']], // 大文字始まりでなければ大文字区切りしない
+		['Uaz', ['Uaz']], // 小文字が前になければ大文字区切りしない
+		['TV-stacio', ['TV-stacio']], // 小文字が前になければ大文字区切りしない
+		['SukeraSparoのスペースにPanoを持ってくると', ['Sukera', 'Sparo', 'のスペースに', 'Pano', 'を持ってくると']], // 日本語混在
+		['100', ['100']], //数値を分割しない
+		['100.2', ['100.2']],
+		['-100.2', ['-100.2']],
+		['1,234,567', ['1,234,567']], //数値 日本語ロケール表現
+		['1,234,567.89', ['1,234,567.89']],
+		['Rin kisis sxin.', ['Rin', 'kisis', 'sxin']], // 記号除去
+		['Rin-', ['Rin']], // 記号除去
+	];
+	for(let i = 0; i < data.length; i++){
+		const res = Esperanto.splitter(data[i][0]);
+		assert(data[i][1].length == res.length);
+	}
+});
+

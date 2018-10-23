@@ -57,19 +57,11 @@
 		return null;
 	}
 
-	get_responses_from_keyword(keyword)
+	get_responses_from_keyword(keystring)
 	{
 		let responses = [];
 
-		// 先頭の空白を取り除く
-		keyword = keyword.replace(/^[\s]*/g, "");
-		// keywordをword毎に分割
-		keyword = keyword.replace(/\s+/, " ");
-		let words = keyword.split(/\s/);
-
-		words = words.filter((word, index, array) => {
-			return word != '';
-		});	// 空wordを除去
+		let words = Esperanto.splitter(keystring); // keystringをword毎に分割
 
 		let head = 0;
 		while(head < words.length){
