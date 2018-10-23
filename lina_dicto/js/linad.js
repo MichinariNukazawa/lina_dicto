@@ -1,5 +1,9 @@
 'use strict';
 
+const Language = require('../js/language');
+const Esperanto = require('../js/esperanto');
+const Dictionary = require('../js/dictionary');
+
 module.exports = class Linad{
 	static getResponseFromJkeyword_(response, keyword)
 	{

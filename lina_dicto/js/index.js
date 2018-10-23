@@ -3,6 +3,7 @@
 var extension = new Extension();
 var platform = new Platform();
 // const Language = new Language();
+const Language = require('./js/language');
 const Esperanto = require('./js/esperanto');
 const Dictionary = require('./js/dictionary');
 let dictionary = new Dictionary();

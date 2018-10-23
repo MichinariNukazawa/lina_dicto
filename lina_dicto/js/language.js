@@ -1,6 +1,6 @@
 'use strict';
 
-/*export default*/ class Language{
+module.exports = class Language{
 	static get_code(){
 		return 'eo';
 	}
@@ -24,6 +24,5 @@
 	static get_command_list(){
 		return [":legumin", ":gvidilo"];
 	}
-
 };
 
