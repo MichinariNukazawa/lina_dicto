@@ -88,8 +88,9 @@ module.exports = class Linad{
 				let item = null;
 				for(c_word = 3; 0 < c_word; c_word--){
 					kw = Linad.getKw_(dictionary_handle, words, head, c_word);
-					// 代用表記以外の末尾の記号を取り除く(word間の記号は除かない)
-					kw = kw.replace(/[^A-Za-z^~]$/g, "");
+					if(! Esperanto.is_esperanto_string(kw)){
+						continue;
+					}
 					item = Dictionary.get_item_from_keyword(dictionary_handle, kw);
 					if(item){
 						break;
