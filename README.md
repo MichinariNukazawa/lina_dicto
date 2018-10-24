@@ -54,6 +54,9 @@ setup:
 or  
 `sudo bash setup/library_for_ubuntu.sh`  
 
+setup pre-commit hook for developer.  
+`bash setup/setup.sh`  
+
 ```
 cd lina_dicto/
 npm install
