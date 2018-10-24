@@ -13,7 +13,10 @@ clean:
 	rm -rf release/release
 
 .PHONY: test ci-test
-ci-test: test package
+ci-test:
+	cd lina_dicto && npm install
+	make test
+	make package
 
 test:
 	cd lina_dicto && npm run test
