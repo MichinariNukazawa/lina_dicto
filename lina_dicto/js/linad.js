@@ -60,11 +60,30 @@ module.exports = class Linad{
 		return null;
 	}
 
+	/** @brief カタカナとそれ以外で分割する */
+	static katakanaSplitter_(src_words)
+	{
+		let words = [];
+		for(let i = 0; i < src_words.length; i++){
+			const KATAKANA_CHARS = 'ァ-ヴー';
+			const regKatakana = new RegExp('([' + KATAKANA_CHARS + ']+|[^' + KATAKANA_CHARS + ']+)', 'g');
+			const ds = src_words[i].match(regKatakana);
+			words = words.concat(ds);
+		}
+
+		words = words.filter((word, index, array) => {
+			return ('string' === typeof word) && (word != '');
+		});	// 空word(and null)を除去
+
+		return words;
+	}
+
 	static getResponsesFromKeystring(dictionary_handle, keystring)
 	{
 		let responses = [];
 
 		let words = Esperanto.splitter(keystring); // keystringをword毎に分割
+		words = Linad.katakanaSplitter_(words);
 
 		let head = 0;
 		while(head < words.length){
