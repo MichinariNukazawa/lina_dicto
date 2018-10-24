@@ -1,5 +1,7 @@
 lina\_dicto
 ====
+[![Build Status](https://travis-ci.org/MichinariNukazawa/lina_dicto.svg?branch=master)](https://travis-ci.org/MichinariNukazawa/lina_dicto)  
+
 \- Dictionary for Japanese to Esperanto -
 
 # About
