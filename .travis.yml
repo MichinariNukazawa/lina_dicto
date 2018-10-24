@@ -9,7 +9,7 @@ addons:
   apt:
     packages:
     - make
-    - wine
+    #- wine
 
 # need spectron test
 before_script:

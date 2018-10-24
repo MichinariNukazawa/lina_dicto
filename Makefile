@@ -16,7 +16,7 @@ clean:
 ci-test:
 	cd lina_dicto && npm install
 	make test
-	make package
+	#make package
 
 test:
 	cd lina_dicto && npm run test
