@@ -313,7 +313,9 @@ module.exports = class Esperanto{
 		let words = [];
 		for(let i = 0; i < space_splits.length; i++){
 			// 数値
-			if(/-?[0-9][0-9.,]+/.test(space_splits[i])){
+			const JAPANESE_EXTRA_NUMBER = '-?[0-9]([0-9,]*)?(\.[0-9]+)?';
+			const regNumber = new RegExp('^' + JAPANESE_EXTRA_NUMBER + '$');
+			if(regNumber.test(space_splits[i])){
 				words.push(space_splits[i]);
 				continue;
 			}
@@ -326,7 +328,7 @@ module.exports = class Esperanto{
 			for(let i = 0; i < symbol_splits.length; i++){
 				const ESPERANTO_SPECIAL_CHARS = "\u0108\u0109\u011C\u011D\u0124\u0125\u0134\u0135\u015C\u015D\u016C\u016D\u016C\u016D";
 				const ESPERANTO_CHARS = 'A-Za-z' + ESPERANTO_SPECIAL_CHARS +'^~\/-';
-				const regEsperantoStrOrOther = new RegExp('([' + ESPERANTO_CHARS + ']+|[^' + ESPERANTO_CHARS + ']+)', 'g');
+				const regEsperantoStrOrOther = new RegExp('([' + ESPERANTO_CHARS + ']+)|([^' + ESPERANTO_CHARS + ']+)', 'g');
 
 				const in_eo_splits = symbol_splits[i].match(regEsperantoStrOrOther);
 				// console.log("###eo", symbol_splits[i], in_eo_splits);
