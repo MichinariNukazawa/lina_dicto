@@ -26,7 +26,8 @@
     "test": "test/"
   },
   "dependencies": {
-    "about-window": "^1.12.1"
+    "about-window": "^1.12.1",
+    "write-int": "0.0.2"
   },
   "devDependencies": {
     "babel": "^6.23.0",

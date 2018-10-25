@@ -3,12 +3,24 @@
 const Language = require('../js/language');
 const Esperanto = require('../js/esperanto');
 const Dictionary = require('../js/dictionary');
+const writeInt = require('write-int');
 
 module.exports = class Linad{
-	static getResponseFromJkeyword_(dictionary_handle, response, keyword)
+	static createResponse_(lang, matching_keyword)
 	{
-		response.lang = "ja";
-		response.matching_keyword = keyword;
+		let response = {};
+		response.lang = lang;				//! キーワードの言語
+		response.matching_keyword = matching_keyword;	//! 検索キーワード
+		response.match_items = [];		//! esperanto/日本語検索 マッチ項目
+		response.glosses = [];			//! 日本語検索失敗時 もしかして日本語単語
+		response.candidate_items = [];		//! esperanto検索失敗時 もしかして項目
+
+		return response;
+	}
+
+	static getResponseFromJkeyword_(dictionary_handle, keyword)
+	{
+		let response = Linad.createResponse_("ja", keyword);
 
 		// is not esperanto keyword (japanese)
 		const indexes = Dictionary.get_indexes_from_jkeyword(dictionary_handle, keyword);
@@ -25,6 +37,24 @@ module.exports = class Linad{
 				response.match_items.push(item);
 			}
 		}
+
+		return response;
+	}
+
+	static getResponseFromIntString_(keyword)
+	{
+		const regInt = new RegExp('^-?[0-9]+$');
+		if(! regInt.test(keyword)){
+			return null;
+		}
+		const writen_number = writeInt(parseInt(keyword, 10), {'lang': Language.get_code()});
+		if(! writen_number){
+			return null;
+		}
+
+		let response = Linad.createResponse_("ja", keyword);
+		const item = [writen_number, keyword, keyword];
+		response.match_items.push(item);
 
 		return response;
 	}
@@ -87,19 +117,20 @@ module.exports = class Linad{
 
 		let head = 0;
 		while(head < words.length){
-			let response = {};
-			response.lang = Language.get_code();	//! キーワードの言語
-			response.matching_keyword = "";		//! 検索キーワード
-			response.match_items = [];		//! esperanto/日本語検索 マッチ項目
-			response.glosses = [];			//! 日本語検索失敗時 もしかして日本語単語
-			response.candidate_items = [];		//! esperanto検索失敗時 もしかして項目
+			let response;
 
 			// 検索
-			if(! Esperanto.is_esperanto_string(words[head])){
+			// 数値を文字列表現に変換
+			response = Linad.getResponseFromIntString_(words[head]);
+			if(response){
+				// match number.
+				head++;
+			}else if(! Esperanto.is_esperanto_string(words[head])){
 				// 日本語検索
-				response = Linad.getResponseFromJkeyword_(dictionary_handle, response, words[head]);
+				response = Linad.getResponseFromJkeyword_(dictionary_handle, words[head]);
 				head++;
 			}else{
+				response = Linad.createResponse_(Language.get_code(), "");
 				// エスペラント検索
 				// 先頭3文字分から単語検索
 				let c_word;
