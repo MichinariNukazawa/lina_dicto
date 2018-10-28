@@ -108,12 +108,19 @@ module.exports = class Linad{
 		return words;
 	}
 
+	static splitter_(dictionary_handle, keystring)
+	{
+		let words = Esperanto.splitter(keystring); // keystringをword毎に分割
+		words = Linad.katakanaSplitter_(words);
+
+		return words;
+	}
+
 	static getResponsesFromKeystring(dictionary_handle, keystring)
 	{
 		let responses = [];
 
-		let words = Esperanto.splitter(keystring); // keystringをword毎に分割
-		words = Linad.katakanaSplitter_(words);
+		const words = Linad.splitter_(dictionary_handle, keystring);
 
 		let head = 0;
 		while(head < words.length){

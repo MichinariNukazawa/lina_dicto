@@ -54,9 +54,34 @@ it ("katakanaSplitter_", function() {
 	}
 });
 
+it ("splitter_", function() {
+	var dictionary_handle;
+	dictionary_handle = Dictionary.init_dictionary(dictionary_data);
+
+	const datas = [
+		['bona', ['bona']],
+		['bonan matenon.', ['bonan', 'matenon']],
+		['SukeraSparo', ['Sukera','Sparo']],
+		['SukeraSparo', ['Sukera','Sparo']],
+		['SukeraSparoのスペースにPanoを持ってくると', ['Sukera', 'Sparo', 'の', 'スペース', 'に', 'Pano', 'を持ってくると']],
+		['1024', ['1024']],
+		['-1024', ['-1024']],
+		['100eno', ['100', 'eno']],
+	];
+	for(let i = 0; i < datas.length; i++){
+		let res;
+		res = Linad.splitter_(dictionary_handle, datas[i][0]);
+		//console.log('##keystr', datas[i][0], res);
+		assert(datas[i][1].length == res.length);
+		for(let t = 0; t < datas[i][1].length; t++){
+			assert(datas[i][1][t] === res[t]);
+		}
+	}
+});
+
 it ("getResponsesFromKeystring", function() {
-var dictionary_handle;
-dictionary_handle = Dictionary.init_dictionary(dictionary_data);
+	var dictionary_handle;
+	dictionary_handle = Dictionary.init_dictionary(dictionary_data);
 
 	const datas = [
 		['bona', ['bona']],
