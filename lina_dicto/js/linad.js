@@ -3,9 +3,29 @@
 const Language = require('../js/language');
 const Esperanto = require('../js/esperanto');
 const Dictionary = require('../js/dictionary');
+
 const writeInt = require('write-int');
+const path = require('path');
+const Kuromoji = require("kuromoji");
+let japaneseTokenizer_;
 
 module.exports = class Linad{
+	static initialize(callback)
+	{
+		if(japaneseTokenizer_){
+			console.error("BUG already init");
+			return;
+		}
+
+		Kuromoji.builder({
+			//dicPath: path.join(__dirname, 'node_modules/kuromoji/dict')
+			dicPath: 'node_modules/kuromoji/dict'
+		}).build(function (err, tokenizer) {
+			japaneseTokenizer_ = tokenizer;
+			callback();
+		});
+	}
+
 	static createResponse_(lang, matching_keyword)
 	{
 		let response = {};
@@ -18,27 +38,76 @@ module.exports = class Linad{
 		return response;
 	}
 
-	static getResponseFromJkeyword_(dictionary_handle, keyword)
+	static getResponseSearchJKeywordFullMatch_(dictionary_handle, joinedKeywordObj)
 	{
+		const keyword = joinedKeywordObj.word;
 		let response = Linad.createResponse_("ja", keyword);
 
-		// is not esperanto keyword (japanese)
+		// 一致検索
 		const indexes = Dictionary.get_indexes_from_jkeyword(dictionary_handle, keyword);
-		if(0 == indexes.length){
-			if(1 < keyword.length){
-				let glosses = Dictionary.get_glosses_info_from_jkeyword(dictionary_handle, keyword);
-				if(0 < glosses.length){
-					response.glosses = glosses;
-				}
-			}
-		}else{
+		if(0 != indexes.length){
 			for(let i = 0; i < indexes.length; i++){
 				const item = Dictionary.get_item_from_index(dictionary_handle, indexes[i]);
 				response.match_items.push(item);
 			}
+
+			return response;
 		}
 
-		return response;
+		return null;
+	}
+
+	static getResponseSearchJKeywordNearMatch_(dictionary_handle, joinedKeywordObj)
+	{
+		const keyword = joinedKeywordObj.word;
+		let response = Linad.createResponse_("ja", keyword);
+
+		// 先頭一文字ひらがなのみの場合、単語でないと思われるので候補推定の検索をかけない
+		const reIsHiragana = new RegExp('^[\u3041-\u3096]$');
+		const firstWord = joinedKeywordObj.words[0];
+		if(1 === firstWord.length && reIsHiragana.test(firstWord)){
+			return null;
+		}
+
+		// 候補推定を探索
+		{
+			let glosses = Dictionary.get_glosses_info_from_jkeyword(dictionary_handle, keyword);
+			if(0 < glosses.length){
+				response.glosses = glosses;
+				return response;
+			}
+		}
+
+		return null;
+	}
+
+	static getResponseSearchKeywordFullMatch_(dictionary_handle, keyword)
+	{
+		let response = Linad.createResponse_(Language.get_code(), keyword);
+
+		// 一致検索
+		const item = Dictionary.get_item_from_keyword(dictionary_handle, keyword);
+		if(item){
+			response.match_items.push(item);
+			return response;
+		}
+
+		return null;
+	}
+
+	static getResponseSearchKeywordNearMatch_(dictionary_handle, keyword)
+	{
+		let response = Linad.createResponse_(Language.get_code(), keyword);
+
+		// 「もしかして」機能のスペル修正候補を探索
+		let candidate_item = Linad.getCandidateWordFromKeyword_(dictionary_handle, keyword);
+		if(candidate_item){
+			response.candidate_items.push(candidate_item);
+			return response;
+		}
+
+		// マッチしなかった
+		return null;
 	}
 
 	static getResponseFromIntString_(keyword)
@@ -59,20 +128,39 @@ module.exports = class Linad{
 		return response;
 	}
 
-	static getKw_(dictionary_handle, words, head, c_word)
+	static joinKeyword_(dictionary_handle, words, head, countJoinWord)
 	{
-		let kw = "";
-		if(words.length < (head + c_word)){
-			return "";
+		if(words.length < (head + countJoinWord)){
+			return null;
 		}
+
+		let joinedKeywordObj = {
+			'lang': (Esperanto.is_esperanto_string(words[head]) ? Language.get_code() : 'ja'),
+			'word': '',
+			'words': [],
+		};
+
 		let ws = [];
-		for(let i = 0; i < c_word; i++){
-			ws.push(words[head + i]);
+		for(let i = 0; i < countJoinWord; i++){
+			const word = words[head + i];
+			const lang = (Esperanto.is_esperanto_string(word) ? Language.get_code() : 'ja');
+			if(joinedKeywordObj.lang !== lang){
+				// 日エス混じりになる場合は無効を返す
+				return null;
+			}
+			ws.push(word);
 		}
 
-		kw = ws.join(" ");
+		let kw = "";
+		if('ja' === joinedKeywordObj.lang){
+			kw = ws.join("");
+		}else{
+			kw = ws.join(" ");
+		}
+		joinedKeywordObj.word = kw;
+		joinedKeywordObj.words = ws;
 
-		return kw;
+		return joinedKeywordObj;
 	}
 
 	/** @brief スペル修正候補を返す */
@@ -90,20 +178,36 @@ module.exports = class Linad{
 		return null;
 	}
 
-	/** @brief カタカナとそれ以外で分割する */
-	static katakanaSplitter_(src_words)
+	/** @brief 日本語wordを単語分割する
+	 @notice 日本語単語分割に用いているkuromoziは外部依存モジュールであるためできるだけテストを分離する
+	 */
+	static japaneseSplitter_(src_words)
 	{
-		let words = [];
-		for(let i = 0; i < src_words.length; i++){
-			const KATAKANA_CHARS = 'ァ-ヴー';
-			const regKatakana = new RegExp('([' + KATAKANA_CHARS + ']+|[^' + KATAKANA_CHARS + ']+)', 'g');
-			const ds = src_words[i].match(regKatakana);
-			words = words.concat(ds);
+		const src1_words = src_words;
+
+		const reIsJapanese = new RegExp('^[^\x01-\x7E]+$');
+		let dwords = [];
+		for(let i = 0; i < src1_words.length; i++){
+			const word = src1_words[i];
+			//console.log('##jws word', word);
+			if(reIsJapanese.test(word)){
+				const ws = japaneseTokenizer_.tokenize(word);
+				let ws_ = [];
+				for(let t = 0; t < ws.length; t++){
+					ws_.push(ws[t].surface_form);
+				}
+				dwords = dwords.concat(ws_);
+			}else{
+				dwords.push(word);
+			}
 		}
 
+		let words = dwords;
 		words = words.filter((word, index, array) => {
 			return ('string' === typeof word) && (word != '');
 		});	// 空word(and null)を除去
+
+		//console.log('##jws', words);
 
 		return words;
 	}
@@ -111,7 +215,7 @@ module.exports = class Linad{
 	static splitter_(dictionary_handle, keystring)
 	{
 		let words = Esperanto.splitter(keystring); // keystringをword毎に分割
-		words = Linad.katakanaSplitter_(words);
+		words = Linad.japaneseSplitter_(words);
 
 		return words;
 	}
@@ -132,39 +236,62 @@ module.exports = class Linad{
 			if(response){
 				// match number.
 				head++;
-			}else if(! Esperanto.is_esperanto_string(words[head])){
-				// 日本語検索
-				response = Linad.getResponseFromJkeyword_(dictionary_handle, words[head]);
-				head++;
-			}else{
-				response = Linad.createResponse_(Language.get_code(), "");
-				// エスペラント検索
-				// 先頭3文字分から単語検索
-				let c_word;
-				let kw;
-				let item = null;
-				for(c_word = 3; 0 < c_word; c_word--){
-					kw = Linad.getKw_(dictionary_handle, words, head, c_word);
-					if(! Esperanto.is_esperanto_string(kw)){
+				responses.push(response);
+				continue;
+			}
+
+			const JOIN_KEYWORD_NUM = 3;
+
+			{
+				// 一致検索
+				let joinedKeywordObj;
+				for(let countJoinWord = JOIN_KEYWORD_NUM; 0 < countJoinWord; countJoinWord--){
+					joinedKeywordObj = Linad.joinKeyword_(dictionary_handle, words, head, countJoinWord);
+					if(! joinedKeywordObj){ // 日エス混じりで検索キーワードにならなかった
 						continue;
 					}
-					item = Dictionary.get_item_from_keyword(dictionary_handle, kw);
-					if(item){
+
+					if('ja' === joinedKeywordObj.lang){
+						response = Linad.getResponseSearchJKeywordFullMatch_(dictionary_handle, joinedKeywordObj);
+					}else{
+						response = Linad.getResponseSearchKeywordFullMatch_(dictionary_handle, joinedKeywordObj.word);
+					}
+
+					if(response){
+						// マッチした
+						head += countJoinWord;
 						break;
 					}
 				}
-				head += (0 != c_word)? c_word : 1;
-				response.matching_keyword = kw;
+			}
 
-				if(! item){
-					// スペル修正候補を探索
-					let candidate_item = Linad.getCandidateWordFromKeyword_(dictionary_handle, kw);
-					if(null != candidate_item){
-						response.candidate_items.push(candidate_item);
+			if(! response){
+				// 候補推定
+				let joinedKeywordObj;
+				for(let countJoinWord = JOIN_KEYWORD_NUM; 0 < countJoinWord; countJoinWord--){
+					joinedKeywordObj = Linad.joinKeyword_(dictionary_handle, words, head, countJoinWord);
+					if(! joinedKeywordObj){ // 日エス混じりで検索キーワードにならなかった
+						continue;
 					}
-				}else{
-					response.match_items.push(item);
+
+					if('ja' === joinedKeywordObj.lang){
+						response = Linad.getResponseSearchJKeywordNearMatch_(dictionary_handle, joinedKeywordObj);
+					}else{
+						response = Linad.getResponseSearchKeywordNearMatch_(dictionary_handle, joinedKeywordObj.word);
+					}
+
+					if(response){
+						// マッチした
+						head += countJoinWord;
+						break;
+					}
 				}
+			}
+
+			if(! response){
+				// 最後までマッチしなかった
+				response = Linad.createResponse_(Language.get_code(), words[head]);
+				head++;
 			}
 
 			responses.push(response);

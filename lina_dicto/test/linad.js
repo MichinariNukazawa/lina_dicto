@@ -37,33 +37,20 @@ it ("getResponseFromIntString_", function() {
 	}
 });
 
-it ("katakanaSplitter_", function() {
-	const datas = [
-		[['disk'], ['disk']],
-		[['kotonoha', 'amrilato'], ['kotonoha', 'amrilato']],
-		[['Sukera', 'Sparo', 'のスペースに', 'Pano', 'を持ってくると'], ['Sukera', 'Sparo', 'の', 'スペース', 'に', 'Pano', 'を持ってくると']],
-		[['エナジィハーヴェスト'], ['エナジィハーヴェスト']], // 小文字・濁点
-		[['ハープ'], ['ハープ']],
-	];
-	for(let i = 0; i < datas.length; i++){
-		const res = Linad.katakanaSplitter_(datas[i][0]);
-		assert(datas[i][1].length == res.length);
-		for(let t = 0; t < datas[i][1].length; t++){
-			assert(datas[i][1][t] === res[t]);
-		}
-	}
-});
-
 it ("splitter_", function() {
 	var dictionary_handle;
 	dictionary_handle = Dictionary.init_dictionary(dictionary_data);
+
+	Linad.initialize(function(){
 
 	const datas = [
 		['bona', ['bona']],
 		['bonan matenon.', ['bonan', 'matenon']],
 		['SukeraSparo', ['Sukera','Sparo']],
 		['SukeraSparo', ['Sukera','Sparo']],
-		['SukeraSparoのスペースにPanoを持ってくると', ['Sukera', 'Sparo', 'の', 'スペース', 'に', 'Pano', 'を持ってくると']],
+		//['SukeraSparoのスペースにPanoを持ってくると', ['Sukera', 'Sparo', 'の', 'スペース', 'に', 'Pano', 'を持ってくると']],
+		// ここの出力はkuromoziに依存
+		['SukeraSparoのスペースにPanoを持ってくると', ["Sukera","Sparo","の","スペース","に","Pano","を","持っ","て","くる","と"]],
 		['1024', ['1024']],
 		['-1024', ['-1024']],
 		['100eno', ['100', 'eno']],
@@ -77,21 +64,32 @@ it ("splitter_", function() {
 			assert(datas[i][1][t] === res[t]);
 		}
 	}
+
+	});
 });
 
 it ("getResponsesFromKeystring", function() {
 	var dictionary_handle;
 	dictionary_handle = Dictionary.init_dictionary(dictionary_data);
 
+	Linad.initialize(function(){
+
 	const datas = [
 		['bona', ['bona']],
 		['bonan matenon.', ['bonan matenon']],
 		['SukeraSparo', ['Sukera','Sparo']],
 		['SukeraSparo', ['Sukera','Sparo']],
-		['SukeraSparoのスペースにPanoを持ってくると', ['Sukera', 'Sparo', 'の', 'スペース', 'に', 'Pano', 'を持ってくると']],
+		['Kio estas', ['Kio', 'estas']], // bug ['Kio estas'(もしかして:'tio estas'), 'c^i', 'tio']
+		['Kio estas c^i tio.', ['Kio', 'estas', 'c^i tio']], // bug ['Kio estas'(もしかして:'tio estas'), 'c^i', 'tio']
+		// ['cxi tio.', ['cxi tio']], //! @todo sistemo対応
 		['1024', ['1024']],
 		['-1024', ['-1024']],
 		['100eno', ['100', 'eno']],
+		['Brasiko estas 100enoj', ['Brasiko', 'estas', '100', 'enoj']],
+		//['SukeraSparoのスペースにPanoを持ってくると', ['Sukera', 'Sparo', 'の', 'スペース', 'に', 'Pano', 'を持ってくると']],
+		// ここの出力はkuromoziに依存
+		['SukeraSparoのスペースにPanoを持ってくると', ["Sukera","Sparo","の","スペース","に","Pano","を","持って","くる","と"]],
+		['じゃがいもってりんごだったの!?', ['じゃがいも', 'って', 'りんご', 'だった', 'の']],
 	];
 	for(let i = 0; i < datas.length; i++){
 		let res;
@@ -102,5 +100,7 @@ it ("getResponsesFromKeystring", function() {
 			assert(datas[i][1][t] === res[t].matching_keyword);
 		}
 	}
+
+	});
 });
 

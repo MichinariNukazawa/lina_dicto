@@ -15,9 +15,6 @@ let dictionary_handle = null;
 
 window.onload = function(e){
 
-	// 入力欄にフォーカスを与える
-	document.getElementById('query-area__query-input__input').focus();
-
 	let dictionary_data = dictionary_loader();
 	dictionary_handle = Dictionary.init_dictionary(dictionary_data);
 
@@ -39,6 +36,13 @@ window.onload = function(e){
 			document.getElementById('query-area__query-input__input').focus();
 		}
 	}
+
+	Linad.initialize(function(){
+		// 入力欄のロックを解除し、フォーカスを与える
+		document.getElementById('query-area__query-input__input').value = '';
+		document.getElementById('query-area__query-input__input').disabled = '';
+		document.getElementById('query-area__query-input__input').focus();
+	});
 }
 
 var query_input_default = {

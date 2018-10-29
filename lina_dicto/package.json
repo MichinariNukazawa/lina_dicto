@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "about-window": "^1.12.1",
+    "kuromoji": "^0.1.2",
     "write-int": "0.0.2"
   },
   "devDependencies": {
