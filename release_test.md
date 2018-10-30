@@ -11,7 +11,7 @@ lina\_dicto リリーステスト
 `bon/a`:{Ｂ}良い,善良な,りっぱな
 ```
 
-## bocxo boc^o est/i
+## vocxo voc^o est/i
 期待する挙動：
 - x-sistemo入力で検索ヒットする。
 - ^-sistemo入力で検索ヒットする。
