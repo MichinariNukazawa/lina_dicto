@@ -240,9 +240,8 @@ module.exports = class Linad{
 				continue;
 			}
 
-			const JOIN_KEYWORD_NUM = 3;
-
 			{
+				const JOIN_KEYWORD_NUM = 3;
 				// 一致検索
 				let joinedKeywordObj;
 				for(let countJoinWord = JOIN_KEYWORD_NUM; 0 < countJoinWord; countJoinWord--){
@@ -266,6 +265,7 @@ module.exports = class Linad{
 			}
 
 			if(! response){
+				const JOIN_KEYWORD_NUM = 2;
 				// 候補推定
 				let joinedKeywordObj;
 				for(let countJoinWord = JOIN_KEYWORD_NUM; 0 < countJoinWord; countJoinWord--){

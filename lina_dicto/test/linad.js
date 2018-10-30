@@ -104,3 +104,26 @@ it ("getResponsesFromKeystring", function() {
 	});
 });
 
+it ("getResponsesFromKeystring timeout", function(done) {
+
+	var dictionary_handle;
+	dictionary_handle = Dictionary.init_dictionary(dictionary_data);
+
+	Linad.initialize(function(){
+
+	const datas = [
+		['boc^o boc^o boc^o',['boc^o', 'boc^o', 'boc^o']], // 候補推定にマッチしないwordの並び(組み合わせ)は時間がかかる
+		['xxxxxxxxxx',['xxxxxxxxxx']], //検索ヒットせず「もしかして機能」も該当がない場合
+		['ををを',['を','を','を']], //検索ヒットせず「もしかして機能」も該当がない場合
+		['ーーーーーーーーーー',['ーーーーーーーーーー']], //検索ヒットせず「もしかして機能」も該当がない場合
+	];
+	for(let i = 0; i < datas.length; i++){
+		let res;
+		res = Linad.getResponsesFromKeystring(dictionary_handle, datas[i][0]);
+		assert(datas[i][1].length == res.length);
+	}
+	done();
+
+	});
+}).timeout(4000);
+
