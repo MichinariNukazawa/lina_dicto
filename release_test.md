@@ -102,14 +102,14 @@ amlirato	-> amrilato	// 間違えやすい文字(未実装！)
 ```
 
 # 該当なし
-## あああ
+## ーーーー
 検索ヒットせず「もしかして機能」も該当がない場合  
 期待する挙動：
 - 該当なしの旨を表示
 - `goto google translete`を表示
 ``` : 表示例
-`あああ`
-`あああ` is not match. (goto google translate)
+`ーーーー`
+`ーーーー` is not match. (goto google translate)
 ```
 
 ## xxxxxx
