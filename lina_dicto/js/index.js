@@ -153,13 +153,22 @@ function get_responses_element(responses)
 	return responses_element;
 }
 
-function create_keyword_element(keyword)
+function create_keyword_element(response)
 {
+	const keyword = response.matching_keyword;
+
+	let show_str = '';
+	if(! response.keyword_modify_src){
+		show_str = '`' + keyword + '`';
+	}else{
+		show_str += '`' + response.keyword_modify_src + '`' +  ' -> `' + keyword + '`';
+	}
+
 	let response_keyword_element = document.createElement('div');
 	response_keyword_element.classList.add('timeline__item__response__keyword');
 
 	let response_keyword_element_span = document.createElement('span');
-	response_keyword_element_span.textContent = '`' + keyword + '`';
+	response_keyword_element_span.textContent = show_str;
 
 	response_keyword_element.appendChild(response_keyword_element_span);
 
@@ -292,7 +301,7 @@ function get_response_element(response, is_display_keyword)
 	response_element.classList.add('timeline__item__response');
 	let response_icon_element = document.createElement('div');
 	response_icon_element.classList.add('timeline__item__response__icon');
-	let response_keyword_element = create_keyword_element(response.matching_keyword);
+	let response_keyword_element = create_keyword_element(response);
 	let response_string_element = document.createElement('div');
 	response_string_element.classList.add('timeline__item__response__string');
 	let response_string_main_element = create_string_main_element(response);
@@ -318,6 +327,7 @@ function get_new_timeline_item_element_from_keyword(keyword)
 	// 表示文字列の生成と挿入
 	let query_text = "`" + keyword + "`";
 	query_text = Esperanto.convert_alfabeto_from_caret_sistemo(query_text);
+
 	let responses = Linad.getResponsesFromKeystring(dictionary_handle, keyword);
 
 	// elementの生成

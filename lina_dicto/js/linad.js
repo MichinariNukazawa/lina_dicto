@@ -35,6 +35,11 @@ module.exports = class Linad{
 		response.glosses = [];			//! 日本語検索失敗時 もしかして日本語単語
 		response.candidate_items = [];		//! esperanto検索失敗時 もしかして項目
 
+		//! 元検索キーワード(検索キーワードを変形させてマッチした場合の入力文字)
+		response.keyword_modify_src = null;
+		//! マッチワード(検索キーワードを変形させてマッチした場合の変形種別文字列)
+		response.keyword_modify_kind = null;
+
 		return response;
 	}
 
@@ -57,16 +62,36 @@ module.exports = class Linad{
 		return null;
 	}
 
+	static convertKatakanaFromHiragana_(src)
+	{
+		return src.replace(/[\u3041-\u3096]/g, function(match) {
+			let chr = match.charCodeAt(0) + 0x60;
+			return String.fromCharCode(chr);
+		});
+	}
+
 	static getResponseSearchJKeywordNearMatch_(dictionary_handle, joinedKeywordObj)
 	{
 		const keyword = joinedKeywordObj.word;
 		let response = Linad.createResponse_("ja", keyword);
 
 		// 先頭一文字ひらがなのみの場合、単語でないと思われるので候補推定の検索をかけない
-		const reIsHiragana = new RegExp('^[\u3041-\u3096]$');
+		const reIsHiragana = new RegExp('^[\u3041-\u3096]+$');
 		const firstWord = joinedKeywordObj.words[0];
 		if(1 === firstWord.length && reIsHiragana.test(firstWord)){
 			return null;
+		}
+
+		// 2文字より長いひらがなkeywordであるなら、カタカナにして一致検索してみる
+		if(2 <= keyword.length && reIsHiragana.test(keyword)){
+			//! @todo deepcopy
+			joinedKeywordObj.word = Linad.convertKatakanaFromHiragana_(keyword);
+			const response = Linad.getResponseSearchJKeywordFullMatch_(dictionary_handle, joinedKeywordObj);
+			if(response){
+				response.keyword_modify_src = keyword;
+				response.keyword_modify_kind = 'hiragana to katakana';
+				return response;
+			}
 		}
 
 		// 候補推定を探索
