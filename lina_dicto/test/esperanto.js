@@ -110,3 +110,69 @@ it ("splitter", function() {
 	}
 });
 
+	const sound_datas = [
+		['Ne gravas!',			'ネ　グ_ラーヴァス_',				{'isEoToJa':true}],
+		['bonan tagon?',		'ボーナン　ターゴン',				{'isEoToJa':true}],
+		['Doko',			'ドーコ',					{'isEoToJa':true}],
+		['sxipo',			'シーポ',					{'isEoToJa':true}],
+		['sxipano',			'シパーノ',					{'isEoToJa':true}],
+		['Mi estas ruka',		'ミ　エス_タス_　ルーカ',			{'isEoToJa':true}],
+		['Kio estas via nomo?',		'キーオ　エス_タス_　ヴィーア　ノーモ',		{'isEoToJa':true}],
+		['Kie vi logxas',		'キーエ　ヴィ　ロ▼ーヂャス_',			{'isEoToJa':true}],
+
+		['ra ri ru re ro',		'ラ　リ　ル　レ　ロ',				{'isEoToJa':true}],
+		['la li lu le lo',		'ラ▼　リ▼　ル▼　レ▼　ロ▼',			{'isEoToJa':true}],
+
+		// 子音
+		['dorso',			'ドル_ソ',				{'isEoToJa':true}],
+		['estas',			'エス_タス_',				{'isEoToJa':true}],
+		//['dorso',			{'isEoToJa':true}], [' ＝ do[r]so = ドル_ソ
+		//['estas',			{'isEoToJa':true}], ['  ＝ e[s]ta[s] = エス_タス_
+		//
+		// 発音補助の記号です(※他の言語では通じません。ユリアーモオンリーです)
+		//
+		['ekiri',			'エク_イーリ',				{'isEoToJa':false}],
+		['ekiru',			'エク_イール',				{'isEoToJa':false}],
+		['eliris',			'エル_▼イーリス',			{'isEoToJa':false}],
+		['memorkapablo',		'メモル_カパブ_ロ▼',			{'isEoToJa':true}],
+		['orangxsukon',			'オランヂ_ュ_スーコン',			{'isEoToJa':true}],
+		['kauxzis',			'カゥズィス',				{'isEoToJa':false}],
+		['fisxo',			'フ▼ィーショ',				{'isEoToJa':true}],
+		['eno',				'エーノ',				{'isEoToJa':true}],
+
+		['eĉ',				'エチ_ュ_',				{'isEoToJa':true}],
+
+		// 接頭辞は切り、接尾辞は切らない。
+
+		// 合成語は切る。
+		['homamaso',			'ホム_アマーソ',			{'isEoToJa':false}],
+		//['laborabelo
+		//['mararmeo
+		//['memamo
+		//['olivoleo
+		//['ŝtonepoko
+		//['popolamaso
+		//['
+		//['njは連音する。
+		['sinjoro',			'スィニョーロ',				{'isEoToJa':true}],
+		//['kampanjo kampanjo
+
+		['kune',			'クーネ',				{'isEoToJa':true}],
+
+		['tricent',			'トリーツェント',			{'isEoToJa':false}],
+		['antauxe',			'アンタゥエ',				{'isEoToJa':false}],
+	];
+
+it ("convertJSoundFromEsperanto", function() {
+	const datas = sound_datas;
+	for(let i = 0; i < datas.length; i++){
+		const data = datas[i];
+		const res = Esperanto.convertJSoundFromEsperanto(data[0], '*');
+		if(! data[2].isEoToJa){
+			console.log('##jsFromEo not', data[0], data[1], res);
+		}else{
+			assert(data[1] == res.jsound.replace(/[?!]$/, ''));
+		}
+	}
+});
+
