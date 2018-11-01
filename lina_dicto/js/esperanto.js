@@ -463,7 +463,7 @@ module.exports = class Esperanto{
 			'isStrict':	true, // strict is convert all character
 		};
 
-		let word = jaWord.replace(/[^ァ-ヴ　 ]/g, '').replace(/[ー]/g, '');
+		let word = jaWord.replace(/[^ァ-ヴ　\s]/g, '').replace(/[ー]/g, '');
 
 		let sound = [];
 		const SOUND_TABLE = Esperanto.getJsoundTable_();

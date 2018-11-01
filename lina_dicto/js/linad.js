@@ -43,9 +43,8 @@ module.exports = class Linad{
 		return response;
 	}
 
-	static getResponseSearchJKeywordFullMatch_(dictionary_handle, joinedKeywordObj)
+	static getResponseSearchJKeywordFullMatch_(dictionary_handle, keyword)
 	{
-		const keyword = joinedKeywordObj.word;
 		let response = Linad.createResponse_("ja", keyword);
 
 		// 一致検索
@@ -86,7 +85,7 @@ module.exports = class Linad{
 		if(2 <= keyword.length && reIsHiragana.test(keyword)){
 			//! @todo deepcopy
 			joinedKeywordObj.word = Linad.convertKatakanaFromHiragana_(keyword);
-			const response = Linad.getResponseSearchJKeywordFullMatch_(dictionary_handle, joinedKeywordObj);
+			const response = Linad.getResponseSearchJKeywordFullMatch_(dictionary_handle, joinedKeywordObj.word);
 			if(response){
 				response.keyword_modify_src = keyword;
 				response.keyword_modify_kind = 'hiragana to katakana';
@@ -249,6 +248,31 @@ module.exports = class Linad{
 	{
 		let responses = [];
 
+		{
+			// かな発音toエスペラント
+			const reIsKana = new RegExp('^[ぁ-んァ-ン][ぁ-んァ-ンー　\\s]*$');
+			const keyword = keystring;
+			if(reIsKana.test(keyword)){
+				//console.log('## kana', keyword);
+				let response;
+				response = Linad.getResponseSearchJKeywordFullMatch_(dictionary_handle, keyword);
+
+				if(! response){
+					const esp = Esperanto.convertEsperantoFromJaSound(Linad.convertKatakanaFromHiragana_(keyword), '');
+					const spelledWord = esp.eoWord;
+					//console.log('## spell', spelledWord);
+					if(spelledWord){
+						response = Linad.getResponseSearchKeywordFullMatch_(dictionary_handle, spelledWord);
+					}
+				}
+
+				if(response){
+					responses.push(response);
+					return responses;
+				}
+			}
+		}
+
 		const words = Linad.splitter_(dictionary_handle, keystring);
 
 		let head = 0;
@@ -276,7 +300,7 @@ module.exports = class Linad{
 					}
 
 					if('ja' === joinedKeywordObj.lang){
-						response = Linad.getResponseSearchJKeywordFullMatch_(dictionary_handle, joinedKeywordObj);
+						response = Linad.getResponseSearchJKeywordFullMatch_(dictionary_handle, joinedKeywordObj.word);
 					}else{
 						response = Linad.getResponseSearchKeywordFullMatch_(dictionary_handle, joinedKeywordObj.word);
 					}

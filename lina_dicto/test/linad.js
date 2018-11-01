@@ -91,6 +91,10 @@ it ("getResponsesFromKeystring", function() {
 		['SukeraSparoのスペースにPanoを持ってくると', ["Sukera","Sparo","の","スペース","に","Pano","を","持って","くる","と"]],
 		['りんご', ['リンゴ']], // ひらがなでマッチしなかった場合にカタカナで検索する
 		['じゃがいもってりんごだったの!?', ['じゃがいも', 'って', 'リンゴ', 'だった', 'の']],
+		['リンゴ', ['リンゴ']], // カタカナ入力された際にカナ読みesperanto変換より先に日本語マッチするものを探す
+		['ボーナン', ['bonan']], // カナ読みesperanto変換
+		['ボーナン　マテーノン', ['bonan matenon']], // カナ読みesperanto変換
+		['ボーナン マテーノン', ['bonan matenon']], // カナ読みesperanto変換(半角空白混じり)
 	];
 	for(let i = 0; i < datas.length; i++){
 		let res;
