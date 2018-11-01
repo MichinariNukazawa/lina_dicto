@@ -403,7 +403,7 @@ module.exports = class Esperanto{
 		let word = Esperanto.caret_sistemo_from_str(eoWord).toLowerCase();
 
 		let sound = [];
-		const SOUND_TABLE = Esperanto.getSoundTable();
+		const SOUND_TABLE = Esperanto.getSoundTable_();
 		while(0 < word.length){
 			let match = false;
 			for(let i = 0; i < SOUND_TABLE.length; i++){
@@ -456,7 +456,76 @@ module.exports = class Esperanto{
 		return res;
 	}
 
-	static getSoundTable()
+	static convertEsperantoFromJaSound(jaWord, nostrictSimbol)
+	{
+		let res = {
+			'eoWord':	'',
+			'isStrict':	true, // strict is convert all character
+		};
+
+		let word = jaWord.replace(/[^ァ-ヴ　 ]/g, '').replace(/[ー]/g, '');
+
+		let sound = [];
+		const SOUND_TABLE = Esperanto.getJsoundTable_();
+		while(0 < word.length){
+			let match = false;
+			for(let i = 0; i < SOUND_TABLE.length; i++){
+				// console.log('@', i, SOUND_TABLE[i][0], word);
+				if(/^\s/.test(word)){
+					sound.push([' ', '　']);
+					word = word.substr(1);
+					continue;
+				}
+
+				if(word.startsWith(SOUND_TABLE[i][1])){
+					sound.push([SOUND_TABLE[i][0], SOUND_TABLE[i][1]]);
+					word = word.substr(SOUND_TABLE[i][1].length);
+					match = true;
+					break;
+				}
+				const kanaValue = SOUND_TABLE[i][1].replace(/[^ァ-ヴ]/, '');
+				if(0 != kanaValue.length && word.startsWith(kanaValue)){
+					sound.push([SOUND_TABLE[i][0], kanaValue]);
+					word = word.substr(kanaValue.length);
+					match = true;
+					break;
+				}
+			}
+			if(match){
+				continue;
+			}
+
+			//console.log('## nom', word);
+			// マッチしなかった
+			res.isStrict = false;
+			sound.push([nostrictSimbol, word[0]]);
+			word = word.substr(1);
+		}
+
+		sound.forEach(function(s) {
+			res.eoWord += s[0];
+		});
+
+		return res;
+	}
+
+	static getJsoundTable_()
+	{
+		const SOUND_TABLE = Esperanto.getSoundTable_();
+		let items1 = [];
+		let items2 = [];
+		SOUND_TABLE.forEach((item) =>{
+			if(1 < item[1].length){
+				items2.push(item);
+			}else{
+				items1.push(item);
+			}
+		});
+
+		return items2.concat(items1);
+	}
+
+	static getSoundTable_()
 	{
 		const sound_table = [
 			// 読み
