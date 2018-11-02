@@ -18,11 +18,11 @@ module.exports = class Linad{
 		}
 
 		Kuromoji.builder({
-			//dicPath: path.join(__dirname, 'node_modules/kuromoji/dict')
-			dicPath: 'node_modules/kuromoji/dict'
+			dicPath: path.join(__dirname, '../node_modules/kuromoji/dict')
+			//dicPath: 'node_modules/kuromoji/dict'
 		}).build(function (err, tokenizer) {
 			japaneseTokenizer_ = tokenizer;
-			callback();
+			callback(err);
 		});
 	}
 

@@ -37,7 +37,13 @@ window.onload = function(e){
 		}
 	}
 
-	Linad.initialize(function(){
+	Linad.initialize(function(err){
+		if(err){
+			alert(err);
+			document.getElementById('query-area__query-input__input').value = 'Internal error.';
+			return;
+		}
+
 		// 入力欄のロックを解除し、フォーカスを与える
 		document.getElementById('query-area__query-input__input').value = '';
 		document.getElementById('query-area__query-input__input').disabled = '';
