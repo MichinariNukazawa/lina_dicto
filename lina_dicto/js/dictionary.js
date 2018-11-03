@@ -91,8 +91,11 @@ module.exports = class Dictionary{
 		const array_length = dict.length;
 		for (let i = 0; i < array_length; i++) {
 			//! 検索用keyword
-			//! (語根の分かち書き除去済み・lowercase済みのesperanto単語)
-			dict[i][2] = dict[i][0].replace(/\//g, "").toLowerCase();
+			dict[i][2] = dict[i][0]
+					.replace(/\//g, '')
+					.replace(/[^A-Za-z^~]$/g, '')
+					.toLowerCase()
+					;
 
 			if(0 == i % 10000){
 				console.log("%d/%d: `%s`,`%s`",
@@ -156,22 +159,19 @@ module.exports = class Dictionary{
 	}
 
 	/** @brief エス和 完全一致検索 */
-	static get_item_from_keyword(handle, keyword)
+	static get_item_from_keyword(handle, keyword_)
 	{
+		// 代用表記以外の末尾の記号を取り除く
+		// 大文字小文字を区別しない
+		const keyword = keyword_
+				.toLowerCase()
+				.replace(/[^A-Za-z^~]$/g, '')
+				;
+
 		const dict = handle.dictionary;
 		const len = dict.length;
 		for (let i = 0; i < len; i++) {
-			let show_word = Dictionary.get_show_word_from_item(handle, dict[i]);
-
-			// 代用表記以外の末尾の記号を取り除く
-			keyword = keyword.replace(/[^A-Za-z^~]$/g, "");
-			show_word = show_word.replace(/[^A-Za-z^~]$/g, "");
-
-			// 大文字小文字を区別しない
-			keyword = keyword.toLowerCase();
-			show_word = show_word.toLowerCase();
-
-			if(keyword === show_word){
+			if(keyword === dict[i][2]){
 				return dict[i];
 			}
 		}
