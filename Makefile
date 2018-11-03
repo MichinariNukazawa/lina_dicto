@@ -27,7 +27,7 @@ dictionary:
 	cd lina_dicto && bash ./dictionary/esperanto/gen_dictionary.sh
 
 .PHONY: package package_desktop
-package: package_desktop
+package: test package_desktop
 
 package_desktop:
 	bash ./release/installer_win32_x64.sh
