@@ -20,6 +20,74 @@ it ("Linad.initialize timeout", function(done) {
 	});
 }).timeout(6000);
 
+it ("Dictionary.get_item_from_keyword timeout", function(done) {
+	// ループによる水増しは、平均化にあまり効果があるように見えない。
+	// データ数を増やしたほうが良さそうに見える。
+	const EO_TO_JA_DICT_DATAS = [
+		['voc^o',		{'isMatch':true}],
+		['bonan',		{'isMatch':true}],
+		['bonan matenon',	{'isMatch':true}],
+		['kafo',		{'isMatch':true}],
+		['kafolakto',		{'isMatch':true}],
+		['vitra',		{'isMatch':true}],
+		['zorgo',		{'isMatch':true}],
+		['boc^o',		{'isMatch':false}],
+		['zzz',			{'isMatch':false}],
+		['xxxxxxxxxx',		{'isMatch':false}],
+	];
+
+	const datas = EO_TO_JA_DICT_DATAS;
+	for(let c = 0; c < 10; c++){ // 水増しと平均化
+		for(let i = 0; i < datas.length; i++){
+			const data = datas[i];
+			let res;
+			res = Dictionary.get_item_from_keyword(dictionary_handle, data[0]);
+			if(! data[1].isMatch){
+				assert(null === res);
+			}else{
+				assert(null !== res);
+			}
+			//assert(data[1] === res[2]);
+		}
+	}
+
+	done();
+}).timeout(1500);
+
+
+it ("Dictionary.get_index_from_incremental_keyword timeout", function(done) {
+	const EO_TO_JA_DICT_DATAS = [
+		['voc^o',		{'isMatch':true}],
+		['bonan',		{'isMatch':true}],
+		['bonan matenon',	{'isMatch':true}],
+		['kafo',		{'isMatch':true}],
+		['kafolakto',		{'isMatch':true}],
+		['vitra',		{'isMatch':true}],
+		['zorgo',		{'isMatch':true}],
+		['boc^o',		{'isMatch':false}],
+		['zzz',			{'isMatch':false}],
+		['xxxxxxxxxx',		{'isMatch':false}],
+	];
+
+	const datas = EO_TO_JA_DICT_DATAS;
+	for(let c = 0; c < 10; c++){
+		for(let i = 0; i < datas.length; i++){
+			const data = datas[i];
+			let res;
+			res = Dictionary.get_index_from_incremental_keyword(dictionary_handle, data[0]);
+			if(! data[1].isMatch){
+				// assert(null === res);
+			}else{
+				assert(-1 !== res);
+			}
+			//assert(data[1] === res[2]);
+		}
+	}
+
+	setTimeout(done, 100); // 実行完了が早すぎる場合に実行時間が表示されない
+
+}).timeout(200);
+
 it ("Linad.getResponsesFromKeystring timeout", function(done) {
 
 	const datas = [
