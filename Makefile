@@ -15,6 +15,7 @@ clean:
 .PHONY: test ci-test
 ci-test:
 	cd lina_dicto && npm install
+	rm lina_dicto/test/timeout.js # CI timeoutテストしない
 	make test
 	#make package
 
