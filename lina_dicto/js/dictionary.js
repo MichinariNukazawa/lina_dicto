@@ -57,7 +57,9 @@ module.exports = class Dictionary{
 		const explanation = Dictionary.get_explanation_from_item(handle, item);
 		const jakeywords = Dictionary.generate_jakeywords_from_explanation(handle, explanation);
 		for(let i = 0; i < jakeywords.length; i++){
-			jadict[i] = [jakeywords[i], index];
+			const src_word = jakeywords[i];
+			const search_word = src_word.replace(/[!！?？\s　]$/g, '');
+			jadict[i] = [src_word, index, search_word];
 		}
 
 		return jadict;
@@ -69,8 +71,8 @@ module.exports = class Dictionary{
 		handle.jadictionary = [];
 
 		const dict = handle.dictionary;
-		const array_length = dict.length;
-		for (let i = 0; i < array_length; i++) {
+		const dict_length = dict.length;
+		for (let i = 0; i < dict_length; i++) {
 			const jadict = Dictionary.generate_jadictionary_from_index_item(handle, i, dict[i]);
 			Array.prototype.push.apply(handle.jadictionary, jadict);
 
@@ -202,19 +204,18 @@ module.exports = class Dictionary{
 	}
 
 	/** @brief 和エス 完全一致検索 */
-	static get_indexes_from_jakeyword(handle, jakeyword)
+	static get_indexes_from_jakeyword(handle, jakeyword_)
 	{
+		// 末尾の記号と空白を取り除く
+		const jakeyword = jakeyword_.replace(/[!！?？\s　]$/g, '');
+
 		let indexes = [];
 		const jadict = handle.jadictionary;
-		const len = jadict.length;
-		for (let i = 0; i < len; i++) {
-			let word = jadict[i][0];
+		const jadict_length = jadict.length;
+		for (let i = 0; i < jadict_length; i++) {
+			const search_word = jadict[i][2];
 
-			// 末尾の記号と空白を取り除く
-			jakeyword = jakeyword.replace(/[!！?？\s　]$/g, "");
-			word = word.replace(/[!！?？\s　]$/g, "");
-
-			if(jakeyword === word){
+			if(jakeyword === search_word){
 				const index = jadict[i][1];
 				if(! indexes.includes(index)){
 					indexes.push(index);
@@ -226,29 +227,29 @@ module.exports = class Dictionary{
 	}
 
 	/** @brief 和エス 部分一致検索 */
-	static get_glosses_info_from_jakeyword(handle, jakeyword)
+	static get_glosses_info_from_jakeyword(handle, jakeyword_)
 	{
 		let glosses_head = [];
 		let glosses_other = [];
 
+		// 末尾の記号と空白を取り除く
+		const jakeyword = jakeyword_.replace(/[!！?？\s　]$/g, '');
+
 		const jadict = handle.jadictionary;
-		const len = jadict.length;
-		for (let i = 0; i < len; i++) {
-			const word_src = jadict[i][0];
+		const jadict_length = jadict.length;
+		for (let i = 0; i < jadict_length; i++) {
+			const src_word = jadict[i][0];
+			const search_word = jadict[i][2];
 
-			// 末尾の記号と空白を取り除く
-			jakeyword = jakeyword.replace(/[!！?？\s　]$/g, "");
-			const word = word_src.replace(/[!！?？\s　]$/g, "");
-
-			const iof = word.indexOf(jakeyword);
+			const iof = search_word.indexOf(jakeyword);
 			if(-1 !== iof){
 				if(0 === iof){
-					if(! glosses_head.includes(word_src)){
-						glosses_head.push(word_src);
+					if(! glosses_head.includes(src_word)){
+						glosses_head.push(src_word);
 					}
 				}else{
-					if(! glosses_other.includes(word_src)){
-						glosses_other.push(word_src);
+					if(! glosses_other.includes(src_word)){
+						glosses_other.push(src_word);
 					}
 				}
 				if(3 <= glosses_head.length){
