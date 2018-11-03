@@ -193,7 +193,7 @@ module.exports = class Dictionary{
 
 		const keyword_lowercased = keyword.toLowerCase();
 		for (let i = hash_info.head_index; i < hash_info.foot_index; i++) {
-			if(0 === handle.dictionary[i][2].indexOf(keyword_lowercased)){
+			if(handle.dictionary[i][2].startsWith(keyword_lowercased)){
 				return i;
 			}
 		}
