@@ -20,7 +20,17 @@
     "testtotest": "mocha test/mocha.js"
   },
   "author": "michinari.nukazawa@gmail.com",
-  "repository": "<project_name>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MichinariNukazawa/lina_dicto.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MichinariNukazawa/lina_dicto/issues"
+  },
+  "keywords": [
+    "esperanto",
+    "dictionary"
+  ],
   "license": "BSD-2-Clause",
   "directories": {
     "test": "test/"
