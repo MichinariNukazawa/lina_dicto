@@ -19,7 +19,7 @@ ci-test:
 	#make package
 
 test:
-	cd lina_dicto && npm run test
+	cd lina_dicto && npm run test test/$(ARG)
 
 .PHONY: dictionary
 dictionary:
