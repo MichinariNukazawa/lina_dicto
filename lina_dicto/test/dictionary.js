@@ -11,12 +11,12 @@ it ("dictionary", function() {
 	let dictionary_data = data00;
 
 	let dictionary_handle;
-	assert(false === Dictionary.is_init(undefined));
-	assert(false === Dictionary.is_init(null));
-	assert(false === Dictionary.is_init({}));
-	assert(false === Dictionary.is_init(dictionary_handle));
+	assert(false === Dictionary.is_initialized(undefined));
+	assert(false === Dictionary.is_initialized(null));
+	assert(false === Dictionary.is_initialized({}));
+	assert(false === Dictionary.is_initialized(dictionary_handle));
 	dictionary_handle = Dictionary.init_dictionary(dictionary_data);
-	assert(true === Dictionary.is_init(dictionary_handle));
+	assert(true === Dictionary.is_initialized(dictionary_handle));
 
 	let item;
 	let indexes;
@@ -31,9 +31,9 @@ it ("dictionary", function() {
 	assert(null !== Dictionary.get_item_from_keyword(dictionary_handle, "bonan matenon"));
 	assert(null !== Dictionary.get_item_from_keyword(dictionary_handle, "bonan matenon!"));
 
-	assert(0 === Dictionary.get_indexes_from_jkeyword(dictionary_handle, "アムリラート").length);
-	assert(1 === Dictionary.get_indexes_from_jkeyword(dictionary_handle, "恋愛関係").length);
-	indexes = Dictionary.get_indexes_from_jkeyword(dictionary_handle, "恋愛関係");
+	assert(0 === Dictionary.get_indexes_from_jakeyword(dictionary_handle, "アムリラート").length);
+	assert(1 === Dictionary.get_indexes_from_jakeyword(dictionary_handle, "恋愛関係").length);
+	indexes = Dictionary.get_indexes_from_jakeyword(dictionary_handle, "恋愛関係");
 	item = Dictionary.get_item_from_index(dictionary_handle, indexes[0]);
 	assert(null !== item);
 	assert("amrilato" === Dictionary.get_show_word_from_item(dictionary_handle, item));

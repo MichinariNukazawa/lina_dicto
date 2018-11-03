@@ -48,7 +48,7 @@ module.exports = class Linad{
 		let response = Linad.createResponse_("ja", keyword);
 
 		// 一致検索
-		const indexes = Dictionary.get_indexes_from_jkeyword(dictionary_handle, keyword);
+		const indexes = Dictionary.get_indexes_from_jakeyword(dictionary_handle, keyword);
 		if(0 != indexes.length){
 			for(let i = 0; i < indexes.length; i++){
 				const item = Dictionary.get_item_from_index(dictionary_handle, indexes[i]);
@@ -95,7 +95,7 @@ module.exports = class Linad{
 
 		// 候補推定を探索
 		{
-			let glosses = Dictionary.get_glosses_info_from_jkeyword(dictionary_handle, keyword);
+			let glosses = Dictionary.get_glosses_info_from_jakeyword(dictionary_handle, keyword);
 			if(0 < glosses.length){
 				response.glosses = glosses;
 				return response;

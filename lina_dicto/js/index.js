@@ -417,7 +417,7 @@ function command(keyword)
 
 function query_input_element()
 {
-	if(! Dictionary.is_init(dictionary_handle)){
+	if(! Dictionary.is_initialized(dictionary_handle)){
 		console.log("dictionary not init.");
 		return;
 	}
