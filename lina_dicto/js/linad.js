@@ -2,6 +2,7 @@
 
 const Language = require('../js/language');
 const Esperanto = require('../js/esperanto');
+const EsperantoJa = require('../js/esperanto-ja');
 const Dictionary = require('../js/dictionary');
 
 const writeInt = require('write-int');
@@ -258,7 +259,7 @@ module.exports = class Linad{
 				response = Linad.getResponseSearchJKeywordFullMatch_(dictionary_handle, keyword);
 
 				if(! response){
-					const esp = Esperanto.convertEsperantoFromJaSound(Linad.convertKatakanaFromHiragana_(keyword), '');
+					const esp = EsperantoJa.convertEsperantoFromJaSound(Linad.convertKatakanaFromHiragana_(keyword), '');
 					const spelledWord = esp.eoWord;
 					//console.log('## spell', spelledWord);
 					if(spelledWord){

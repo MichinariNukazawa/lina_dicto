@@ -3,6 +3,7 @@
 var assert = require("power-assert"); // assertモジュールのinclude
 
 const Esperanto = require('../js/esperanto');
+const EsperantoJa = require('../js/esperanto-ja');
 
 it ("caret_sistemo_from_str", function() {
 	assert("aaa" === Esperanto.caret_sistemo_from_str("aaa"));
@@ -163,11 +164,11 @@ it ("splitter", function() {
 		['antauxe',			'アンタゥエ',				{'isEoToJa':false,	'isJaToEo':true}],
 	];
 
-it ("convertJSoundFromEsperanto", function() {
+it ("EsperantoJa.convertJaSoundFromEsperanto", function() {
 	const datas = sound_datas;
 	for(let i = 0; i < datas.length; i++){
 		const data = datas[i];
-		const res = Esperanto.convertJSoundFromEsperanto(data[0], '*');
+		const res = EsperantoJa.convertJaSoundFromEsperanto(Esperanto.caret_sistemo_from_str(data[0]), '*');
 		if(! data[2].isEoToJa){
 			console.log('##jsFromEo not', data[0], data[1], res);
 		}else{
@@ -176,11 +177,11 @@ it ("convertJSoundFromEsperanto", function() {
 	}
 });
 
-it ("convertEsperantoFromJaSound", function() {
+it ("EsperantoJa.convertEsperantoFromJaSound", function() {
 	const datas = sound_datas;
 	for(let i = 0; i < datas.length; i++){
 		const data = datas[i];
-		const res = Esperanto.convertEsperantoFromJaSound(data[1], '*');
+		const res = EsperantoJa.convertEsperantoFromJaSound(data[1], '*');
 		if(! data[2].isJaToEo){
 			console.log('##EoFromJa not', data[0], data[1], res);
 		}else{
