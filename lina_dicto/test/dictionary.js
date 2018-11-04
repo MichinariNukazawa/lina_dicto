@@ -20,20 +20,20 @@ it ("dictionary", function() {
 
 	let item;
 	let indexes;
-	assert(null === Dictionary.get_item_from_keyword(dictionary_handle, "amlilato"));
+	assert(null === Dictionary.query_item_from_keyword(dictionary_handle, "amlilato"));
 	assert(null === Dictionary.get_item_from_index(dictionary_handle, -1));
 
-	assert(null !== Dictionary.get_item_from_keyword(dictionary_handle, "amrilato"));
-	item = Dictionary.get_item_from_keyword(dictionary_handle, "amrilato");
+	assert(null !== Dictionary.query_item_from_keyword(dictionary_handle, "amrilato"));
+	item = Dictionary.query_item_from_keyword(dictionary_handle, "amrilato");
 	assert("amrilato" === Dictionary.get_show_word_from_item(dictionary_handle, item));
 	assert("恋愛関係" === Dictionary.get_explanation_from_item(dictionary_handle, item));
 	assert("am/rilat/o" === Dictionary.get_root_word_from_item(dictionary_handle, item));
-	assert(null !== Dictionary.get_item_from_keyword(dictionary_handle, "bonan matenon"));
-	assert(null !== Dictionary.get_item_from_keyword(dictionary_handle, "bonan matenon!"));
+	assert(null !== Dictionary.query_item_from_keyword(dictionary_handle, "bonan matenon"));
+	assert(null !== Dictionary.query_item_from_keyword(dictionary_handle, "bonan matenon!"));
 
-	assert(0 === Dictionary.get_indexes_from_jakeyword(dictionary_handle, "アムリラート").length);
-	assert(1 === Dictionary.get_indexes_from_jakeyword(dictionary_handle, "恋愛関係").length);
-	indexes = Dictionary.get_indexes_from_jakeyword(dictionary_handle, "恋愛関係");
+	assert(0 === Dictionary.query_indexes_from_jakeyword(dictionary_handle, "アムリラート").length);
+	assert(1 === Dictionary.query_indexes_from_jakeyword(dictionary_handle, "恋愛関係").length);
+	indexes = Dictionary.query_indexes_from_jakeyword(dictionary_handle, "恋愛関係");
 	item = Dictionary.get_item_from_index(dictionary_handle, indexes[0]);
 	assert(null !== item);
 	assert("amrilato" === Dictionary.get_show_word_from_item(dictionary_handle, item));

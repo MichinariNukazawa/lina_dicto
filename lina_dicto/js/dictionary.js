@@ -161,7 +161,7 @@ module.exports = class Dictionary{
 	}
 
 	/** @brief エス和 完全一致検索 */
-	static get_item_from_keyword(handle, keyword_)
+	static query_item_from_keyword(handle, keyword_)
 	{
 		// 代用表記以外の末尾の記号を取り除く
 		// 大文字小文字を区別しない
@@ -182,7 +182,7 @@ module.exports = class Dictionary{
 	}
 
 	/** @brief エス和 インクリメンタルサーチ(先頭一致) */
-	static get_index_from_incremental_keyword(handle, keyword)
+	static query_index_from_incremental_keyword(handle, keyword)
 	{
 		if( 0 == keyword.length){
 			return -1;
@@ -204,7 +204,7 @@ module.exports = class Dictionary{
 	}
 
 	/** @brief 和エス 完全一致検索 */
-	static get_indexes_from_jakeyword(handle, jakeyword_)
+	static query_indexes_from_jakeyword(handle, jakeyword_)
 	{
 		// 末尾の記号と空白を取り除く
 		const jakeyword = jakeyword_.replace(/[!！?？\s　]$/g, '');
@@ -227,7 +227,7 @@ module.exports = class Dictionary{
 	}
 
 	/** @brief 和エス 部分一致検索 */
-	static get_glosses_info_from_jakeyword(handle, jakeyword_)
+	static query_glosses_info_from_jakeyword(handle, jakeyword_)
 	{
 		let glosses_head = [];
 		let glosses_other = [];

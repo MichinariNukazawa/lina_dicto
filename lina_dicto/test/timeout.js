@@ -20,7 +20,7 @@ it ("Linad.initialize timeout", function(done) {
 	});
 }).timeout(6000);
 
-it ("Dictionary.get_item_from_keyword timeout", function(done) {
+it ("Dictionary.query_item_from_keyword timeout", function(done) {
 	// ループによる水増しは、平均化にあまり効果があるように見えない。
 	// データ数を増やしたほうが良さそうに見える。
 	const EO_TO_JA_DICT_DATAS = [
@@ -41,7 +41,7 @@ it ("Dictionary.get_item_from_keyword timeout", function(done) {
 		for(let i = 0; i < datas.length; i++){
 			const data = datas[i];
 			let res;
-			res = Dictionary.get_item_from_keyword(dictionary_handle, data[0]);
+			res = Dictionary.query_item_from_keyword(dictionary_handle, data[0]);
 			if(! data[1].isMatch){
 				assert(null === res);
 			}else{
@@ -54,7 +54,7 @@ it ("Dictionary.get_item_from_keyword timeout", function(done) {
 	done();
 }).timeout(1500);
 
-it ("Dictionary.get_index_from_incremental_keyword timeout", function(done) {
+it ("Dictionary.query_index_from_incremental_keyword timeout", function(done) {
 	this.retries(2);
 
 	const EO_TO_JA_DICT_DATAS = [
@@ -75,7 +75,7 @@ it ("Dictionary.get_index_from_incremental_keyword timeout", function(done) {
 		for(let i = 0; i < datas.length; i++){
 			const data = datas[i];
 			let res;
-			res = Dictionary.get_index_from_incremental_keyword(dictionary_handle, data[0]);
+			res = Dictionary.query_index_from_incremental_keyword(dictionary_handle, data[0]);
 			if(! data[1].isMatch){
 				// assert(null === res);
 			}else{
@@ -89,7 +89,7 @@ it ("Dictionary.get_index_from_incremental_keyword timeout", function(done) {
 
 }).timeout(200); // 基本的に200で十分なのだけれど、たまにハズレ値を出す
 
-it ("Dictionary.get_indexes_from_jakeyword timeout", function(done) {
+it ("Dictionary.query_indexes_from_jakeyword timeout", function(done) {
 	this.retries(2);
 
 	const JA_TO_EO_DICT_DATAS = [
@@ -107,7 +107,7 @@ it ("Dictionary.get_indexes_from_jakeyword timeout", function(done) {
 	for(let c = 0; c < 10; c++){
 		for(let i = 0; i < datas.length; i++){
 			const data = datas[i];
-			const indexes = Dictionary.get_indexes_from_jakeyword(dictionary_handle, data[0]);
+			const indexes = Dictionary.query_indexes_from_jakeyword(dictionary_handle, data[0]);
 			assert(indexes.length === data[1].matchs.length);
 			for(let t = 0; t < data[1].matchs.length; t++){
 				const item = Dictionary.get_item_from_index(dictionary_handle, indexes[t]);
@@ -121,7 +121,7 @@ it ("Dictionary.get_indexes_from_jakeyword timeout", function(done) {
 	done();
 }).timeout(2000);
 
-it ("Dictionary.get_glosses_info_from_jakeyword timeout", function(done) {
+it ("Dictionary.query_glosses_info_from_jakeyword timeout", function(done) {
 	this.retries(2);
 
 	const JA_TO_EO_DICT_DATAS = [
@@ -142,7 +142,7 @@ it ("Dictionary.get_glosses_info_from_jakeyword timeout", function(done) {
 	for(let c = 0; c < 10; c++){
 		for(let i = 0; i < datas.length; i++){
 			const data = datas[i];
-			const glosses = Dictionary.get_glosses_info_from_jakeyword(dictionary_handle, data[0]);
+			const glosses = Dictionary.query_glosses_info_from_jakeyword(dictionary_handle, data[0]);
 			// console.log('##jg', glosses.length, data[1].count, data[0]);
 			assert(glosses.length === data[1].count);
 		}

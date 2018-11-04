@@ -381,7 +381,7 @@ function update_query_input_element_datalist(keyword)
 		query_incrementals_element.removeChild(query_incrementals_element.firstChild);
 	}
 
-	let index = Dictionary.get_index_from_incremental_keyword(dictionary_handle, keyword);
+	let index = Dictionary.query_index_from_incremental_keyword(dictionary_handle, keyword);
 	if(-1 == index){
 		return;
 	}

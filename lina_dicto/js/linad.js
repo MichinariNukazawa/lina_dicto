@@ -49,7 +49,7 @@ module.exports = class Linad{
 		let response = Linad.createResponse_("ja", keyword);
 
 		// 一致検索
-		const indexes = Dictionary.get_indexes_from_jakeyword(dictionary_handle, keyword);
+		const indexes = Dictionary.query_indexes_from_jakeyword(dictionary_handle, keyword);
 		if(0 != indexes.length){
 			for(let i = 0; i < indexes.length; i++){
 				const item = Dictionary.get_item_from_index(dictionary_handle, indexes[i]);
@@ -96,7 +96,7 @@ module.exports = class Linad{
 
 		// 候補推定を探索
 		{
-			let glosses = Dictionary.get_glosses_info_from_jakeyword(dictionary_handle, keyword);
+			let glosses = Dictionary.query_glosses_info_from_jakeyword(dictionary_handle, keyword);
 			if(0 < glosses.length){
 				response.glosses = glosses;
 				return response;
@@ -111,7 +111,7 @@ module.exports = class Linad{
 		let response = Linad.createResponse_(Language.get_code(), keyword);
 
 		// 一致検索
-		const item = Dictionary.get_item_from_keyword(dictionary_handle, keyword);
+		const item = Dictionary.query_item_from_keyword(dictionary_handle, keyword);
 		if(item){
 			response.match_items.push(item);
 			return response;
@@ -193,7 +193,7 @@ module.exports = class Linad{
 	{
 		const candidates = Esperanto.get_candidates(keyword);
 		for(const candidate of candidates){
-			let index = Dictionary.get_index_from_incremental_keyword(dictionary_handle, candidate);
+			let index = Dictionary.query_index_from_incremental_keyword(dictionary_handle, candidate);
 			let item = Dictionary.get_item_from_index(dictionary_handle, index);
 			if(item){
 				return item;
