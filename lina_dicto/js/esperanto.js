@@ -2,7 +2,6 @@
 
 module.exports = class Esperanto{
 
-	/** @brief x-systemo */
 	static convert_caret_from_x_sistemo(str)
 	{
 		const replaces = [
@@ -22,13 +21,13 @@ module.exports = class Esperanto{
 			[/vx(?!x)/g, "u^"],
 		];
 
-			for(const replace of replaces){
-				str = str.replace(replace[0], replace[1]);
-			}
+		for(const replace of replaces){
+			str = str.replace(replace[0], replace[1]);
+		}
 
-			str = str.replace(/xx$/, "x");
+		str = str.replace(/xx$/, "x");
 
-			return str;
+		return str;
 	}
 
 	static convert_alfabeto_from_caret_sistemo(str)
@@ -50,11 +49,11 @@ module.exports = class Esperanto{
 			[/u\~/g, "\u016D"],
 		];
 
-			for(const replace of replaces){
-				str = str.replace(replace[0], replace[1]);
-			}
+		for(const replace of replaces){
+			str = str.replace(replace[0], replace[1]);
+		}
 
-			return str;
+		return str;
 	}
 
 	static convert_caret_from_alfabeto_sistemo(str)
@@ -74,20 +73,20 @@ module.exports = class Esperanto{
 			[/\u016D/g, "u^"],	// 公式の変換には無いがとりあえず
 		];
 
-			for(const replace of replaces){
-				str = str.replace(replace[0], replace[1]);
-			}
+		for(const replace of replaces){
+			str = str.replace(replace[0], replace[1]);
+		}
 
-			return str;
+		return str;
 	}
 
-	/** @brief 雑多な文字列(x-sistemo, alfabeto)を^-sistemoに変換する */
+	/** @brief 雑多な文字列(x-sistemo, alfabeto, ..etc)を^-sistemoに変換する */
 	static caret_sistemo_from_str(str)
 	{
 		str = str.replace(/\//g, ""); // 語根分割を除去 (ex. "est/i" -> "esti")
 		str = str.replace(/~/g, "^");
-		str = this.convert_caret_from_x_sistemo(str);
-		str = this.convert_caret_from_alfabeto_sistemo(str);
+		str = Esperanto.convert_caret_from_x_sistemo(str);
+		str = Esperanto.convert_caret_from_alfabeto_sistemo(str);
 
 		return str;
 	}
@@ -159,10 +158,8 @@ module.exports = class Esperanto{
 		return null;
 	}
 
-	/**
-	  @param max 交換する文字の最大数
-	*/
-	static castle_char_pairs_mask(src, mask, max)
+	/** @brief max 交換する文字の最大数 */
+	static castle_char_pairs_mask_(src, mask, max)
 	{
 		let dst = '';
 		let i_char = 0;
@@ -171,7 +168,7 @@ module.exports = class Esperanto{
 			const b = mask & (0x1 << i_char);
 			let pair = null;
 			if(0 != b){
-				pair = this.castle_char_pairs_inline_(src, i_char);
+				pair = Esperanto.castle_char_pairs_inline_(src, i_char);
 			}
 
 			if(change < max && null != pair){
@@ -187,7 +184,7 @@ module.exports = class Esperanto{
 		return dst;
 	}
 
-	static get_candidates_of_castle_char_pairs(str){
+	static get_candidates_of_castle_char_pairs_(str){
 		//! 2文字以上の変換を含む文字の交換castle
 		//! 音の近い文字の交換
 		// 字形の近い文字の交換も必要？
@@ -199,7 +196,7 @@ module.exports = class Esperanto{
 		for(let i = 1; i < n_mask; i++){
 			const mask = i;
 			//! 最大3文字まで交換する
-			const dst = this.castle_char_pairs_mask(str, mask, 3);
+			const dst = Esperanto.castle_char_pairs_mask_(str, mask, 3);
 			if(dst != str){
 				cands.push(dst);
 			}
@@ -217,7 +214,7 @@ module.exports = class Esperanto{
 	{
 		let candidates = [];
 
-		candidates = this.get_verbo_candidates(str);
+		candidates = Esperanto.get_verbo_candidates(str);
 
 		//! esperantoであまり使わないqwxyと、挿入可能位置に条件のある代用表記を除く
 		const alphabets = 'abcdefghijklmnoprstuvz';
@@ -273,7 +270,7 @@ module.exports = class Esperanto{
 			}
 		}
 
-		const cands = this.get_candidates_of_castle_char_pairs(str);
+		const cands = Esperanto.get_candidates_of_castle_char_pairs_(str);
 		candidates = candidates.concat(cands);
 
 		candidates = candidates.filter(function(e){return e !== "";});	// 空文字を除去
@@ -289,20 +286,22 @@ module.exports = class Esperanto{
 		return /^[\x20-\x7E\u0108-\u016D\s^~]+$/.test(str);
 	}
 
-	/** @brief 単語分割(tokenizer)
+	/** @brief 単語分割 word splitter(tokenizer)
 	@details
+	This is rule base word splitter. not dictionary base tokenizer.
 	トークナイザとしてはシンプルめだが空白分割からすれば高度なことをしている。
 
-	基本的には空白と記号で分割する。
+	## 基本的には空白と記号で分割する。
 		1. https://github.com/maroun-baydoun/new-hope/blob/master/src/splitter.ts
 	'-'は(lina_dictoが使用する辞書において)単語の一部に扱われているため、分割記号に含めない。
 		Praktika Esperanto-Japana Vortareto.  Ver.1.81 (provizora 2a eldono)
 		https://www.vastalto.com/jpn/
 		ex. "Abu-Dabi/o"
-	日本語による数値表現(ex. "1,234,567.89")は単語扱いする。
+	## 日本語による数値表現(Arabic numerals)は単語扱いする。(ex. "1,234,567.89")
 		2. https://qiita.com/yugui/items/55f2529c5a731badeff7
-	入力文字列は(^-sistemo x-sistemo alfabeto)に対応する。(^(caret)を記号扱いしない等)
-	大文字始まりで小文字に続く大文字([a-z][A-Z])も分割扱いする(ex. SukeraSparo)(LKK, kHzは切らない)
+	## 入力文字列は(^-sistemo x-sistemo alfabeto)に対応する。(^(caret)を記号扱いしない等)
+	## 大文字始まりで小文字に続く大文字([a-z][A-Z])も分割扱いする(ex. SukeraSparo)(LKK, kHzは切らない)
+
 	(末尾に限らない)句読点、感嘆符は失われる。
 	*/
 	static splitter(keystring)
