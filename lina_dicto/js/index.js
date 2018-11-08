@@ -50,6 +50,12 @@ window.onload = function(e){
 		document.getElementById('query-area__query-input__input').focus();
 
 		{
+			let input = document.getElementById("query-area__query-input__input");
+			input.addEventListener("keypress", on_keypress_by_query_input_element, false);
+			input.addEventListener("keyup", on_keyup_by_query_input_element, false);
+		}
+
+		{
 			// browserifyで別ファイルから関数を指定できない問題を、
 			// 解決するのが面倒だったため、ここへ処理を追加
 			if('android' === Platform.get_platform_name()){
