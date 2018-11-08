@@ -1,7 +1,7 @@
 'use strict';
 
 var extension = new Extension();
-var platform = new Platform();
+const Platform = require('./js/platform');
 // const Language = new Language();
 const Language = require('./js/language');
 const Esperanto = require('./js/esperanto');
@@ -22,8 +22,8 @@ window.onload = function(e){
 		alart("extension not initialized.");
 	}
 
-	if(!platform.init()){
-		alart("platform not initialized.");
+	if(!Platform.init()){
+		alart("Platform not initialized.");
 	}
 
 	window.addEventListener('resize', function(){
@@ -48,6 +48,16 @@ window.onload = function(e){
 		document.getElementById('query-area__query-input__input').value = '';
 		document.getElementById('query-area__query-input__input').disabled = '';
 		document.getElementById('query-area__query-input__input').focus();
+
+		{
+			// browserifyで別ファイルから関数を指定できない問題を、
+			// 解決するのが面倒だったため、ここへ処理を追加
+			if('android' === Platform.get_platform_name()){
+				// 検索ボタンを有効化
+				let button = document.getElementById("query-area__query-input__button");
+				button.addEventListener("click", query_input_element, false);
+			}
+		}
 	});
 }
 

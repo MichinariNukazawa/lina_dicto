@@ -4,8 +4,8 @@
 // const remote = require('electron').remote;
 // const Menu = remote.Menu;
 
-class Platform{
-	init()
+module.exports = class Platform{
+	static init()
 	{
 
 		//! context menu (light click menu)
@@ -30,7 +30,8 @@ class Platform{
 		return true;
 	}
 
-	get_platform_name(){
+	static get_platform_name()
+	{
 		return "electron";
 	}
 };
