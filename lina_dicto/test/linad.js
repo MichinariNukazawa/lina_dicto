@@ -95,6 +95,7 @@ it ("getResponsesFromKeystring", function() {
 		['ボーナン', ['bonan']], // カナ読みesperanto変換
 		['ボーナン　マテーノン', ['bonan matenon']], // カナ読みesperanto変換
 		['ボーナン マテーノン', ['bonan matenon']], // カナ読みesperanto変換(半角空白混じり)
+		['Ｂｏｎａｎ　ｍａteｎｏｎ', ['Bonan matenon']], // 全角文字および全角空白混じり
 	];
 	for(let i = 0; i < datas.length; i++){
 		let res;

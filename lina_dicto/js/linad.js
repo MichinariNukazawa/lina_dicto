@@ -273,6 +273,23 @@ module.exports = class Linad{
 				}
 			}
 		}
+		{
+			// 全角英数および空白のエスペラント語を半角になおしておく
+			// 現在はAndroid環境で半角全角混じりエスペラント単語および文章を想定。
+			// 日本語等を含む場合は変換しない。
+			//! @todo 日本語側の全角英数のみで構成される語がマッチしなくなるのは諦める。
+			const reIsEisu = new RegExp(
+					'[' + Esperanto.get_esperant_regex_character() + 'Ａ-Ｚａ-ｚ０-９]');
+			if(reIsEisu.test(keystring)){
+				// console.log('## zen', keystring);
+				keystring = keystring.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function(s) {
+					return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
+				});
+				keystring = keystring.replace(/[　]/g, function(s) {
+					return ' ';
+				});
+			}
+		}
 
 		const words = Linad.splitter_(dictionary_handle, keystring);
 
