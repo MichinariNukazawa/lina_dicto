@@ -34,6 +34,8 @@ it ("Dictionary.query_item_from_keyword timeout", function(done) {
 		['boc^o',		{'isMatch':false}],
 		['zzz',			{'isMatch':false}],
 		['xxxxxxxxxx',		{'isMatch':false}],
+		['BBBBBB',		{'isMatch':false}],
+		['BONAN matenon',	{'isMatch':true}],
 	];
 
 	const datas = EO_TO_JA_DICT_DATAS;
