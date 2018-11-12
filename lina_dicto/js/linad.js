@@ -250,6 +250,15 @@ module.exports = class Linad{
 		let responses = [];
 
 		{
+			/** 全角記号を除いておく
+			 @todo 多数かつ正しくない検索結果が出る問題に対する対策だが
+			 全角記号のみだと空の検索結果が返るので正しい挙動について考える必要がある。
+			 */
+			keystring = keystring.replace(/[！？]/g, function(s) {
+				return ' ';
+			});
+		}
+		{
 			// かな発音toエスペラント
 			const reIsKana = new RegExp('^[ぁ-んァ-ン][ぁ-んァ-ンー　\\s]*$');
 			const keyword = keystring;
