@@ -419,9 +419,13 @@ function update_query_input_element_datalist(keyword)
 
 function command(keyword)
 {
-	let res = Language.command(keyword);
-	if(null !== res){
-		return res;
+	try{
+		let res = Language.command(keyword);
+		if(null !== res){
+			return res;
+		}
+	}catch(err){
+		return "Internal error. " + err.message;
 	}
 
 	if(0 === keyword.indexOf(":help")){
