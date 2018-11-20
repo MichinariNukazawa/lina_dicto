@@ -1,0 +1,660 @@
+gvidilo.txt
+* La esperanta versio sekvas.
++---------------------------------------------------------------------+
+       『実用エスペラント小辞典』（第１.８１版）　　　使用説明書　  
++---------------------------------------------------------------------+
+     Praktika Esperanto-Japana Vortareto.   Ver 1.81
+
+● はじめに（第１版公開に際して）
+
+　1995年３月に『エスペラント日本語基本辞書』を公開し，1997年１月には電
+単プロジェクトの皆さんとともに『電子版エスペラント日本語単語集（電単）』
+を公開して来ました。特に後者は，見出し語約１万５千語というエスペラント
+の電子辞書としては最大級のものでした。
+
+　ただ『電単』は残念なことに語根語のみで，派生語や合成語，連語などは収
+録されませんでした。また，見出し語根の採用についても制約がありました。
+
+　今回の『実用エスペラント小辞典』は，以下のようなねらいを持っています。
+
+(1) 『基本辞書』の拡張として，公認語根からの派生語・合成語・連語をでき
+　るだけ多く収録する。
+(2) インターネットやパソコン通信で使用される語彙（コンピュータ用語とい
+　う意味ではない）を収録する。
+(3) 時事用語についてもできるだけ収集する。
+(4) 専門用語は基本的なものを合成語・連語を含めて収録する。
+
+　したがって，収録語根数では『電単』が勝っていますが，これらは日常的に
+はあまり使用されない専門用語を多く含んでいます。『実用エスペラント小辞
+典』は日常的な使用に十分な範囲の語彙を収録することを目標にしています。
+
+　1998年８月にβ１版を公開し，２年間かけて少しずつ収録語彙数を増やし，
+ようやく第１版公開に至りました。この間『小辞典』β版を利用している方々
+からときどきメールを頂戴したことは，編集作業を続ける上でたいへん励みに
+なりました。
+
+　まだまだ不十分なところが多いですが，「何もないよりは増し」という気持
+ちで公開します。この『実用エスペラント小辞典』が少しでも皆様のお役に立
+てれば嬉しく思います。
+
+2000.09.21
+　
+
+● 第１.１版公開に際して
+
+　『実用エスペラント小辞典』第１版を公開してから約５年がたちました。そ
+の間多くの方々に使っていただき，編者としてこの上ない喜びでした。昨年，
+『実用エスペラント小辞典』の収録語彙をもっと増やして欲しいという要望が
+届き，第２版へ向けて語彙収集を開始しました。途中いろいろな事情で作業が
+思ったように進まず，１年以上かかってようやくこの１.１版を公開することが
+できました。訳語の記述方針を少しずつ変更していることもあるので，正式な
+第２版へ向けてのβ版と位置付けておきます。今後，ある程度の見出し語数が
+まとまったところで逐次公開していくつもりです。
+
+　この『実用エスペラント小辞典』のねらいは，日常的な語彙をできるだけ数
+多く収録することにあります。専門用語については高校教科書に記載されてい
+る程度のものを，また，日本からの情報発信を目指したときに必要な語彙の充
+実を図りたいと考えています。皆さんからのご意見，ご提案をいただければ嬉
+しく思います。
+
+2005.07.10
+　
+
+● 第１.８１版公開に際して
+
+　今回の見出し４４１０４項目のうち，単純な見出し語は３８０２７語で，連
+語・熟語が６０７７項目あります。今後は後者についても積極的に収録してい
+こうと考えています。
+
+2017.01.30
+
+                                         広高正昭（HIROTAKA Masaaki）
+　
+
+==================
+ 収録語彙について
+==================
+　今回収録した見出しは合計４４１０４項目で，エスペラント・アカデミーオ
+の公認語根４９５３語をすべて含んでいます。
+　
+
+==================
+ この単語集の形式
+==================
+　一つの見出し語に一行をあて，各行は改行で終わります。（※第１版からの
+変更点）
+
+［例］aer/o:空気（改行）
+
+　一行の構成は，次のようになります。
+
+      midasig/o:【専】訳語,訳語
+
+　見出し語中の"/"［半角スラッシュ］は語根の区切りを示します。見出し語
+に"-"［半角ダッシュ］がつくものは接頭辞・接尾辞として使われることを示
+します。
+
+　見出し語と訳語は":"［半角コロン］で区切ります。訳語と訳語は通常 ","
+［半角コンマ］で区切ります。語義の差が大きいときは ";"［半角セミコロン］
+で区切ります。"［"と"］"［全角角括弧］の中には文法情報を，"【"と"】"
+［全角すみ付き括弧］の中には専門分野の略号を示しています。
+
+　訳語に代えて，同義語を示すことがあります。同義語は"="［半角等号］で
+始まります。これは，後者の語形がより一般的・日常的である，または，より
+望ましい語形であることを示します。
+
+［例］tungsten/o:【化】=volframo
+
+　また，同義語を示す場合に"=>"［半角等号と半角不等号（より大）］を付け
+ることがあります。これは，前者の語形を避けて，後者の語形の使用を勧める
+ことを示しています。
+
+［例］blank/rus/o:=>beloruso
+
+　訳語の後に，同義語を"="［半角等号］で示すことがあります。この場合は
+どちらも使用される語形であることを示します。
+
+［例］stomak/inflam/o:【病】胃炎,=gastrito
+　　　stomakit/o:【病】胃炎,=stomakinflamo
+
+　訳語の後に，関連語・類義語を">>"［半角不等号（より大）２つ］で，反対
+語・対義語を"><"［半角不等号（より大）と（より小）］で示しました。
+
+［例］pozitiv/a:積極的な・・・;>>aktiva,><negativa
+
+※表記：字上符付きの文字は，c^, g^, h^, j^, s^, u^ のように代用表記を
+　　　　しています。
+　
+
+================
+　公認語根情報
+================
+　エスペラント・アカデミーオが公認している語根には {Ｏ} の印を付けてい
+ます。また公認語根のうち，学習者の便宜のために定められた基礎語根には 
+{Ｂ}の印を付けています。公認語根は世界各国のすべてのエスペラント辞書に
+収録されており，初学者にはまずこれらの語根の使用に習熟することをお薦め
+します。
+　　　　{Ｏ}：公認語根
+　　　　{Ｂ}：公認基礎語根
+
+　なお，比較的新しく使用されるようになった語根には，次のような記号を
+付けています。前後の説明無しに使用すると，相手に理解されない可能性が
+高いので気をつけてください。
+　　　 《Ｎ》：新語（neologismo）
+  
+
+================
+　　品詞情報
+================
+［自］　自動詞
+［他］　他動詞
+［形］　形容詞
+［副］　副詞
+［代］　代名詞
+［前］　前置詞
+［接］　接続詞
+［間］　間投詞
+［擬］　擬態語・擬音語
+［略］　略語
+ 
+※これら品詞情報のない語で，"〜/o"で終わるものは名詞，"〜/a"で終わるも
+　のは形容詞，"〜/e"で終わるものは副詞，"〜/i"で終わるものは動詞です。
+  
+
+================
+ 専門分野略記号
+================
+　以下のような略語で用語の専門分野を表しています。
+
+【医】　医学                       【修】　修辞学
+【Ｅ】　エスペラント 　　　　　　　【商】　商業
+【印】　印刷                       【情】　情報科学
+【運】　運動・スポーツ             【植】　植物・植物学
+【映】　映画　　　　               【織】　織物
+【園】　園芸                       【心】　心理学
+【カ】　カトリック                 【神】　神学・神話
+【化】　化学                       【人名】人名
+【果】　果実      　　　           【数】　数学
+【菓】　菓子　　　　　　　　　　　 【政】　政治
+【貨】　通貨・貨幣　               【聖】　聖書
+【解】　解剖学・人体               【生】　生物学
+【海】　海事・船舶                 【声】　音声学
+【貝】　貝類                       【単】　単位
+【学】　学術 　　　　　　　　　　　【地質】地質学
+【楽】　音楽                       【地名】地名
+【環】　環境問題                   【地理】地理学
+【キ】　キリスト教                 【虫】　昆虫
+【機】　機械                       【鳥】　鳥類
+【気】　気象                       【通】　通信
+【魚】　魚類                       【哲】　哲学
+【菌】　菌類                       【鉄】　鉄道
+【空】　航空                       【天】　天文学
+【軍】　軍事                       【電】　電気
+【経】　経済                       【統】　統計学
+【芸】　芸術                       【動】　動物学
+【劇】　演劇　　　　　　　　　　　 【日】　日本事情
+【建】　建築                       【農】　農学
+【古生】古生物　　　　　　　　　　 【馬】　馬術
+【古地名】古地名                   【美】　美術
+【語】　言語学                     【病】　病名・病理学
+【光】　光学                       【服】　服飾・織物
+【交】　交通　　　　　　　　　　　 【仏】　仏教
+【鉱】　鉱物学                     【文】　文学・詩歌
+【考古】考古学                     【法】　法律
+【国名】国名                       【薬】　薬学
+【史】　歴史                       【遊】　遊戯・ゲーム
+【Ｇ】　文法                       【理】　物理学
+【写】　写真      　　　　　　　　 【料】　料理
+【車】　自動車                     【論】　論理学
+【社】　社会学                     【イ】　イスラム
+【宗】　宗教
+　
+
+================
+ その他の略記号
+================
+
+《転》　転義
+《般》　一般語・日常語
+《稀》　稀な用法
+《詩》　詩語
+《廃》　廃用語
+《古》　古語
+《俗》　俗語
+《誤》　誤用
+  
+
+================
+ 造語法の活用例
+================
+　接頭辞・接尾辞を活用した造語の例を次に示します。エスペラントでは，論
+理的・実際的に意味が通じる限り，これらの造語を自由に行うことができます。
+造語法の活用により，エスペラントでは少数の語根から豊かな表現をすること
+が可能になっています。
+
+（例）san/a 健康な
+      san/e 健康で                   mal/san/a 病気の
+      san/ej/o 療養所                mal/san/e 病気で
+      san/o 健康                     mal/san/o 病気
+      san/ig/i 健康にする            mal/san/ig/i 病気にする
+      san/ig/a 健康増進の            mal/san/ig/a 健康に悪い
+      san/ig/il/o 健康増進剤         mal/san/em/a 病気がちの
+      san/ig/ist/o 健康法唱道者      mal/san/et/a 気分が悪い
+      re/san/ig/i 治療する           mal/san/et/o 軽い病気
+      re/san/ig/a 治療用の           mal/san/ig^/i 病気になる
+      re/san/ig/ej/o 保養所          mal/san/ul/o 病人
+      re/san/ig/il/o 治療薬          mal/san/ul/ej/o 病院
+      re/san/ig^/i 病気がなおる      re/mal/san/ig^/o 病気の再発
+      re/san/ig^/o 健康回復          san/eg/a, san/ul/o, ...
+ 
+
+==============
+ 　覚え書き
+==============
+1. 訳語の動植物名は原則としてカタカナで表記しています。
+　　* 動植物名（属）は同属の総称であることを示します。
+　　* 動植物名（科）は同科の総称であることを示します。
+　　* 動植物名（種）は種を指す名称であることを示します。 
+［例］alte/o:{Ｏ}【植】タチアオイ（立葵）（属）
+
+2. 合成語で子音が連続して発音が難しいときは、語根の間に"o"を（意味的に必要
+　ならば"a"，"e"，"i"を）任意に入れることができます。
+［例］gast/c^ambr/o:客間
+　　　gast/o/c^ambr/o:客間
+ 
+
+==============
+ 　謝　　辞
+==============
+　次の方々からは有益なコメントをいただきました。ここにお名前を記して感謝の
+意を表します。（たまに物忘れをします。もれている方はご容赦を！）
+
+　新井さん，柴山純一さん，釼持建作さん，温泉川美喜雄さん，島谷剛さん，
+　山野敏夫さん, Dongさん，いんみ〜さん，守屋さん，Shinopyさん，
+　べぞなーたさん，Diletantoさん，島田信洋さん, MIZUNO Mitsukoさん, 
+　verbumさん, 道広勇司さん, sunarboさん, kawagoeさん, belmontoさん, 
+　碁盤鮫さん
+
+==============
+ 使用上の注意
+==============
+　以下の条件に留意してください。
+(1) この辞書ファイルの内容については，正確を期して作成しましたが，誤り
+　を含んでいる可能性は否定できません。利用者の責任において使用してくだ
+　さい。
+(2) この辞書ファイルの再配布や転載は非商業的利用に限り自由かつ無料です
+　が，必ず辞書本体（pejvo.txt）と説明書（gvidilo.txt, legumin.txt）の３
+　つのファイルを一緒にしてください。
+　　なお再配布や転載に際して，辞書形式をPDIC形式やJIS-X4081(EPWING)形
+　式などに変換したり，エンコードや圧縮形式を変更してもかまいません。
+　ただし，この場合，元辞書ファイルをどう変更したかを明記しておいてくだ
+　さい。
+(3) この辞書についての問合せ・バグレポートは，編者あてに電子メールを
+　送ってください。
+  
+　　　　電子メール宛て先：hirotk-m(c^e)nifty.com 
+　
+
+==============
+   改版履歴
+==============
+2017-01-30：第１.８１版公開　４４１０４項目
+2010-10-30：第１.８版公開　４２３５１項目
+2009-09-30：第１.７版公開　３９０５１項目
+2008-03-22：第１.６版公開　３５７３７項目
+2007-06-30：第１.５版公開　３３３００項目
+2006-10-09：第１.４版公開　３０８８６項目
+2006-05-10：第１.３版公開　２８６９６項目
+2005-12-15：第１.２版公開　２６０２４項目
+2005-07-10：第１.１版公開　２４１０６項目
+　　　　　　辞書形式の一部変更（行末の半角カッコ"]"を廃止）
+2000-09-21：第１版公開 　　２２３１３語
+2000-05-05：β５版公開 　　１９９３８語
+1999-09-18：β４版公開 　　１５６４８語
+1999-05-17：β３版公開 　　１２５０１語
+1998-09-15：β２版公開 　　１０１６５語
+1998-09-01：β１版公開 　　　７５４３語
+  
+
+===
+
+
+*komenco de la esperanta versio
++---------------------------------------------------------------------+
+        Praktika Esperanto-Japana Vortareto.   Ver 1.81
+        --- Kiel uzi la vortareton? ---
++---------------------------------------------------------------------+
+
+Antau^parolo
+
+En 1995 mi publikigis malgrandan elektronikan vortaron esperanto-
+japanan kun 4710 kapvortoj.  En 1997 mi kune kun 16 kolegoj kompilis 
+kaj publikigis la unuan version (kaj la lastan, bedau^rinde) de la 
+Plena Elektronika Vorto-Listo Esperanto-Japana (PEVL) kun 15657 
+kapvortoj, kiu estis siatempe unu el la plej grandaj elektronikaj 
+vortaroj de Esperanto.
+
+Pro tiamaj cirkonstancoj oni registris kiel kapvortojn de PEVL nur 
+radikojn de PIV (1970, SAT) sed ne derivaj^ojn nek kunmetaj^ojn, nek 
+vortokombinojn.
+
+Intertempe mi sentis bezonon de pli utilan vortaron uzeblan en 
+komputilo.  Mi pensas, ke utilecoj de la elektronika vortaro estas 
+jenaj:
+
+1) G^i registras plej multajn vortojn derivitajn, kunmetitajn kaj 
+kombinitajn el la oficialaj radikoj.
+2) G^i registras vortojn uzatajn en la interreto kaj en komputado.
+3) G^i registras vortojn uzatajn en aktualaj novaj^oj.
+4) G^i registras fakajn vortojn uzatajn en la lernolibroj por 
+mezlernejanoj.
+5) G^i indikas vortojn samsignifajn, kontrau^signifajn kaj parencajn.
+
+Lau^ tiuj c^i principoj mi komencis kaj dau^rigas kompiladon de la 
+Praktika Esperanto-Japana Vortareto (PEJV) ekde 1998.
+
+PIV (1970 kaj 2002) kaj aliaj grandaj vortaroj registras multajn 
+novajn (neoficialajn) radikojn, kiuj estas tre fakaj kaj ne necesaj 
+por ordinaraj lingvouzantoj.  Kelkaj radikoj estas tro eu^ropecaj 
+sen iaj meritoj por neeu^ropaj lingvouzantoj.  Mi registris ankau^ 
+tiajn radikojn, sed samtempe strebis doni samsignifajn kunmetaj^ojn 
+el oficialaj radikoj.
+
+Mi celas tion, ke tiu c^i vortareto registru lau^eble multajn vortojn 
+sufic^e tau^gajn (kvante kaj kvalite) por ke japanaj esperantistoj 
+sin esprimi en c^iutaga lingvouzo.
+
+En 2000 mi publikigis la unuan eldonon de PEJV kun 22313 kapvortoj.  
+G^i estis bonvenigata de multaj uzantoj, kies dankvortoj tre 
+kurag^igis min.  Kelkaj samideanoj instigis min pliampleksigi la 
+vortareton per mankantaj vortoj kaj donis konsilojn.  Post kvinjara 
+ripozado mi rekomencis kompiladon de la vortareto, aldonante vortojn 
+kaj reviziante tradukojn.
+
+Nun la vortareto estas survoje al la dua eldono, kiu okazos espereble 
+post du au^ tri jaroj.  G^is tiam, de tempo al tempo, mi publikigos 
+provizorajn eldonojn por ke mi povu observi reagojn de la uzantoj.
+Viaj komentoj kaj proponoj estas bonvenaj. Antau^dankon!
+
+2017-01-30
+
+                                         HIROTAKA Masaaki 
+ 
+
+====================
+  pri la kapvortoj
+====================
+Tiu c^i eldono enhavas 44102 kapvortojn, kiuj estas ne nur 
+radikvortoj, sed ankau^ derivaj^oj, kunmetaj^oj kaj vortokombinoj.  
+G^i entenas c^iujn el la 4953 oficialaj radikoj de la Akademio de 
+Esperanto.
+ 
+
+====================
+Arang^o de la linioj
+====================
+Tiu c^i vortareto celas esti traktebla per komputila programo.  G^i 
+konsistas el linioj finig^antaj per linifinilo(¥n).  Unu linio 
+enhavas unu kapvorton.
+
+[ekz] aer/o:空気(¥n)
+
+Unu linio konsistas el esperanta kapvorto kaj japanlingvaj 
+tradukvortoj.
+
+      midasig/o:【専】訳語,訳語
+
+"/" [oblikva streko] en kapvorto montras dividon inter radikoj.
+Okaze de plurnombraj formoj de o-vortoj kaj a-vortoj, kaj okaze de 
+akuzativaj formoj de o-vortoj kaj a-vortoj mi ne dividis la 
+kunmetitajn finaj^ojn.
+
+[ekz] Balt/aj s^tat/oj:【地名】バルト諸国
+      Bon/an maten/on!:［間］おはよう！
+
+"-" [streketo] antau^ au^ post kapvorto signifas, ke la vorto estas 
+prefikso au^ sufikso.
+
+":" [dupunkto] dividas linion en kapvorton kaj tradukon.
+"," [komo] dividas la tradukon en samsignifajn tradukvortojn.
+";" [punktokomo] dividas la tradukon en malsamsignifajn tradukvortojn.
+Literoj inter "［" kaj "］" [plurbajtaj rektaj krampoj sjis-816D, 
+sjis-816E] indikas gramatikan informon de la kapvorto.
+Literoj inter "【" kaj "】" [plurbajtaj konkavaj krampoj sjis-8179, 
+sjis-817A] indikas fakon.
+
+Foje samsignifa esperanta vorto metig^as anstatau^ japanlingva 
+tradukvorto.  La samsignifa vorto prenas antau^ si "=" [egalsigno].
+Tiu c^i arang^o montras, ke la donita samsignifa vorto estas 
+preferata au^ pli ofte uzata.
+
+[ekz] hardvar/o:【情】=aparataro
+
+Foje la samsignifa vorto prenas antau^ si "=>" [egalsigno + 
+pliosigno].  Tiu c^i arang^o montras, ke la formo de la kapvorto 
+estas evitinda, kaj ke la donita samsignifa vorto estas preferinda.
+
+[ekz] tungsten/o:【化】=>volframo
+
+Foje samsignifa vorto aperas post japanlingva tradukvorto.  Tiu c^i 
+arang^o montras, ke ambau^ formoj estas uzataj.
+
+[ekz] stomak/inflam/o:【病】胃炎,=gastrito
+      stomakit/o:【病】胃炎,=stomakinflamo
+
+Foje post japanlingvaj tradukvortoj aperas sencoparencaj vortoj kun 
+">>" [du pliosignoj] kaj kontrau^signifa vorto kun "><" [pliosigno + 
+malpliosigno].
+
+[ekz] pozitiv/a:積極的な......;>>aktiva,><negativa
+
+* Por montri supersignitajn literojn estas skribite "c^, g^, h^, j^, 
+s^, u^" [kun cirkumflekso postmetita].
+ 
+
+====================
+ oficialeco
+====================
+Mi markis per "{Ｏ}" c^iun oficialan radikon en baza formo registrita 
+de la Akademio de Esperanto.
+Mi markis per "{Ｂ}" c^iun vorton el la Baza Radikaro Oficiala (1974).
+Tiuj c^i oficialaj radikoj estas registritaj en c^iuj Esperanto-
+vortaroj en la mondo.  Tial mi rekomendas al lernantoj unue 
+alkutimig^i al uzado de tiuj c^i oficialaj bazaj radikoj.
+
+    {Ｏ} : oficiala radiko
+    {Ｂ} : oficiala baza radiko
+
+Mi markis per "《Ｎ》" nove enkondukitajn radikojn.  Estu singarda, 
+kiam vi uzos tiun radikon.  C^ar ne c^iuj lingvouzantoj rekonos la 
+novan radikon sen aldona klarigo.
+
+    《Ｎ》: neologismo
+ 
+
+====================
+ vortospecoj
+====================
+［自］: netransitiva verbo
+［他］: transitiva verbo
+［形］: adjektivo
+［副］: adverbo
+［代］: pronomo
+［前］: prepozicio
+［接］: konjunkcio
+［間］: ekkria vorteto
+［擬］: sonimito
+［略］: mallongigo
+ 
+Tiu vorto, kiu finig^as per ".../o" estas substantivo.
+Tiu vorto, kiu finig^as per ".../a" estas adjektivo.
+Tiu vorto, kiu finig^as per ".../e" estas adverbo.
+Tiu vortoj, kiu finig^as per ".../i" estas verbo.
+ 
+
+====================
+ fakindikoj
+====================
+C^iu el la c^i-subaj ideografiaj mallongigoj indikas fakon, en kiu 
+la koncerna vorto estas uzata.  (Verdire kelkaj vortoj kun fakindiko 
+ne estas fakaj terminoj.  Tiam la fakindiko montras simple uzkampon 
+de la vortoj.)
+
+【医】  medicino              【修】  retoriko
+【Ｅ】  Esperanto             【商】  komerco
+【印】  presado/tipografio    【情】  informscienco
+【運】  sporto                【植】  plantoj/botaniko
+【映】  kino                  【織】  teksaj^oj
+【園】  g^ardenkulturo        【心】  psikologio
+【カ】  Katolikismo           【神】  mitoj
+【化】  kemio                 【人名】homaj nomoj
+【果】  fruktoj               【数】  matematiko
+【菓】  kukoj                 【政】  politiko
+【貨】  monoj                 【聖】  Biblio 
+【解】  anatomio/homa korpo   【生】  biologio
+【海】  maraferoj/s^ipoj      【声】  fonetiko
+【貝】  konkoj                【単】  unuoj
+【学】  sciencoj              【地質】geologio 
+【楽】  muziko                【地名】loknomo
+【環】  mediproblemoj         【地理】geografio
+【キ】  Kristanismo           【虫】  insektoj
+【機】  tekniko/mekaniko      【鳥】  birdoj
+【気】  meteologio            【通】  telekomunikado
+【魚】  fis^oj                【哲】  filozofio
+【菌】  fungoj                【鉄】  fervojo
+【空】  aviado                【天】  astronomio
+【軍】  militarto             【電】  elektro
+【経】  ekonomio/financo      【統】  statistiko
+【芸】  artoj                 【動】  bestoj/zoologio
+【劇】  teatro                【日】  japanaj aferoj
+【建】  arkitekturo           【農】  agrikulturo/agronomio
+【古生】paleontologio         【馬】  rajdarto
+【古地名】malnovaj loknomoj   【美】  vidaj belartoj
+【語】  lingvoscienco         【病】  malsanoj/patologio
+【光】  optiko                【服】  vestoj
+【交】  trafiko               【仏】  Budhismo
+【鉱】  mineralogio           【文】  literaturo
+【考古】arkeologio            【法】  juro
+【国名】landnomo              【薬】  farmacio
+【史】  historio              【遊】  ludoj
+【Ｇ】  gramatiko             【理】  fiziko
+【写】  fotografio            【料】  kuirarto
+【車】  au^tomobiloj          【論】  logiko
+【社】  sociologio            【イ】  Islamo
+【宗】  religioj
+ 
+
+====================
+aliaj indikoj
+====================
+
+《転》  figura senco
+《般》  komunuza senco
+《稀》  malofta
+《詩》  poezia vorto
+《廃》  ne uzenda
+《古》  arkaismo
+《俗》  familiara
+《誤》  erara
+ 
+
+====================
+ vortfarado
+====================
+En Esperanto oni povas fari vortojn per libera kombinado de radikoj 
+kondic^e ke ili havas sencojn logike kaj praktike kompreneblajn.  
+Utiligante la vortfaradon, Esperanto-uzantoj povas ric^e sin esprimi 
+el malmulte da radikoj.  Tio c^i estas unu el la gravaj avantag^oj 
+de Esperanto.
+
+[ekz] san/a 健康な
+      san/e 健康で                   mal/san/a 病気の
+      san/ej/o 療養所                mal/san/e 病気で
+      san/o 健康                     mal/san/o 病気
+      san/ig/i 健康にする            mal/san/ig/i 病気にする
+      san/ig/a 健康増進の            mal/san/ig/a 健康に悪い
+      san/ig/il/o 健康増進剤         mal/san/em/a 病気がちの
+      san/ig/ist/o 健康法唱道者      mal/san/et/a 気分が悪い
+      re/san/ig/i 治療する           mal/san/et/o 軽い病気
+      re/san/ig/a 治療用の           mal/san/ig^/i 病気になる
+      re/san/ig/ej/o 保養所          mal/san/ul/o 病人
+      re/san/ig/il/o 治療薬          mal/san/ul/ej/o 病院
+      re/san/ig^/i 病気がなおる      re/mal/san/ig^/o 病気の再発
+      re/san/ig^/o 健康回復          san/eg/a, san/ul/o, ...
+ 
+
+====================
+   notoj
+====================
+1. La nomoj de bestoj kaj plantoj estas skribataj principe en strekaj 
+kanaoj.
+    * NOMO（属）: la nomo estas komuna nomo por la biologia genro.
+    * NOMO（科）: la nomo estas komuna nomo por la biologia familio.
+    * NOMO（種）: la nomo estas specifa nomo por la biologia specio.
+
+[ekz] alte/o:{Ｏ}【植】タチアオイ（立葵）（属）
+
+2. Kiam en vortfarado konsonantoj kunpus^ig^as kaj malfaciligas 
+prononcadon de kunmetaj^o, tiam oni povas arbitre enmeti la vokalon 
+"o" (au^ "a", "e", "i" lau^ bezonata senco) inter radikoj.
+
+[ekz] gast/c^ambr/o:客間
+      gast/o/c^ambr/o:客間
+ 
+
+====================
+  dankesprimo
+====================
+Jenaj personoj donis al mi utilajn komentojn.  Mi notas c^i tie 
+iliajn nomojn kaj esprimas mian koran dankon.  (Se mi forgesas mencii 
+ies nomon, bonvolu sciigi kaj pardoni min.)
+
+  新井さん, 柴山純一さん, 釼持建作さん, 温泉川美喜雄さん, 島谷剛さん, 
+  山野敏夫さん, Dongさん, いんみ〜さん, 守屋さん, Shinopyさん, 
+  べぞなーたさん, Diletantoさん，島田信洋さん, MIZUNO Mitsukoさん, 
+  verbumさん, 道広勇司さん, sunarboさん, kawagoeさん, belmontoさん, 
+  碁盤鮫さん
+  
+
+====================
+  rimarkoj
+====================
+La uzantoj bonvolu atenti jenajn kondic^ojn:
+1) Sen garantio: kvankam la kompilanto penis lau^eble forigi erarojn 
+el la vortareto, tamen povas esti, ke ankorau^ restas eraroj en g^i.  
+Oni uzu g^in lau^ sia propra jug^o kaj respondeco.
+2) Sen pago: oni povas libere kaj senpage uzi kaj redistribui la 
+vortareton escepte de komercaj uzoj.  Kiam oni disdonas g^in, nepre 
+kunpaku la tri dosierojn (pejvo.txt, gvidilo.txt, legumin.txt).
+Por plu disdoni la vortareton oni povas s^ang^i g^ian formaton en 
+aliajn formatojn adaptitajn al apartaj uzmanieroj (komputilaj 
+programoj).  Tiuokaze bonvolu noti la faritajn s^ang^ojn en iu 
+dokumento.
+3) Se vi trovis eraron en la vortareto, au^ se vi volas kontakti 
+la kompilanton, turnu vin al jena adreso:
+
+        retpos^ta adreso: hirotk-m(c^e)nifty.com 
+  
+
+====================
+   historio
+====================
+2017-01-30：Versio 1,81 kun 44104 linioj
+2010-10-30: Versio 1,8 kun 42351 linioj
+2009-09-30: Versio 1,7 kun 39051 linioj
+2008-03-22: Versio 1,6 kun 35737 linioj
+2007-06-30: Versio 1,5 kun 33300 linioj
+2006-10-09: Versio 1,4 kun 30886 linioj
+2006-05-10: Versio 1,3 kun 28696 linioj
+2005-12-15: Versio 1,2 kun 26024 linioj
+2005-07-10: Versio 1,1 kun 24106 linioj
+2000-09-21: Versio 1,0 kun 22313 vortoj
+2000-05-05: Versio 0,5 kun 19938 vortoj
+1999-09-18: Versio 0,4 kun 15648 vortoj
+1999-05-17: Versio 0,3 kun 12501 vortoj
+1998-09-15: Versio 0,2 kun 10165 vortoj
+1998-09-01: Versio 0,1 kun  7543 vortoj
+ 
+
+===
+*fino de la esperanta versio
