@@ -24,7 +24,7 @@ function convert_json(){
 	OUTPUT_FILE=$2
 	echo -e "[" > "${OUTPUT_FILE}"
 	cat "${INPUT_FILE}" | perl -p -e 's/^([^:]+):(.*)$/["\1","\2"],/' >> "${OUTPUT_FILE}"
-	sed -i '$s/.$//' "${OUTPUT_FILE}"	# 末尾の','を除去する
+	sed -i '$s/.$//' "${OUTPUT_FILE}"	# 末尾の','を除去する // macosxでは動かない
 	echo -e "]" >> "${OUTPUT_FILE}"
 }
 

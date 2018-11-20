@@ -1,0 +1,33 @@
+legumin.txt
+-------------------------------------------------------------------------
+   Praktika Esperanto-Japana Vortareto.  Ver.1.81 (provizora 2a eldono)
+-------------------------------------------------------------------------
+
+   Tiu c^i vortareto estas la posteulo de "Elektronika Baza Vortaro 
+Esperanto-Japana", kiu aperis en la jaro 1996 kun c^. 4700 kapvortoj.
+G^i nun enhavas c^. 44 100 kapvortojn.   Mi planas, ke g^i kresku g^is 
+la amplekso de c^. 50 000 kapvortoj.   Jen tio c^i estas la sepa pas^o 
+al la dua eldono oficiala.
+
+   La uzantoj bonvolu atenti jenajn kondic^ojn:
+(1) Sen garantio: kvankam la kompilanto penis lau^eble forigi erarojn 
+   el la vortareto, tamen povas esti, ke ankorau^ restas eraroj en g^i.  
+   Oni uzu g^in lau^ sia propra jug^o kaj respondeco.
+(2) Sen pago: oni povas libere kaj senpage uzi kaj redistribui la 
+   vortareton escepte de komercaj uzoj.  Kiam oni disdonas g^in, nepre 
+   kunpaku la tri dosierojn (pejvo.txt, gvidilo.txt, legumin.txt).
+   Por plu disdoni la vortareton oni povas s^ang^i g^ian formaton en 
+   aliajn formatojn adaptitajn al apartaj uzmanieroj (komputilaj 
+   programoj).  Tiuokaze bonvolu noti la faritajn s^ang^ojn en iu 
+   dokumento.
+(3) Se vi trovis eraron en la vortareto, au^ se vi volas kontakti 
+   la kompilanton, turnu vin al la suba adreso:
+
+   Notu, ke mi uzas "Shift-JIS"-kodaron por la japanlingva parto.
+
+   2017.01.30
+
+                           HIROTAKA Masaaki  <hirotk-m(c^e)nifty.com>
+
+=====
+
