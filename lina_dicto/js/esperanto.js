@@ -158,8 +158,7 @@ module.exports = class Esperanto{
 		return null;
 	}
 
-	/** @brief max 交換する文字の最大数 */
-	static castle_char_pairs_mask_(src, mask, max)
+	static castle_char_pairs_mask_(src, mask)
 	{
 		let dst = '';
 		let i_char = 0;
@@ -171,7 +170,7 @@ module.exports = class Esperanto{
 				pair = Esperanto.castle_char_pairs_inline_(src, i_char);
 			}
 
-			if(change < max && null != pair){
+			if(null != pair){
 				change++;
 				dst += pair[1];
 				i_char += pair[0].length;
@@ -184,7 +183,21 @@ module.exports = class Esperanto{
 		return dst;
 	}
 
-	static get_candidates_of_castle_char_pairs_(str){
+	static get_count_bit_(mask)
+	{
+		let count = 0;
+		for(let i = 1; i < mask; i = i << 1){
+			if(0 != (mask & i)){
+				count++;
+			}
+		}
+
+		return count;
+	}
+
+
+	static get_candidates_of_castle_char_pairs_(str)
+	{
 		//! 2文字以上の変換を含む文字の交換castle
 		//! 音の近い文字の交換
 		// 字形の近い文字の交換も必要？
@@ -196,7 +209,10 @@ module.exports = class Esperanto{
 		for(let i = 1; i < n_mask; i++){
 			const mask = i;
 			//! 最大3文字まで交換する
-			const dst = Esperanto.castle_char_pairs_mask_(str, mask, 3);
+			if(3 < Esperanto.get_count_bit_(mask)){
+				continue;
+			}
+			const dst = Esperanto.castle_char_pairs_mask_(str, mask);
 			if(dst != str){
 				cands.push(dst);
 			}

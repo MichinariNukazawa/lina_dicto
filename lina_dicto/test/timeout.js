@@ -171,3 +171,18 @@ it ("Linad.getResponsesFromKeystring timeout", function(done) {
 
 }).timeout(1000);
 
+it ("Linad.getResponsesFromKeystring timeout 02", function(done) {
+	// マッチしないwordの後にマッチするwordを繋げると遅くなる
+	const datas = [
+		// 'c^u vi estas lingvon esperanto'
+		['c^u vi estas lingvo--- esperanto',		{}],
+		['lingvo--- esperanto',				{}],
+	];
+	for(let i = 0; i < datas.length; i++){
+		let res;
+		res = Linad.getResponsesFromKeystring(dictionary_handle, datas[i][0]);
+	}
+
+	done();
+}).timeout(1500);
+
