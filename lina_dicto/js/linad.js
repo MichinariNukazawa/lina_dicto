@@ -129,13 +129,16 @@ module.exports = class Linad{
 	{
 		let response = Linad.createResponse_(Language.get_code(), keyword);
 
-		const candidates = Esperanto.get_verbo_candidates(keyword);
+		let candidates = Esperanto.get_verbo_candidates(keyword);
+		if(keyword.startsWith('mal')){
+			candidates.push(keyword.slice(3));
+		}
 		for(const candidate of candidates){
 			const item = Dictionary.query_item_from_keyword(dictionary_handle, candidate);
 			if(item){
 				response.matching_keyword	= candidate;
 				response.keyword_modify_src	= keyword;
-				response.keyword_modify_kind	= 'radiko match (esperanto verbo rule)';
+				response.keyword_modify_kind	= 'radiko match';
 				response.radiko_items.push(item);
 				return response;
 			}

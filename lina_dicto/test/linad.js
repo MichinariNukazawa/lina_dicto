@@ -118,16 +118,22 @@ it ("getResponsesFromKeystring Radiko verbo match", function() {
 	Linad.initialize(function(){
 
 	const datas = [
-		['estas', {keyword_modify_src: 'estas', matching_keyword: 'esti'}],
+		['estas',	1, {keyword_modify_src: 'estas',		matching_keyword: 'esti'}],
+		['mallingvo',	1, {keyword_modify_src: 'mallingvo',		matching_keyword: 'lingvo'}],
+		// ** mal 先頭マッチでkeyword優先できていることを確認
+		// マラバル海岸（インド）
+		['malabaro',	0, {keyword_modify_src: null,			matching_keyword: 'malabaro'}],
+		// 左の, 左翼の, 左派の
+		['maldekstra',	0, {keyword_modify_src: null,			matching_keyword: 'maldekstra'}],
 	];
 	for(let i = 0; i < datas.length; i++){
 		let res;
 		res = Linad.getResponsesFromKeystring(dictionary_handle, datas[i][0]);
 		//console.log('##keystr', datas[i][0], res);
 		assert(1		== res.length);
-		assert(1		== res[0].radiko_items.length);
-		assert(datas[i][1].keyword_modify_src		== res[0].keyword_modify_src);
-		assert(datas[i][1].matching_keyword		== res[0].matching_keyword);
+		assert(datas[i][1]	== res[0].radiko_items.length);
+		assert(datas[i][2].keyword_modify_src		== res[0].keyword_modify_src);
+		assert(datas[i][2].matching_keyword		== res[0].matching_keyword);
 	}
 
 	});
