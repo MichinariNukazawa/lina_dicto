@@ -79,13 +79,13 @@ it ("getResponsesFromKeystring", function() {
 		['bonan matenon.', ['bonan matenon']],
 		['SukeraSparo', ['Sukera','Sparo']],
 		['SukeraSparo', ['Sukera','Sparo']],
-		['Kio estas', ['Kio', 'estas']], // bug ['Kio estas'(もしかして:'tio estas'), 'c^i', 'tio']
-		['Kio estas c^i tio.', ['Kio', 'estas', 'c^i tio']], // bug ['Kio estas'(もしかして:'tio estas'), 'c^i', 'tio']
+		['Kio estas', ['Kio', 'esti']], // bug ['Kio estas'(もしかして:'tio estas'), 'c^i', 'tio']
+		['Kio estas c^i tio.', ['Kio', 'esti', 'c^i tio']], // bug ['Kio estas'(もしかして:'tio estas'), 'c^i', 'tio']
 		// ['cxi tio.', ['cxi tio']], //! @todo sistemo対応
 		['1024', ['1024']],
 		['-1024', ['-1024']],
 		['100eno', ['100', 'eno']],
-		['Brasiko estas 100enoj', ['Brasiko', 'estas', '100', 'enoj']],
+		['Brasiko estas 100enoj', ['Brasiko', 'esti', '100', 'enoj']],
 		//['SukeraSparoのスペースにPanoを持ってくると', ['Sukera', 'Sparo', 'の', 'スペース', 'に', 'Pano', 'を持ってくると']],
 		// ここの出力はkuromoziに依存
 		['SukeraSparoのスペースにPanoを持ってくると', ["Sukera","Sparo","の","スペース","に","Pano","を","持って","くる","と"]],
@@ -106,6 +106,28 @@ it ("getResponsesFromKeystring", function() {
 		for(let t = 0; t < datas[i][1].length; t++){
 			assert(datas[i][1][t] === res[t].matching_keyword);
 		}
+	}
+
+	});
+});
+
+it ("getResponsesFromKeystring Radiko verbo match", function() {
+	var dictionary_handle;
+	dictionary_handle = Dictionary.init_dictionary(dictionary_data);
+
+	Linad.initialize(function(){
+
+	const datas = [
+		['estas', {keyword_modify_src: 'estas', matching_keyword: 'esti'}],
+	];
+	for(let i = 0; i < datas.length; i++){
+		let res;
+		res = Linad.getResponsesFromKeystring(dictionary_handle, datas[i][0]);
+		//console.log('##keystr', datas[i][0], res);
+		assert(1		== res.length);
+		assert(1		== res[0].radiko_items.length);
+		assert(datas[i][1].keyword_modify_src		== res[0].keyword_modify_src);
+		assert(datas[i][1].matching_keyword		== res[0].matching_keyword);
 	}
 
 	});

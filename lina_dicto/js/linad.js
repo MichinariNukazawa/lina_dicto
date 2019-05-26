@@ -34,6 +34,7 @@ module.exports = class Linad{
 		response.matching_keyword = matching_keyword;	//! 検索キーワード
 		response.match_items = [];		//! esperanto/日本語検索 マッチ項目
 		response.glosses = [];			//! 日本語検索失敗時 もしかして日本語単語
+		response.radiko_items = [];		//! esperanto一致検索失敗時 語根マッチ項目
 		response.candidate_items = [];		//! esperanto検索失敗時 もしかして項目
 
 		//! 元検索キーワード(検索キーワードを変形させてマッチした場合の入力文字)
@@ -117,6 +118,30 @@ module.exports = class Linad{
 			return response;
 		}
 
+		return null;
+	}
+
+	/** @brief 語根推定マッチを返す
+	(エスペラントの品詞変換ルールから語根に品詞語尾を付けるなどの変換をしてみてマッチを試す)
+	@param keyword 単語のみ
+	*/
+	static getResponseSearchKeywordRadikoNearMatch_(dictionary_handle, keyword)
+	{
+		let response = Linad.createResponse_(Language.get_code(), keyword);
+
+		const candidates = Esperanto.get_verbo_candidates(keyword);
+		for(const candidate of candidates){
+			const item = Dictionary.query_item_from_keyword(dictionary_handle, candidate);
+			if(item){
+				response.matching_keyword	= candidate;
+				response.keyword_modify_src	= keyword;
+				response.keyword_modify_kind	= 'radiko match (esperanto verbo rule)';
+				response.radiko_items.push(item);
+				return response;
+			}
+		}
+
+		// マッチしなかった
 		return null;
 	}
 
@@ -337,6 +362,20 @@ module.exports = class Linad{
 						head += countJoinWord;
 						break;
 					}
+				}
+			}
+
+			if(! response){
+				// 語根推定マッチ
+				// 単語マッチのみでkeyword連結はしない
+				// eoのみ
+				if(Esperanto.is_esperanto_string(words[head])){
+					response = Linad.getResponseSearchKeywordRadikoNearMatch_(dictionary_handle, words[head]);
+				}
+
+				if(response){
+					// マッチした
+					head += 1;
 				}
 			}
 

@@ -202,7 +202,10 @@ function create_string_main_element(response)
 	let response_string_main_element = document.createElement('div');
 	response_string_main_element.classList.add('timeline__item__response__string__main');
 
-	const items = response.match_items;
+	let items = response.match_items;
+	if(0 == items.length){
+		items = response.radiko_items;
+	}
 	let main_text;
 	if(Language.get_code() === response.lang){
 		// esp
