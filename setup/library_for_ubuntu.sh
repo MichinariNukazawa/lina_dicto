@@ -17,7 +17,7 @@ if type npm 2>/dev/null 1>/dev/null ; then
 else
 	# sudo apt install npm -y
 	sudo apt install curl -y
-	curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+	curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 	sudo apt install -y nodejs
 fi
 
