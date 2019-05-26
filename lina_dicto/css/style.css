@@ -26,12 +26,21 @@ div#query-area
 	padding-bottom: 85px;		/* #query-area + マージン */
 }
 
-/** ex."kio estas cxi tio" */
-.timeline__item__query__string{
+.timeline__item__query{
 	margin: 3px;
-	border-left: solid 7px rgba(0, 170, 0, 1);
 	background-size: cover;
 	background-color: rgba(255, 255, 255, 0.25);
+}
+
+/** ex."kio estas cxi tio" */
+.timeline__item__query__string{
+	border-left: solid 7px rgba(0, 170, 0, 1);
+}
+
+/** ex. if single word and word converting " -> `esti` of radiko match" */
+.timeline__item__query__sub-string{
+	font-size:40%;
+	font-family: Consolas, 'Courier New', Courier, Monaco, monospace;
 }
 
 /** ex. "cxi tio" */

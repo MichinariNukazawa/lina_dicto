@@ -143,19 +143,23 @@ function get_window_height()
 	return height;
 }
 
-function get_query_element(query_text)
+function get_query_element(query_text, sub_text)
 {
 	// elementの生成
 	let query_element = document.createElement('div');
 	query_element.classList.add('timeline__item__query');
 	let query_icon_element = document.createElement('div');
 	query_icon_element.classList.add('timeline__item__query__icon');
-	let query_string_element = document.createElement('div');
+	let query_string_element = document.createElement('span');
 	query_string_element.classList.add('timeline__item__query__string');
+	let query_sub_string_element = document.createElement('span');
+	query_sub_string_element.classList.add('timeline__item__query__sub-string');
 	query_element.appendChild(query_icon_element);
 	query_element.appendChild(query_string_element);
+	query_element.appendChild(query_sub_string_element);
 
 	query_string_element.textContent = query_text;
+	query_sub_string_element.textContent = sub_text;
 
 	return query_element;
 }
@@ -349,10 +353,6 @@ function get_new_timeline_item_element_from_keyword(keyword)
 {
 	timeline_item_id++;
 
-	// 表示文字列の生成と挿入
-	let query_text = "`" + keyword + "`";
-	query_text = Esperanto.convert_alfabeto_from_caret_sistemo(query_text);
-
 	let responses = Linad.getResponsesFromKeystring(dictionary_handle, keyword);
 
 	// elementの生成
@@ -361,7 +361,15 @@ function get_new_timeline_item_element_from_keyword(keyword)
 	let timeline_item_id_str = "timeline__item_" + timeline_item_id;
 	timeline_item_element.id = timeline_item_id_str;
 
-	let query_element = get_query_element(query_text);
+	// 表示文字列の生成と挿入
+	let query_text = "`" + keyword + "`";
+	query_text = Esperanto.convert_alfabeto_from_caret_sistemo(query_text);
+	let sub_str = '';
+	if(1 == responses.length && null !== responses[0].keyword_modify_kind){
+		sub_str = ' -> `' + responses[0].matching_keyword + '` of ' + responses[0].keyword_modify_kind;
+	}
+	let query_element = get_query_element(query_text, sub_str);
+
 	let responses_element = get_responses_element(responses);
 
 	// elementの挿入
@@ -462,7 +470,7 @@ function query_input_element()
 		timeline_item_element.classList.add('timeline__item');
 
 		let query_text = "`" + keyword + "`";
-		let query_element = get_query_element(query_text);
+		let query_element = get_query_element(query_text, null);
 
 		let responses_element = document.createElement('div');
 		responses_element.classList.add('timeline__item__response');
