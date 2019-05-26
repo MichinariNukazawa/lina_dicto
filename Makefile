@@ -27,9 +27,13 @@ dictionary:
 	cd lina_dicto && bash ./dictionary/esperanto/gen_dictionary.sh
 
 .PHONY: package package_desktop
-package: test package_desktop
+package: package_desktop
 
 package_desktop:
+	rm -rf lina_dicto/node_modules
+	#cd lina_dicto && npm install # audit command depend npm version 6
+	cd lina_dicto && npm install && npm audit fix
+	make test
 	bash ./release/installer_win32_x64.sh
 	bash ./release/installer_darwin.sh
 	bash ./release/installer_debian.sh
