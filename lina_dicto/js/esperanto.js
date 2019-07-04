@@ -94,7 +94,14 @@ module.exports = class Esperanto{
 	/** @brief 動詞語尾変換候補一覧があれば返す */
 	static get_verbo_candidates(str)
 	{
-		let candidates = [];
+		const finajxoj = [
+			"i",
+			"as",
+			"is",
+			"os",
+			"us",
+			"u"
+		];
 
 		let radico = null;
 		if(/.+i$/.test(str)){
@@ -115,22 +122,15 @@ module.exports = class Esperanto{
 			return [];
 		}
 
-		let list = [
-			"i",
-			"as",
-			"is",
-			"os",
-			"us",
-			"u",
-			""
-		];
-		for(let i = 0; i < list.length; i++){
-			let cant = radico + list[i];
+		let candidates = [];
+		for(let i = 0; i < finajxoj.length; i++){
+			let cant = radico + finajxoj[i];
 			if(cant === str){
 				continue;
 			}
 			candidates.push(cant);
 		}
+		candidates.push(radico); // 原形を追加
 
 		return candidates;
 	}
