@@ -43,7 +43,9 @@ And please contact.
 
 # Other variation
 [lina\_dicto for android](https://github.com/MichinariNukazawa/lina_dicto_for_android)  
+[lina\_dicto for ios](https://github.com/MichinariNukazawa/lina_dicto_for_ios)  
 [lina\_dicto for webextension](https://github.com/MichinariNukazawa/lina_dicto_for_webextension)  
+[lina\_dicto english](https://github.com/MichinariNukazawa/lina_dicto_english)  
 
 # Develop
 ## Project goal
