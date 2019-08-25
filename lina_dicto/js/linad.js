@@ -408,7 +408,8 @@ module.exports = class Linad{
 
 			if(! response){
 				// 最後までマッチしなかった
-				response = Linad.createResponse_(Language.get_code(), words[head]);
+				const lang_code = (Esperanto.is_esperanto_string(words[head]) ? Language.get_code() : "ja");
+				response = Linad.createResponse_(lang_code, words[head]);
 				head++;
 			}
 

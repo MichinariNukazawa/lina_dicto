@@ -5,6 +5,15 @@ var assert = require("power-assert"); // assertモジュールのinclude
 const Esperanto = require('../js/esperanto');
 const EsperantoJa = require('../js/esperanto-ja');
 
+it ("is_esperanto_string", function() {
+	assert(Esperanto.is_esperanto_string("bona"));
+	assert(Esperanto.is_esperanto_string("voc^o"));
+	assert(Esperanto.is_esperanto_string("vocxo"));
+	assert(Esperanto.is_esperanto_string("voĉo"));
+	assert(false === Esperanto.is_esperanto_string("恋愛関係"));
+	assert(false === Esperanto.is_esperanto_string("相合傘"));
+});
+
 it ("caret_sistemo_from_str", function() {
 	assert("aaa" === Esperanto.caret_sistemo_from_str("aaa"));
 	assert("voc^o" === Esperanto.caret_sistemo_from_str("voc^o"));
