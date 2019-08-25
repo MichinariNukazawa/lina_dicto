@@ -30,6 +30,7 @@ Win/Mac/Linux対応。
 
 # Download
 [Download for latest release](https://github.com/MichinariNukazawa/lina_dicto/releases)  
+
 <img src="document/image/download_link.png" width="500">  
 
 # 辞書データについて
