@@ -94,8 +94,10 @@ module.exports = class Esperanto{
 	/** @brief 動詞語尾変換候補一覧があれば返す */
 	static get_verbo_candidates(str)
 	{
+		// `不定形動詞(-i), 名詞(-o)の優先順とした。(estas -> esti)
 		const finajxoj = [
 			"i",
+			"o",
 			"as",
 			"is",
 			"os",
@@ -103,34 +105,27 @@ module.exports = class Esperanto{
 			"u"
 		];
 
-		let radico = null;
-		if(/.+i$/.test(str)){
-			radico = str.slice(0, -1);
-		}else if(/.+as$/.test(str)){
-			radico = str.slice(0, -2);
-		}else if(/.+is$/.test(str)){
-			radico = str.slice(0, -2);
-		}else if(/.+os$/.test(str)){
-			radico = str.slice(0, -2);
-		}else if(/.+us$/.test(str)){
-			radico = str.slice(0, -2);
-		}else if(/.+u$/.test(str)){
-			radico = str.slice(0, -1);
+		let radikalo = null;
+		for(const finajxo of finajxoj){
+			if(str.endsWith(finajxo)){
+				radikalo = str.slice(0, -1 * finajxo.length);
+				break;
+			}
 		}
 
-		if(null === radico){
+		if(null === radikalo){
 			return [];
 		}
 
 		let candidates = [];
-		for(let i = 0; i < finajxoj.length; i++){
-			let cant = radico + finajxoj[i];
+		for(const finajxo of finajxoj){
+			const cant = radikalo + finajxo;
 			if(cant === str){
 				continue;
 			}
 			candidates.push(cant);
 		}
-		candidates.push(radico); // 原形を追加
+		candidates.push(radikalo);
 
 		return candidates;
 	}
