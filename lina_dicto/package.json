@@ -38,17 +38,17 @@
   "dependencies": {
     "about-window": "^1.13.1",
     "kuromoji": "^0.1.2",
-    "npm-check-updates": "^3.1.21",
     "write-int": "0.0.2"
   },
   "devDependencies": {
     "babel": "^6.23.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-register": "^6.26.0",
-    "electron": "^6.0.4",
-    "electron-installer-debian": "^2.0.0",
-    "electron-packager": "^14.0.4",
+    "electron": "^6.0.10",
+    "electron-installer-debian": "^2.0.1",
+    "electron-packager": "^14.0.6",
     "intelli-espower-loader": "^1.0.1",
+    "npm-check-updates": "^3.1.23",
     "mocha": "^6.2.0",
     "power-assert": "^1.6.1",
     "spectron": "^8.0.0"
