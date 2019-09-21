@@ -51,11 +51,10 @@ var template = [
 	label: '&Edit',
 	submenu: [
 	{
+		// キーボード・ショートカット表示用のダミー(js/index.js onloadにて処理)
 		label: '&Paste',
 		accelerator: 'CmdOrCtrl+V',
-		click: function (item, focusedWindow) {
-			// キーボード・ショートカット表示用のダミー(js/index.js onloadにて処理)
-		}
+		selector: "paste:"
 	},
 	{type: 'separator'},
 	{
