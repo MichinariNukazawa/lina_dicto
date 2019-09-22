@@ -13,7 +13,7 @@ let history = new History();
 var timeline_item_id = 0;
 let dictionary_handle = null;
 
-window.onload = function(e){
+window.addEventListener("load", function(){
 
 	let dictionary_data = dictionary_loader();
 	dictionary_handle = Dictionary.init_dictionary(dictionary_data);
@@ -65,7 +65,7 @@ window.onload = function(e){
 			}
 		}
 	});
-}
+}, false)
 
 var query_input_default = {
 	'input_height':-1,
