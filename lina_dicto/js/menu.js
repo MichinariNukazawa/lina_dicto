@@ -41,6 +41,36 @@ var template = [
 	label: '&File',
 	submenu: [
 	{
+		label: 'Reset Preference',
+		click: function () {
+			if(! confirm_dialog('Preference', 'Delete?')){
+				console.debug("cancel.");
+			}else{
+				console.debug("Delete Preference File do.");
+				message_dialog('info', "Delete Preference File", Preference.delete_preference());
+			}
+		}
+	},
+	{
+		label: 'Preference',
+		accelerator: 'CmdOrCtrl+P',
+		click: function (){
+			const filepath = Preference.get_filepath();
+			const fileex = require('./js/fileex');
+			if(! fileex.is_exist_file(filepath)){
+				message_dialog('warning', 'Open Preference File', 'preference is not exist.');
+			}else{
+				require('electron').shell.openExternal(
+						"file://" + Preference.get_filepath(),
+						true,
+						function(err){
+							message_dialog("Open Preference File", err.message);
+						});
+			}
+		}
+	},
+	{type: 'separator'},
+	{
 		label: '&Quit',
 		accelerator: 'CmdOrCtrl+Q',
 		role: 'close'

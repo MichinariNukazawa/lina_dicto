@@ -1,5 +1,6 @@
 'use strict';
 
+const Preference = require('./js/preference');
 var extension = new Extension();
 const Platform = require('./js/platform');
 // const Language = new Language();
@@ -65,6 +66,26 @@ window.addEventListener("load", function(){
 			}
 		}
 	});
+
+	// ユーザ設定を読み込む
+	Preference.init();
+	const pref = Preference.get_preference();
+
+	if(0 != pref.webfont01.length){
+		let webfontURL = pref.webfont01;
+		let newStyle = document.createElement('style');
+		newStyle.appendChild(document.createTextNode(
+			"@font-face {"
+			+ " font-family: 'webfont01';"
+			+ " src: url('" + webfontURL + "');"
+			+ " src: url('" + webfontURL + "') format('woff');"
+			+ " src: url('" + webfontURL + "') format('truetype');"
+			+ " }"
+		));
+		//newStyle.appendChild(document.createTextNode("body{font-family: 'webfont01';}"));
+		newStyle.appendChild(document.createTextNode("#timeline{font-family: 'webfont01';}"));
+		document.head.appendChild(newStyle);
+	}
 }, false)
 
 var query_input_default = {
