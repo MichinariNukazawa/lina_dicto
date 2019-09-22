@@ -11,7 +11,7 @@ var menu = new Menu();
 
 function message_dialog(strtype, strtitle, strmessage) {
 	const {dialog} = require('electron').remote;
-	dialog.showMessageBox(
+	dialog.showMessageBoxSync(
 			remote.getCurrentWindow(),
 			{
 				type: strtype,
@@ -23,7 +23,7 @@ function message_dialog(strtype, strtitle, strmessage) {
 
 function confirm_dialog(strtitle, strmessage) {
 	const {dialog} = require('electron').remote;
-	let choice = dialog.showMessageBox(
+	let choice = dialog.showMessageBoxSync(
 			remote.getCurrentWindow(),
 			{
 				type: 'question',
