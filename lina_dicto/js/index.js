@@ -399,6 +399,7 @@ function get_response_element(response, is_display_keyword)
 	response_string_element.appendChild(response_string_sub_element);
 	if(response.sub_text){ // is match
 		let response_string_sub_element_juriamo_assign = document.createElement('div');
+		response_string_sub_element_juriamo_assign.classList.add('timeline__item__response__string__sub__juriamo_assign');
 		response_string_sub_element_juriamo_assign.classList.add('juriamo_assign');
 		let t = response_string_sub_element.textContent;
 		t = juriamo_str_from_content(t);
@@ -440,6 +441,7 @@ function get_new_timeline_item_element_from_keyword(keyword)
 	{
 		let t = juriamo_str_from_content(query_element.textContent);
 		let juriamo_element = document.createElement('div');
+		juriamo_element.classList.add('timeline__item__query__string__juriamo_assign');
 		juriamo_element.classList.add('juriamo_assign');
 		juriamo_element.textContent = "Juriamo assign: `" + t + "`";
 		timeline_item_element.appendChild(juriamo_element);
