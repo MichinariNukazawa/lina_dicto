@@ -1,5 +1,5 @@
 {
-	"000-comment": "設定の変更は再起動後に適用されます。",
+	"000-comment": "設定の変更はアプリケーションの再起動後に適用されます。",
 	"is_visible_juriamo_assign": false,
 	"is_visible_juriamo_assign-comment": "`false`を`true`に書き換えることで、Juriamo assignを表示します。 ( http://sukerasparo.com/sp004/font.html )",
 	"webfont01": "",
