@@ -1,4 +1,7 @@
 {
+	"000-comment": "設定の変更は再起動後に適用されます。",
+	"is_visible_juriamo_assign": false,
+	"is_visible_juriamo_assign-comment": "`false`を`true`に書き換えることで、Juriamo assignを表示します。 ( http://sukerasparo.com/sp004/font.html )",
 	"webfont01": "",
 	"webfont01-comment0": "Webフォントを使用します。(例： https://dl.dropboxusercontent.com/s/5me44aeb19mxm6e/juliamo.woff )",
 	"webfont01-comment1": "ダウンロードしたフォントファイルを使用することも可能です。(例： file:///Users/MNukazawa/kotonoha_juliamofont/juliamo_game.ttf )"

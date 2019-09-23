@@ -72,6 +72,11 @@ window.addEventListener("load", function(){
 	Preference.init();
 	const pref = Preference.get_preference();
 
+	if(pref.is_visible_juriamo_assign){
+		let newStyle = document.createElement('style');
+		newStyle.appendChild(document.createTextNode(".juriamo_assign{display: inline;}"));
+		document.head.appendChild(newStyle);
+	}
 	if(0 != pref.webfont01.length){
 		let webfontURL = pref.webfont01;
 		let newStyle = document.createElement('style');
@@ -346,6 +351,15 @@ function create_string_sub_element(response)
 	return response_string_sub_element;
 }
 
+function juriamo_str_from_content(str){
+	let t = str;
+	t = Esperanto.caret_sistemo_from_str(t);
+	t = Esperanto.convert_alfabeto_from_caret_sistemo(t);
+	t = Juriamo.convert_juriamo_assign_from_alfabeto(t);
+	t = Juriamo.convert_juriamo_assign(t);
+	return t;
+}
+
 function get_response_element(response, is_display_keyword)
 {
 	let response_element = document.createElement('div');
@@ -367,6 +381,14 @@ function get_response_element(response, is_display_keyword)
 	response_element.appendChild(response_string_element);
 	response_string_element.appendChild(response_string_main_element);
 	response_string_element.appendChild(response_string_sub_element);
+	if(response.sub_text){ // is match
+		let response_string_sub_element_juriamo_assign = document.createElement('div');
+		response_string_sub_element_juriamo_assign.classList.add('juriamo_assign');
+		let t = response_string_sub_element.textContent;
+		t = juriamo_str_from_content(t);
+		response_string_sub_element_juriamo_assign.textContent = "Juriamo assign: `" + t + "`";
+		response_string_element.appendChild(response_string_sub_element_juriamo_assign);
+	}
 
 	return response_element;
 }
@@ -399,6 +421,13 @@ function get_new_timeline_item_element_from_keyword(keyword)
 
 	// elementの挿入
 	timeline_item_element.appendChild(query_element);
+	{
+		let t = juriamo_str_from_content(query_element.textContent);
+		let juriamo_element = document.createElement('div');
+		juriamo_element.classList.add('juriamo_assign');
+		juriamo_element.textContent = "Juriamo assign: `" + t + "`";
+		timeline_item_element.appendChild(juriamo_element);
+	}
 	timeline_item_element.appendChild(responses_element);
 
 	return timeline_item_element;

@@ -108,3 +108,8 @@ ex. "bona | Bonaero | bonaj^o"
 	cursor: pointer;	/* リンクカーソル */
 }
 
+.juriamo_assign{
+	display: none;
+	font-family: Consolas, 'Courier New', Courier, Monaco, monospace;
+}
+
