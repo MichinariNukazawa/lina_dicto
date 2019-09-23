@@ -3,7 +3,7 @@
 module.exports = class Preference{
 	static get_filepath(){
 		const fileex = require('./fileex');
-		return fileex.join(app.getPath('appData'), "preference.json");
+		return fileex.join(app.getPath('userData'), "preference.json");
 	}
 
 	static init(){
@@ -35,6 +35,11 @@ module.exports = class Preference{
 			return "delete error:\n" + err.message;
 		}
 		return "success.";
+	}
+
+	static get_filepath_user_css(){
+		const fileex = require('./fileex');
+		return fileex.join(app.getPath('userData'), "user.css");
 	}
 }
 

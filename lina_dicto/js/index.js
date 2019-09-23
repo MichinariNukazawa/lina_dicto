@@ -93,6 +93,17 @@ window.addEventListener("load", function(){
 			newStyle.appendChild(document.createTextNode("#timeline{font-family: 'webfont01';}"));
 			document.head.appendChild(newStyle);
 		}
+
+		// user CSS 設定の読み込み
+		const fileex = require('./js/fileex');
+
+		if(fileex.is_exist_file(Preference.get_filepath_user_css())){
+			console.log("user CSS `" + Preference.get_filepath_user_css() + "`");
+			const usercss = fileex.read_textfile(Preference.get_filepath_user_css());
+			let newStyle = document.createElement('style');
+			newStyle.appendChild(document.createTextNode(usercss));
+			document.head.appendChild(newStyle);
+		}
 	}catch(err){
 		message_dialog('error', 'user preference error', "user preference load error:\n" + err.message)
 	}

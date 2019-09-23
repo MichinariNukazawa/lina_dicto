@@ -41,6 +41,27 @@ var template = [
 	label: '&File',
 	submenu: [
 	{
+		label: 'User CSS',
+		click: function (){
+			const filepath = Preference.get_filepath_user_css();
+			const fileex = require('./js/fileex');
+			if(! fileex.is_exist_file(filepath)){
+				try{
+					fileex.touch(filepath);
+				}catch(err){
+					message_dialog('error', "Open User CSS File", err.message);
+					return;
+				}
+			}
+			require('electron').shell.openExternal(
+					"file://" + filepath,
+					true,
+					function(err){
+						message_dialog('error', "Open User CSS File", err.message);
+					});
+		}
+	},
+	{
 		label: 'Reset Preference',
 		click: function () {
 			if(! confirm_dialog('Preference', 'Delete?')){
@@ -64,7 +85,7 @@ var template = [
 						"file://" + Preference.get_filepath(),
 						true,
 						function(err){
-							message_dialog("Open Preference File", err.message);
+							message_dialog('error', "Open Preference File", err.message);
 						});
 			}
 		}
@@ -211,7 +232,7 @@ var template = [
 						"file://" + history.get_filepath(),
 						true,
 						function(err){
-							message_dialog("Open History File", err.message);
+							message_dialog('error', "Open History File", err.message);
 						});
 			}
 		}
