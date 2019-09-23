@@ -27,6 +27,10 @@ Win/Mac/Linux対応。
 - 複数のエスペラント代用表記に対応(^-sistemo x-sistemo alfabeto)
 - 検索履歴
   - 検索履歴をファイルへ自動保存(簡易統計機能あり)
+- ユリアーモ( http://sukerasparo.com/sp004/font.html )対応辞書として使える機能
+  - ユリアーモ割り当て文字列での検索に対応「ユリアーモ割り当て入力」
+  - ユリアーモ割り当てへの変換および表示を行う「ユリアーモ割り当て出力」
+  - 表示フォントをユーザ設定できる「Webフォント表示」(フォントファイルも対応) 
 
 # Download
 [Download for latest release](https://github.com/MichinariNukazawa/lina_dicto/releases)  
