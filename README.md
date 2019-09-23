@@ -31,6 +31,7 @@ Win/Mac/Linux対応。
   - ユリアーモ割り当て文字列での検索に対応「ユリアーモ割り当て入力」
   - ユリアーモ割り当てへの変換および表示を行う「ユリアーモ割り当て出力」
   - 表示フォントをユーザ設定できる「Webフォント表示」(フォントファイルも対応) 
+- カスタムスキン「User CSS」
 
 # Download
 [Download for latest release](https://github.com/MichinariNukazawa/lina_dicto/releases)  
@@ -89,31 +90,6 @@ Win64, MacOSX, Linux(deb).
 
 ## Depend
 nodejs, electron and other npm packages.  
-
-# Specification
-
-## Already implement
-- エス和辞書
- - インクリメンタルサーチ(検索候補表示)
- - 代用表現変換表示(^-sistemo)
- - 多代用表記対応(^-sistemo x-sistemo alfabeto)
- - 「もしかして」機能(スペルミス時の候補推定)
-- 和エス辞書
- - 候補推定(ミスヒット時の部分一致候補推定)
-- 簡易検索履歴
-- 文章検索(エスペラント文で検索を行うと、単語毎の検索結果を表示)
-- ボタン入力(もしかして機能による候補などをボタンで一発入力できる)
-- 検索履歴の保持
-
-## Todo
-- ユーザー設定スキン(ユーザ設定フォント)
-
-## Long Todo
-やるかどうかわからないものたち  
-- 語根表示(接頭辞・接尾辞解析)
-- 語根推定検索
-- 辞書編集機能(項目追加等)
-- 辞書選択機能(辞書追加)
 
 ## License
 Clause-2 BSD License  
