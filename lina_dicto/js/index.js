@@ -6,6 +6,7 @@ const Platform = require('./js/platform');
 // const Language = new Language();
 const Language = require('./js/language');
 const Esperanto = require('./js/esperanto');
+const Juriamo = require('./js/juriamo');
 const Dictionary = require('./js/dictionary');
 let dictionary = new Dictionary();
 const Linad = require('./js/linad');
@@ -372,8 +373,10 @@ function get_response_element(response, is_display_keyword)
 
 function get_new_timeline_item_element_from_keyword(keyword)
 {
-	timeline_item_id++;
+	keyword = Juriamo.convert_alfabeto_from_juriamo_assign(keyword);
+	keyword = Esperanto.caret_sistemo_from_str(keyword);
 
+	timeline_item_id++;
 	let responses = Linad.getResponsesFromKeystring(dictionary_handle, keyword);
 
 	// elementの生成
@@ -383,8 +386,9 @@ function get_new_timeline_item_element_from_keyword(keyword)
 	timeline_item_element.id = timeline_item_id_str;
 
 	// 表示文字列の生成と挿入
-	let query_text = "`" + keyword + "`";
+	let query_text = keyword;
 	query_text = Esperanto.convert_alfabeto_from_caret_sistemo(query_text);
+	query_text = "`" + query_text + "`";
 	let sub_str = '';
 	if(1 == responses.length && null !== responses[0].keyword_modify_kind){
 		sub_str = ' -> `' + responses[0].matching_keyword + '` of ' + responses[0].keyword_modify_kind;
@@ -477,8 +481,6 @@ function query_input_element()
 	let obj_input = document.getElementById('query-area__query-input__input');
 	let keyword = obj_input.value;
 	obj_input.value = "";
-
-	keyword = Esperanto.caret_sistemo_from_str(keyword);
 
 	if(/^\s*$/.test(keyword)){
 		return;
