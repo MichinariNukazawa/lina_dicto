@@ -69,29 +69,34 @@ window.addEventListener("load", function(){
 	});
 
 	// ユーザ設定を読み込む
-	Preference.init();
-	const pref = Preference.get_preference();
+	try{
+		Preference.init();
+		const pref = Preference.get_preference();
 
-	if(pref.is_visible_juriamo_assign){
-		let newStyle = document.createElement('style');
-		newStyle.appendChild(document.createTextNode(".juriamo_assign{display: inline;}"));
-		document.head.appendChild(newStyle);
+		if(pref.is_visible_juriamo_assign){
+			let newStyle = document.createElement('style');
+			newStyle.appendChild(document.createTextNode(".juriamo_assign{display: inline;}"));
+			document.head.appendChild(newStyle);
+		}
+		if(0 != pref.webfont01.length){
+			let webfontURL = pref.webfont01;
+			let newStyle = document.createElement('style');
+			newStyle.appendChild(document.createTextNode(
+				"@font-face {"
+				+ " font-family: 'webfont01';"
+				+ " src: url('" + webfontURL + "');"
+				+ " src: url('" + webfontURL + "') format('woff');"
+				+ " src: url('" + webfontURL + "') format('truetype');"
+				+ " }"
+			));
+			//newStyle.appendChild(document.createTextNode("body{font-family: 'webfont01';}"));
+			newStyle.appendChild(document.createTextNode("#timeline{font-family: 'webfont01';}"));
+			document.head.appendChild(newStyle);
+		}
+	}catch(err){
+		message_dialog('error', 'user preference error', "user preference load error:\n" + err.message)
 	}
-	if(0 != pref.webfont01.length){
-		let webfontURL = pref.webfont01;
-		let newStyle = document.createElement('style');
-		newStyle.appendChild(document.createTextNode(
-			"@font-face {"
-			+ " font-family: 'webfont01';"
-			+ " src: url('" + webfontURL + "');"
-			+ " src: url('" + webfontURL + "') format('woff');"
-			+ " src: url('" + webfontURL + "') format('truetype');"
-			+ " }"
-		));
-		//newStyle.appendChild(document.createTextNode("body{font-family: 'webfont01';}"));
-		newStyle.appendChild(document.createTextNode("#timeline{font-family: 'webfont01';}"));
-		document.head.appendChild(newStyle);
-	}
+
 }, false)
 
 var query_input_default = {
