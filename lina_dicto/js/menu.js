@@ -66,9 +66,14 @@ var template = [
 		click: function () {
 			if(! confirm_dialog('Preference', 'Delete?')){
 				console.debug("cancel.");
-			}else{
+				return;
+			}
+			try{
 				console.debug("Delete Preference File do.");
 				message_dialog('info', "Delete Preference File", Preference.delete_preference());
+				Preference.init();
+			}catch(err){
+				message_dialog('error', 'user preference error', "user preference error:\n" + err.message);
 			}
 		}
 	},

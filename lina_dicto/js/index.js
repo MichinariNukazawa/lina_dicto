@@ -106,7 +106,7 @@ window.addEventListener("load", function(){
 			document.head.appendChild(link);
 		}
 	}catch(err){
-		message_dialog('error', 'user preference error', "user preference load error:\n" + err.message)
+		message_dialog('error', 'user preference error', "user preference load error:\n" + err.message);
 	}
 
 }, false)
