@@ -75,7 +75,7 @@ window.addEventListener("load", function(){
 
 		if(pref.is_visible_juriamo_assign){
 			let newStyle = document.createElement('style');
-			newStyle.appendChild(document.createTextNode(".juriamo_assign{display: inline;}"));
+			newStyle.appendChild(document.createTextNode(".juriamo_assign{display: block;}"));
 			document.head.appendChild(newStyle);
 		}
 		if(0 != pref.webfont01.length){

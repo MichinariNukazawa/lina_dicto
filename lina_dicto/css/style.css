@@ -55,6 +55,10 @@ div#query-area
 	font-family: Consolas, 'Courier New', Courier, Monaco, monospace;
 }
 
+/** ex. "Juriamo assign: `Ｂｏｎａｎ ｍａｔｅｎｏｎ㍉`" */
+.timeline__item__response__string__sub__juriamo_assign{
+}
+
 #query-area{
 	background: rgba(190, 255, 190, 0.9);
 }
@@ -109,7 +113,8 @@ ex. "bona | Bonaero | bonaj^o"
 }
 
 .juriamo_assign{
-	display: none;
+	display: none; /* デフォルト非表示(設定で表示) */
+	font-size:40%;
 	font-family: Consolas, 'Courier New', Courier, Monaco, monospace;
 }
 
