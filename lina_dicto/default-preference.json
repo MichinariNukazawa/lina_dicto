@@ -1,10 +1,10 @@
 {
 	"000-comment": "設定の変更はアプリケーションの再起動後に適用されます。",
 	"is_visible_juriamo_assign": false,
-	"is_visible_juriamo_assign-comment": "`false`を`true`に書き換えることで、Juriamo assignを表示します。 ( http://sukerasparo.com/sp004/font.html )",
+	"is_visible_juriamo_assign-設定方法0": "`false`を`true`に書き換えることで、Juriamo assignを表示します。 ( http://sukerasparo.com/sp004/font.html )",
 	"webfont01": "",
-	"webfont01-comment0": "Webフォントを使用します。(例： https://dl.dropboxusercontent.com/s/5me44aeb19mxm6e/juliamo.woff )",
-	"webfont01-comment1": "ダウンロードしたフォントファイルを使用することも可能です。(例： file:///Users/MNukazawa/kotonoha_juliamofont/juliamo_game.ttf )",
-	"webfont01-comment2": "フォント設定機能についての疑問・問題については作者(Michinari Nukazawa)へ連絡ください。SukeraSparoおよびフォント提供元への問い合わせは行わないでください。"
+	"webfont01-設定方法0": "Webフォントを使用します。(例： https://dl.dropboxusercontent.com/s/5me44aeb19mxm6e/juliamo.woff )",
+	"webfont01-設定方法1": "ダウンロードしたフォントファイルを使用することも可能です。(例： file:///Users/MNukazawa/kotonoha_juliamofont/juliamo_game.ttf )",
+	"webfont01-設定方法2": "フォント設定機能についての疑問・問題については作者(Michinari Nukazawa)へ連絡ください。SukeraSparoおよびフォント提供元への問い合わせは行わないでください。"
 }
 
