@@ -99,10 +99,11 @@ window.addEventListener("load", function(){
 
 		if(fileex.is_exist_file(Preference.get_filepath_user_css())){
 			console.log("user CSS `" + Preference.get_filepath_user_css() + "`");
-			const usercss = fileex.read_textfile(Preference.get_filepath_user_css());
-			let newStyle = document.createElement('style');
-			newStyle.appendChild(document.createTextNode(usercss));
-			document.head.appendChild(newStyle);
+			let link = document.createElement('link');
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = Preference.get_filepath_user_css();
+			document.head.appendChild(link);
 		}
 	}catch(err){
 		message_dialog('error', 'user preference error', "user preference load error:\n" + err.message)
