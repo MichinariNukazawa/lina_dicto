@@ -64,6 +64,8 @@ module.exports = class Juriamo{
 			const ix = juriamo_chars.indexOf(sc);
 			if(-1 != ix){
 				dst += sc;
+			}else if(/[->!?+,.、。！？]/.test(sc)){
+				dst += sc;
 			}
 		}
 		return dst;
