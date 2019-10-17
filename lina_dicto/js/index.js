@@ -356,8 +356,9 @@ function create_string_sub_element(response)
 
 			response_string_sub_element.appendChild(document.createElement('br'));
 
+			const keyword = Esperanto.convert_alfabeto_from_caret_sistemo(response.matching_keyword);
 			let element = ExternalBrowser.create_onclick_google_translate(
-					response.matching_keyword, src_lang, dst_lang);
+					keyword, src_lang, dst_lang);
 			response_string_sub_element.appendChild(element);
 		}
 	}else{
