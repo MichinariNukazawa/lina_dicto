@@ -9,7 +9,8 @@ module.exports = class Preference{
 	static init(){
 		const fileex = require('./fileex');
 
-		const filepathDefaultPreference = 'default-preference.json';
+		const filepathDefaultPreference = fileex.join(__dirname, '../resource/default-preference.json');
+		console.log(filepathDefaultPreference);
 		const filepathPreference = Preference.get_filepath();
 		let defaultPreference	= fileex.read_json(filepathDefaultPreference);
 		let preference		= fileex.read_json(filepathPreference);

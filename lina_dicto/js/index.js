@@ -375,6 +375,7 @@ function juriamo_str_from_content(str){
 	t = Esperanto.convert_alfabeto_from_caret_sistemo(t);
 	t = Juriamo.convert_juriamo_assign_from_alfabeto(t);
 	t = Juriamo.convert_juriamo_assign(t);
+	t = t.replace(/[\s\t　]+/, ' ');
 	return t;
 }
 
@@ -403,8 +404,14 @@ function get_response_element(response, is_display_keyword)
 		let response_string_sub_element_juriamo_assign = document.createElement('div');
 		response_string_sub_element_juriamo_assign.classList.add('timeline__item__response__string__sub__juriamo_assign');
 		response_string_sub_element_juriamo_assign.classList.add('juriamo_assign');
-		let t = response_string_sub_element.textContent;
+		let t = response_keyword_element.textContent;
+		if(response.lang === 'ja'){
+			t = response_string_main_element.textContent;
+		}
 		t = juriamo_str_from_content(t);
+		if(null === t || 0 === t.length || /^[\s　]*$/.test(t)){
+			t = '(none)';
+		}
 		response_string_sub_element_juriamo_assign.textContent = "Juriamo assign: `" + t + "`";
 		response_string_element.appendChild(response_string_sub_element_juriamo_assign);
 	}
@@ -445,6 +452,9 @@ function get_new_timeline_item_element_from_keyword(keyword)
 		let juriamo_element = document.createElement('div');
 		juriamo_element.classList.add('timeline__item__query__string__juriamo_assign');
 		juriamo_element.classList.add('juriamo_assign');
+		if(null === t || 0 === t.length || /^[\s　]*$/.test(t)){
+			t = '(none)';
+		}
 		juriamo_element.textContent = "Juriamo assign: `" + t + "`";
 		timeline_item_element.appendChild(juriamo_element);
 	}
