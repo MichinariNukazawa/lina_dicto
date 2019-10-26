@@ -12,9 +12,6 @@ queryとresponse(検索キーワードと意味)は繰り返し登場するの�
 
  */
 
-body{
-	background: url("image/sky.png") center center / cover no-repeat fixed
-}
 
 #timeline{
 	/* タイムライン(検索履歴) */
