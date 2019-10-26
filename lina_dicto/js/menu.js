@@ -331,7 +331,7 @@ function insert_window_menu(){
 if (process.platform === 'darwin') {
 	insert_window_menu();
 
-	var name = require('electron').remote.app.getName()
+	var name = require('electron').remote.app.name;
 		template.unshift({
 			label: name,
 			submenu: [
