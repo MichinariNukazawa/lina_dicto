@@ -1,30 +1,34 @@
 @charset "utf-8";
 
-
-html, body{
-	margin: 0;         /* 余白の削除 */
-	padding: 0;        /* 余白の削除 */
-	width:100%;
-	height:100%;
-}
-
 html{
 	background: linear-gradient(-30deg, rgba(190, 255, 190, 1), rgba(215, 255, 215, 1));
 }
 body{
 	background: url("./image/sky.png") center center / cover no-repeat fixed
 }
+/* Text and background color for light mode */
+body {
+	color: #333;
+}
+
 body{
 	font-size:150%;
 }
 
+html, body{
+	margin: 0;				/* 余白の削除 */
+	padding: 0;				/* 余白の削除 */
+	width:100%;
+	height:100%;
+}
+
 div#query-area
 {
-	position: fixed;            /* フッターの固定 */
-	bottom: 0px;                /* 位置(下0px) */
-	left: 0px;                  /* 位置(左0px) */
-	width: 100%;                /* 横幅100%　*/
-	/*height: 140px;*/              /* 縦幅140px */
+	position: fixed;			/* フッターの固定 */
+	bottom: 0px;				/* 位置(下0px) */
+	left: 0px;				/* 位置(左0px) */
+	width: 100%;				/* 横幅100%　*/
+	/*height: 140px;*/			/* 縦幅140px */
 }
 
 #timeline{
@@ -51,7 +55,7 @@ div#query-area
 /** ex. "cxi tio" */
 .timeline__item__response__keyword{
 	margin-left: 3px;
-	border-left: solid 3px rgba(0, 170, 0, 0.5);
+	border-left: solid 3px rgba(0, 170, 0, 0.8);
 }
 
 /** ex. "`bon/a`:{Ｂ}良い,善良な,りっぱな" */
@@ -121,5 +125,25 @@ ex. "bona | Bonaero | bonaj^o"
 	display: none; /* デフォルト非表示(設定で表示) */
 	font-size:40%;
 	font-family: Consolas, 'Courier New', Courier, Monaco, monospace;
+}
+
+/* Text and background color for dark mode */
+@media (prefers-color-scheme: dark) {
+	body {
+		color: #ddd;
+		background-color: rgb(30, 33, 30);
+		font-family: Consolas, 'Courier New', Courier, Monaco, monospace;
+	}
+	.timeline__item__query{
+		background-color: rgba(0, 0, 0, 0.8);
+	}
+	#query-area__query-input__input{
+		color: #ddd;
+		background-color: rgba(60, 60, 60, 1);
+	}
+	#query-area__query-incrementals{
+		color: #ddd;
+		background-color: rgba(60, 60, 60, 1);
+	}
 }
 
