@@ -129,10 +129,16 @@ ex. "bona | Bonaero | bonaj^o"
 
 /* Text and background color for dark mode */
 @media (prefers-color-scheme: dark) {
+	html {
+		background-color: rgb(20, 33, 20);
+	}
 	body {
 		color: #ddd;
 		background-color: rgb(30, 33, 30);
 		font-family: Consolas, 'Courier New', Courier, Monaco, monospace;
+	}
+	#query-area{
+		background-color: rgba(33, 35, 33, 0.9);
 	}
 	.timeline__item__query{
 		background-color: rgba(0, 0, 0, 0.8);
