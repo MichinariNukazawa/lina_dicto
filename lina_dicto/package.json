@@ -44,7 +44,7 @@
     "babel": "^6.23.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-register": "^6.26.0",
-    "electron": "^7.1.2",
+    "electron": "^7.1.3",
     "electron-installer-debian": "^2.0.1",
     "electron-packager": "^14.1.1",
     "intelli-espower-loader": "^1.0.1",
