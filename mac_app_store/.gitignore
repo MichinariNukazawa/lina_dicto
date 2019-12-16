@@ -1,0 +1,7 @@
+
+# CertificateSigningRequest.certSigningRequest
+*certSigningRequest
+
+# mac_app.cer
+# mac_installer.cer
+*.cer

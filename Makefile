@@ -38,3 +38,8 @@ package_desktop:
 	bash ./release/installer_darwin.sh
 	bash ./release/installer_debian.sh
 
+macappstore:
+	sudo rm -rf lina_dicto/release/mas/
+	cd lina_dicto && npm install && npm run pack:mas
+	./mac_app_store/sign.sh
+

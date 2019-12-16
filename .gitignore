@@ -19,6 +19,7 @@ temp/
 gabage/
 work/
 log/
+obj/
 
 # object files
 *.d
@@ -55,4 +56,6 @@ node_modules/
 lina_dicto-*/
 release/
 lina_dicto/package-lock.json
+
+lina_dicto.pkg
 
