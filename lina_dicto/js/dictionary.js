@@ -165,6 +165,8 @@ module.exports = class Dictionary{
 	{
 		const keyword = keyword_
 				.replace(/\s+/g, ' ')		// 空白をまとめる
+				.replace(/^\s+/, '')		// 先頭の空白を除去
+				.replace(/\s+$/, '')		// 末尾の空白を除去
 				.toLowerCase()			// 全て小文字へ
 				.replace(/[^a-z^~]$/g, '')	// 記号等を取り除く 
 				;
