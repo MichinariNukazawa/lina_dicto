@@ -160,6 +160,18 @@ module.exports = class Dictionary{
 		return null;
 	}
 
+	/** @brief 検索用文字列へ変換 */
+	static normalize_query_keyword(keyword_)
+	{
+		const keyword = keyword_
+				.replace(/\s+/g, ' ')		// 空白をまとめる
+				.toLowerCase()			// 全て小文字へ
+				.replace(/[^a-z^~]$/g, '')	// 記号等を取り除く 
+				;
+
+		return keyword;
+	}
+
 	/** @brief エス和 完全一致検索 */
 	static query_item_from_keyword(handle, keyword_)
 	{
