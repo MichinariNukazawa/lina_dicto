@@ -46,7 +46,7 @@ describe('Application launch', function () {
 				.getText('#query-area__query-incrementals')
 				.then(function(text){
 					//console.log("##query-area__query-incrementals 1:", text)
-					assert(text === ''); // "Bonan matenon!"は入力し切ると候補がなくなる
+					assert(text === 'Bonan matenon!|Bonan nokton!|Bonan tagon!');
 				})
 				//.setValue('#query-area__query-input__input', "\n")
 				.keys("\uE007")
@@ -85,7 +85,7 @@ describe('Application launch', function () {
 				})
 				.getText('#query-area__query-incrementals')
 				.then(function(text){
-					assert(text === 'Bonan apetiton!|Bonan matenon!|Bonan nokton!');
+					assert(text === 'Bonan!|Bonan apetiton!|Bonan matenon!');
 				})
 				// ** input "matenon!"
 				.setValue('#query-area__query-input__input', "Bonan matenon!")
@@ -99,7 +99,7 @@ describe('Application launch', function () {
 				})
 				.getText('#query-area__query-incrementals')
 				.then(function(text){
-					assert(text === '');
+					assert(text === 'Bonan matenon!|Bonan nokton!|Bonan tagon!');
 				})
 				// ** Enter
 				.keys("\uE007")
