@@ -60,7 +60,7 @@ div#query-area
 
 /** ex. "`bon/a`:{Ｂ}良い,善良な,りっぱな" */
 .timeline__item__response__string__sub{
-	font-size:40%;
+	font-size: 50%;
 	font-family: Consolas, 'Courier New', Courier, Monaco, monospace;
 }
 
@@ -98,8 +98,8 @@ ex. "bona | Bonaero | bonaj^o"
 #query-area__query-incrementals{
 	margin-top:3px;
 	width:100%;
-	font-size:40%;
-	height:15px;
+	font-size:60%;
+	height:17px;
 	font-family: Consolas, 'Courier New', Courier, Monaco, monospace;
 	color: rgba(0, 40, 0, 0.7);
 }
