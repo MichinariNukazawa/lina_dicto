@@ -137,6 +137,21 @@ ex. "bona | Bonaero | bonaj^o"
 		background-color: rgb(30, 33, 30);
 		font-family: Consolas, 'Courier New', Courier, Monaco, monospace;
 	}
+
+
+	html{
+		background: rgb(20, 33, 20););
+	}
+	body{
+		background: url("./image/sky.png") center center / cover no-repeat fixed
+	}
+	/* Text and background color for light mode */
+	body {
+		color: #ddd;
+		background-color: rgb(30, 33, 30);
+		font-family: Consolas, 'Courier New', Courier, Monaco, monospace;
+	}
+
 	#query-area{
 		background-color: rgba(33, 35, 33, 0.9);
 	}
