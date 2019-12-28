@@ -129,18 +129,8 @@ ex. "bona | Bonaero | bonaj^o"
 
 /* Text and background color for dark mode */
 @media (prefers-color-scheme: dark) {
-	html {
-		background-color: rgb(20, 33, 20);
-	}
-	body {
-		color: #ddd;
-		background-color: rgb(30, 33, 30);
-		font-family: Consolas, 'Courier New', Courier, Monaco, monospace;
-	}
-
-
 	html{
-		background: rgb(20, 33, 20););
+		background: rgb(20, 21, 20);
 	}
 	body{
 		background: url("./image/sky.png") center center / cover no-repeat fixed
@@ -148,7 +138,7 @@ ex. "bona | Bonaero | bonaj^o"
 	/* Text and background color for light mode */
 	body {
 		color: #ddd;
-		background-color: rgb(30, 33, 30);
+		background-color: rgb(20, 21, 20);
 		font-family: Consolas, 'Courier New', Courier, Monaco, monospace;
 	}
 
@@ -160,11 +150,11 @@ ex. "bona | Bonaero | bonaj^o"
 	}
 	#query-area__query-input__input{
 		color: #ddd;
-		background-color: rgba(60, 60, 60, 1);
+		background-color: rgba(40, 40, 40, 1);
 	}
 	#query-area__query-incrementals{
 		color: #ddd;
-		background-color: rgba(60, 60, 60, 1);
+		background-color: rgba(40, 40, 40, 1);
 	}
 }
 
