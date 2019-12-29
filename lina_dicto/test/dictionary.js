@@ -37,5 +37,8 @@ it ("dictionary", function() {
 	item = Dictionary.get_item_from_index(dictionary_handle, indexes[0]);
 	assert(null !== item);
 	assert("amrilato" === Dictionary.get_show_word_from_item(dictionary_handle, item));
+
+	// ** fix query match
+	assert(1 === Dictionary.query_indexes_from_jakeyword(dictionary_handle, "赤").length);
 });
 
