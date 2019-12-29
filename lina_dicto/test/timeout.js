@@ -129,15 +129,15 @@ it ("Dictionary.query_glosses_info_from_jakeyword timeout", function(done) {
 	const JA_TO_EO_DICT_DATAS = [
 		['そろばん',		{'count': 1, 'matchs':['abak/o', 'glob/kalkul/il/o', 'japan/a abak/o']}],
 		['気づかい',		{'count': 1, 'matchs':['zorgo']}],
-		['心配',		{'count': 3, 'matchs':['maltrankvilo', 'timo', 'zorgo']}],
+		['心配',		{'count': 8, 'matchs':["心配げに","心配な","心配させる","心配する","心配","心配性の","心配そうに","心配の多い"]}],
 		['あああああ',		{'count': 0, 'matchs':[]}],
 		['ををををを',		{'count': 0, 'matchs':[]}],
 		['ーーーーー',		{'count': 0, 'matchs':[]}],
 		['あーーーーー',	{'count': 0, 'matchs':[]}],
-		['植物',		{'count': 3, 'matchs':['kresk/aj^/o', 'plant/ar/o', 'plant/o', 'veget/aj^/o', 'vegetal/o']}],
-		['恋',			{'count': 3}],
-		['愛',			{'count': 3}],
-		['恋愛',		{'count': 3}],
+		['植物',		{'count': 25, 'matchs':['kresk/aj^/o', 'plant/ar/o', 'plant/o', 'veget/aj^/o', 'vegetal/o']}],
+		['恋',			{'count': 17}],
+		['愛',			{'count': 25}],
+		['恋愛',		{'count': 4}],
 	];
 
 	const datas = JA_TO_EO_DICT_DATAS;

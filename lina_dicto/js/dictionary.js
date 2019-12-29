@@ -243,6 +243,7 @@ module.exports = class Dictionary{
 	/** @brief 和エス 部分一致検索 */
 	static query_glosses_info_from_jakeyword(handle, jakeyword_)
 	{
+		const MAX_DETECTION = 25;
 		let glosses_head = [];
 		let glosses_other = [];
 
@@ -266,15 +267,15 @@ module.exports = class Dictionary{
 						glosses_other.push(src_word);
 					}
 				}
-				if(3 <= glosses_head.length){
+				if(MAX_DETECTION <= glosses_head.length){
 					break;
 				}
 			}
 		}
 
 		let glosses = glosses_head.concat(glosses_other);
-		if(3 < glosses.length){
-			glosses.length = 3;
+		if(MAX_DETECTION < glosses.length){
+			glosses.length = MAX_DETECTION;
 		}
 
 		return glosses;
