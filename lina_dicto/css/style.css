@@ -133,7 +133,7 @@ ex. "bona | Bonaero | bonaj^o"
 		background: rgb(20, 21, 20);
 	}
 	body{
-		background: url("./image/sky.png") center center / cover no-repeat fixed
+		background: url("./image/sky-darkmode.png") center center / cover no-repeat fixed
 	}
 	/* Text and background color for light mode */
 	body {
