@@ -10,8 +10,8 @@ lina\_dicto は日本語/Esperanto変換を検索できる辞書アプリケー�
 Win/Mac/Linux対応。  
 [Android版(for Android)]( https://play.google.com/store/apps/details?id=com.michinari_nukazawa.app.lina_dicto_for_android )  
 
-<img width=800 alt="lina_dicto" src="document/image/lina_dicto_0.2.5.png">  
-<img width=300 alt="lina_dicto darkmode" src="document/image/lina_dicto_0.2.5_darkmode.png">  
+<img width=600 alt="lina_dicto" src="document/image/lina_dicto_0.2.5-thumb.png">  
+<img width=300 alt="lina_dicto darkmode" src="document/image/lina_dicto_0.2.5_darkmode-thumb.png">  
 
 ## アプリケーションの特徴
 - アプリケーション画面上で過去の検索結果が簡単に確認できる、タイムライン風のUI
