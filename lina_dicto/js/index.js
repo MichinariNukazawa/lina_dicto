@@ -424,7 +424,6 @@ function get_new_timeline_item_element_from_keyword(keyword)
 	keyword = Juriamo.convert_alfabeto_from_juriamo_assign(keyword);
 	keyword = Esperanto.caret_sistemo_from_str(keyword);
 
-	timeline_item_id++;
 	let responses = Linad.getResponsesFromKeystring(dictionary_handle, keyword);
 
 	// elementの生成
@@ -443,8 +442,6 @@ function get_new_timeline_item_element_from_keyword(keyword)
 	}
 	let query_element = get_query_element(query_text, sub_str);
 
-	let responses_element = get_responses_element(responses);
-
 	// elementの挿入
 	timeline_item_element.appendChild(query_element);
 	{
@@ -458,6 +455,8 @@ function get_new_timeline_item_element_from_keyword(keyword)
 		juriamo_element.textContent = "Juriamo assign: `" + t + "`";
 		timeline_item_element.appendChild(juriamo_element);
 	}
+
+	let responses_element = get_responses_element(responses);
 	timeline_item_element.appendChild(responses_element);
 
 	return timeline_item_element;
@@ -539,6 +538,28 @@ function update_query_input_element_datalist(keyword)
 
 		query_incrementals_element.appendChild(create_element_with_callback_input_replace(show_word));
 	}
+
+	//
+	let elem_bef = document.getElementById('timeline__item__incremental__preprint');
+	if(null !== elem_bef){
+		elem_bef.remove();
+	}
+
+	if(/^\s*$/.test(keyword)){
+		return;
+	}
+	if(keyword.startsWith(':')){
+		return;
+	}
+
+	if(-1 != index){
+		const item = Dictionary.get_item_from_index(dictionary_handle, index);
+		keyword = Dictionary.get_show_word_from_item(dictionary_handle, item);
+	}
+	let elem = add_timeline_item_element_from_keyword(keyword)
+	if(null !== elem){
+		elem.setAttribute("id", 'timeline__item__incremental__preprint');
+	}
 }
 
 function command(keyword)
@@ -571,9 +592,16 @@ function query_input_element()
 	obj_input.value = "";
 
 	if(/^\s*$/.test(keyword)){
-		return;
+		return null;
 	}
 
+	timeline_item_id++;
+	add_timeline_item_element_from_keyword(keyword);
+	history.append_keyword(keyword, null);
+}
+
+function add_timeline_item_element_from_keyword(keyword)
+{
 	let timeline_item_element = null;
 	let res = command(keyword);
 	if(null !== res){
@@ -593,8 +621,6 @@ function query_input_element()
 
 	}else{
 		timeline_item_element = get_new_timeline_item_element_from_keyword(keyword);
-
-		history.append_keyword(keyword, null);
 	}
 
 	let timeline_element = document.getElementById('timeline');
@@ -603,6 +629,8 @@ function query_input_element()
 	// 追加したtimeline_item(最下部)へスクロール
 	let positionY = timeline_item_element.offsetTop; // 変更点
 	scrollTo(0, positionY);
+
+	return timeline_item_element;
 }
 
 function on_keypress_by_query_input_element(e)

@@ -40,8 +40,15 @@ describe('Application launch', function () {
 				})
 				.getText('#timeline')
 				.then(function(text){
-					// console.log("##tiemline 1:", text);
-					assert(text === '');
+					assert(text.includes('おはよう'));
+				})
+				.isExisting('#timeline__item__incremental__preprint')
+				.then(function(res){
+					assert(res); // exist
+				})
+				.getText('#timeline__item__incremental__preprint')
+				.then(function(text){
+					assert(text.includes('おはよう'));
 				})
 				.getText('#query-area__query-incrementals')
 				.then(function(text){
@@ -60,6 +67,14 @@ describe('Application launch', function () {
 					// console.log("##tiemline 2:", text);
 					assert(0 != text.indexOf('Bonan matenon!'))
 					assert(0 != text.indexOf('おはよう'))
+				})
+				.isExisting('#timeline__item__incremental__preprint')
+				.then(function(res){
+					assert(! res); // not exist
+				})
+				.isExisting('#timeline__item_1')
+				.then(function(res){
+					assert(res);
 				})
 				.getText('#query-area__query-incrementals')
 				.then(function(text){
@@ -81,7 +96,11 @@ describe('Application launch', function () {
 				})
 				.getText('#timeline')
 				.then(function(text){
-					assert(text === '');
+					assert(text.includes('おはよう'));
+				})
+				.getText('#timeline__item__incremental__preprint')
+				.then(function(text){
+					assert(text.includes('おはよう'));
 				})
 				.getText('#query-area__query-incrementals')
 				.then(function(text){
@@ -95,7 +114,7 @@ describe('Application launch', function () {
 				})
 				.getText('#timeline')
 				.then(function(text){
-					assert(text === '');
+					assert(text.includes('おはよう'));
 				})
 				.getText('#query-area__query-incrementals')
 				.then(function(text){
