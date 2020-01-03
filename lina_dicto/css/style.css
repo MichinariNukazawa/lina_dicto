@@ -120,7 +120,7 @@ html, body{
 
 /* query icon button for lina_dicto_for_android */
 #query-area__query-input__button{
-	/* height:60px; */
+	height:60px;			/* == #query-area__query-input__input */
 	vertical-align: middle;
 	display:none;
 }

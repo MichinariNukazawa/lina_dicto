@@ -587,6 +587,11 @@ function query_input_element()
 		return;
 	}
 
+	let elem_bef = document.getElementById('timeline__item__incremental__preprint');
+	if(null !== elem_bef){
+		elem_bef.remove();
+	}
+
 	let obj_input = document.getElementById('query-area__query-input__input');
 	let keyword = obj_input.value;
 	obj_input.value = "";
