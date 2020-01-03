@@ -47,7 +47,7 @@ html, body{
  * **** */
 
 #timeline{
-	padding-bottom: calc((60px + 23px) + 10px);		/* #query-area + マージン */
+	padding-bottom: calc((60px + 23px) + 14px);		/* #query-area + マージン */
 }
 
 .timeline__item__query{
