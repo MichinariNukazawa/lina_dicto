@@ -40,5 +40,6 @@ it ("dictionary", function() {
 
 	// ** fix query match
 	assert(1 === Dictionary.query_indexes_from_jakeyword(dictionary_handle, "赤").length);
+	assert(1 === Dictionary.query_indexes_from_jakeyword(dictionary_handle, "赤色").length);
 });
 
