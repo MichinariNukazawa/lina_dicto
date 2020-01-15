@@ -70,6 +70,10 @@ window.addEventListener("load", function(){
 
 	// ユーザ設定を読み込む
 	try{
+		if('android' === Platform.get_platform_name()){
+			return;
+		}
+
 		Preference.init();
 		const pref = Preference.get_preference();
 
