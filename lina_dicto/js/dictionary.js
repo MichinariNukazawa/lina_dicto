@@ -88,27 +88,23 @@ module.exports = class Dictionary{
 
 	static init_edictionary_(handle, dictionary_data)
 	{
-		/*
-		let dict = dictionary_data;
+		let kvs = {};
+		const dict = dictionary_data;
 
 		const array_length = dict.length;
 		for (let i = 0; i < array_length; i++) {
 			//! 検索用keyword
-			dict[i][2] = dict[i][0]
-					.replace(/\//g, '')
-					.replace(/[^A-Za-z^~]$/g, '')
-					.toLowerCase()
-					;
+			const key = dict[i][2];
+			kvs[key] = i;
 
-			if(0 == i % 10000){
-				console.log("%d/%d: `%s`,`%s`",
-						i, array_length, dict[i][2], dict[i][0]);
-			}
+			//if(0 == i % 10000){
+			//	console.log("%d/%d: `%s`,`%s`",
+			//			i, array_length, dict[i][2], dict[i][0]);
+			//}
 		}
-		handle.dictionary = dict;
-		*/
 
-		handle.dictionary = dictionary_data;
+		handle.dictionary = dict;
+		handle.kvs = kvs;
 	}
 
 	static init_dictionary(dictionary_data)
@@ -187,6 +183,14 @@ module.exports = class Dictionary{
 				.replace(/[^A-Za-z^~]$/g, '')
 				;
 
+		const kvs = handle.kvs[keyword];
+		if(kvs){
+			return handle.dictionary[kvs];
+		}else{
+			return null;
+		}
+
+		/*
 		const dict = handle.dictionary;
 		const len = dict.length;
 		for (let i = 0; i < len; i++) {
@@ -194,6 +198,7 @@ module.exports = class Dictionary{
 				return dict[i];
 			}
 		}
+		*/
 
 		return null;
 	}
