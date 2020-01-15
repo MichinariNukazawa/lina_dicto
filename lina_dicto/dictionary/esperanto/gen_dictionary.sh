@@ -47,6 +47,7 @@ popd
 rm -rf w_dict/
 
 node conv_pejvo_dictionary.js
+node conv_pejvo_dictionary_extend.js
 
 popd
 

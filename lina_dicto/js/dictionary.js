@@ -88,6 +88,7 @@ module.exports = class Dictionary{
 
 	static init_edictionary_(handle, dictionary_data)
 	{
+		/*
 		let dict = dictionary_data;
 
 		const array_length = dict.length;
@@ -104,8 +105,10 @@ module.exports = class Dictionary{
 						i, array_length, dict[i][2], dict[i][0]);
 			}
 		}
-
 		handle.dictionary = dict;
+		*/
+
+		handle.dictionary = dictionary_data;
 	}
 
 	static init_dictionary(dictionary_data)
