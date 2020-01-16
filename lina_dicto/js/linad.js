@@ -273,6 +273,38 @@ module.exports = class Linad{
 		return words;
 	}
 
+	static getResponseSearchKeywordPrefiSufiMatch_(dictionary_handle, keyword)
+	{
+		if(! /^[^\-].*[^\-]$/.test(keyword)){
+			return null;
+		}
+
+		let response;
+
+		// 1wordかつ接頭辞・接尾辞で引いていない（'-'がついていない)eoの場合のみ、
+		// 接頭辞・接尾辞の補完検索を行う
+		response = Linad.getResponseSearchKeywordFullMatch_(dictionary_handle, keyword + '-');
+		if(response){
+			response.keyword_modify_src = keyword;
+			response.keyword_modify_kind = 'is prefikso';
+			return response;
+		}
+		response = Linad.getResponseSearchKeywordFullMatch_(dictionary_handle, '-' + keyword);
+		if(response){
+			response.keyword_modify_src = keyword;
+			response.keyword_modify_kind = 'is sufikso';
+			return response;
+		}
+		response = Linad.getResponseSearchKeywordFullMatch_(dictionary_handle, '-' + keyword + '-');
+		if(response){
+			response.keyword_modify_src = keyword;
+			response.keyword_modify_kind = 'is sufikso';
+			return response;
+		}
+
+		return null;
+	}
+
 	static getResponsesFromKeystring(dictionary_handle, keystring)
 	{
 		let responses = [];
@@ -364,6 +396,24 @@ module.exports = class Linad{
 						// マッチした
 						head += countJoinWord;
 						break;
+					}
+				}
+			}
+
+			{
+				// 接頭辞・接尾辞の補完検索 '-{word}-' を行う
+				// 語根推定マッチより先にやらないと'us'が'i'でマッチしてしまうなどが起こる
+				const isMKw = ((response) && (0 !== response.match_items.length || 0 !== response.radiko_items.length));
+
+				if(!isMKw){
+					// 一致検索でマッチしていない場合に、
+					// 接頭辞・接尾辞で引いていない（'-'がついていない)eoの場合のみ、
+					// 接頭辞・接尾辞の補完検索を行う
+					response = Linad.getResponseSearchKeywordPrefiSufiMatch_(dictionary_handle, words[head]);
+					if(response){
+						head++;
+						responses.push(response);
+						continue;
 					}
 				}
 			}

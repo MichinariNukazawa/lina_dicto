@@ -176,11 +176,11 @@ module.exports = class Dictionary{
 	/** @brief エス和 完全一致検索 */
 	static query_item_from_keyword(handle, keyword_)
 	{
-		// 代用表記以外の末尾の記号を取り除く
+		// 代用表記と'-'以外の末尾の記号を取り除く
 		// 大文字小文字を区別しない
 		const keyword = keyword_
 				.toLowerCase()
-				.replace(/[^A-Za-z^~]$/g, '')
+				.replace(/[^A-Za-z^~-]$/g, '')
 				;
 
 		const kvs = handle.kvs[keyword];

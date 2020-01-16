@@ -139,3 +139,48 @@ it ("getResponsesFromKeystring Radiko verbo match", function() {
 	});
 });
 
+it ("getResponsesFromKeystring prefikso sufikso", function() {
+	var dictionary_handle;
+	dictionary_handle = Dictionary.init_dictionary(dictionary_data);
+
+	Linad.initialize(function(){
+
+	const datas = [
+		// 接頭辞
+		['mal-'			, 'is prefikso'],
+		["lau^-"		, null], // 'is prefikso'], // 'lau^'がマッチ
+		['preter-'		, null], // 'is prefikso'], // 'preter'がマッチ
+		['vir-'			, 'is prefikso'],
+		// 接尾辞（学術接尾辞等）
+		['-ant-'		, 'is sufikso'],
+		['-skopi-'		, 'is sufikso'],
+		['-um-'			, 'is sufikso'],
+		['-int-'		, null], // , 'is sufikso'], // 'int.'
+		// 接尾辞
+		['-oble'		, 'is sufikso'], // -obl/e
+		['-forma'		, null], // , 'is sufikso'], // 'forma'
+		['-us'			, 'is sufikso']
+	];
+	for(let i = 0; i < datas.length; i++){
+		let res;
+
+		res = Linad.getResponsesFromKeystring(dictionary_handle, datas[i][0]);
+		//console.log('##keystr', datas[i][0], res);
+		//console.log(res[0].match_items);
+		assert(1		=== res.length);
+		if(1 === res.length){ assert(1			=== res[0].match_items.length); }
+
+		/* '-'を取り除いた状態では該当する単語がある場合があり得る。
+		 * その場合はそちらを返すので、'-'付きと結果が異なっていても構わない。
+		 */
+		res = Linad.getResponsesFromKeystring(dictionary_handle, datas[i][0].replace(/[-]/g, ''));
+		//console.log('##keystr', datas[i][0], res);
+		//console.log(res[0].match_items);
+		assert(1		=== res.length);
+		if(1 === res.length){ assert(1			=== res[0].match_items.length); }
+		if(1 === res.length){ assert(datas[i][1]	=== res[0].keyword_modify_kind); }
+	}
+
+	});
+});
+
