@@ -43,3 +43,15 @@ it ("dictionary", function() {
 	assert(1 === Dictionary.query_indexes_from_jakeyword(dictionary_handle, "赤色").length);
 });
 
+it ("dictionary", function() {
+	let dictionary_data = data00;
+
+	let dictionary_handle;
+	dictionary_handle = Dictionary.init_dictionary(dictionary_data);
+	assert(true === Dictionary.is_initialized(dictionary_handle));
+
+	let item;
+	let index;
+	assert(0 !== (index = Dictionary.query_index_from_incremental_keyword(dictionary_handle, "amlilat")));
+});
+
