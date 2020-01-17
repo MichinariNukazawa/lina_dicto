@@ -129,16 +129,48 @@ module.exports = class Linad{
 	{
 		let response = Linad.createResponse_(Language.get_code(), keyword);
 
+		const keyword_modify_src = keyword;
+		let keyword_modify_kinds = [];
+
+		if(keyword.endsWith('n')){
+			keyword = keyword.slice(0, -1);
+			keyword_modify_kinds.unshift('"-n (対格語尾)"');
+
+			const item = Dictionary.query_item_from_keyword(dictionary_handle, keyword);
+			if(item){
+				response.matching_keyword	= keyword;
+				response.keyword_modify_src	= keyword_modify_src;
+				response.keyword_modify_kind	= keyword_modify_kinds.join('+');
+				response.radiko_items.push(item);
+				return response;
+			}
+		}
+		if(keyword.endsWith('j')){
+			keyword = keyword.slice(0, -1);
+			keyword_modify_kinds.unshift('"-j (複数語尾)"');
+
+			const item = Dictionary.query_item_from_keyword(dictionary_handle, keyword);
+			if(item){
+				response.matching_keyword	= keyword;
+				response.keyword_modify_src	= keyword_modify_src;
+				response.keyword_modify_kind	= keyword_modify_kinds.join('+');
+				response.radiko_items.push(item);
+				return response;
+			}
+		}
+
 		let candidates = Esperanto.get_verbo_candidates(keyword);
 		if(keyword.startsWith('mal')){
 			candidates.push(keyword.slice(3));
+			keyword_modify_kinds.push('"mal-"'); // TODO 本当は先頭に置きたい
 		}
 		for(const candidate of candidates){
 			const item = Dictionary.query_item_from_keyword(dictionary_handle, candidate);
 			if(item){
 				response.matching_keyword	= candidate;
-				response.keyword_modify_src	= keyword;
-				response.keyword_modify_kind	= 'radiko match';
+				response.keyword_modify_src	= keyword_modify_src;
+				keyword_modify_kinds.unshift('"radiko match"');
+				response.keyword_modify_kind	= keyword_modify_kinds.join(' + ');
 				response.radiko_items.push(item);
 				return response;
 			}

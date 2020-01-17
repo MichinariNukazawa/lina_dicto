@@ -85,7 +85,7 @@ it ("getResponsesFromKeystring", function() {
 		['1024', ['1024']],
 		['-1024', ['-1024']],
 		['100eno', ['100', 'eno']],
-		['Brasiko estas 100enoj', ['Brasiko', 'esti', '100', 'enoj']],
+		['Brasiko estas 100enoj', ['Brasiko', 'esti', '100', 'eno']],
 		//['SukeraSparoのスペースにPanoを持ってくると', ['Sukera', 'Sparo', 'の', 'スペース', 'に', 'Pano', 'を持ってくると']],
 		// ここの出力はkuromoziに依存
 		['SukeraSparoのスペースにPanoを持ってくると', ["Sukera","Sparo","の","スペース","に","Pano","を","持って","くる","と"]],
@@ -123,8 +123,23 @@ it ("getResponsesFromKeystring Radiko verbo match", function() {
 		// ** mal 先頭マッチでkeyword優先できていることを確認
 		// マラバル海岸（インド）
 		['malabaro',	0, {keyword_modify_src: null,			matching_keyword: 'malabaro'}],
+		// 憎しみ
+		['malamo',	0, {keyword_modify_src: null,			matching_keyword: 'malamo'}],
 		// 左の, 左翼の, 左派の
 		['maldekstra',	0, {keyword_modify_src: null,			matching_keyword: 'maldekstra'}],
+		// -j -n
+		['akvoj',	1, {keyword_modify_src: 'akvoj',		matching_keyword: 'akvo'}],
+		['akvij',	1, {keyword_modify_src: 'akvij',		matching_keyword: 'akvi'}],
+		['akvon',	1, {keyword_modify_src: 'akvon',		matching_keyword: 'akvo'}],
+		['akvin',	1, {keyword_modify_src: 'akvin',		matching_keyword: 'akvi'}],
+		['akvojn',	1, {keyword_modify_src: 'akvojn',		matching_keyword: 'akvo'}],
+		['akvijn',	1, {keyword_modify_src: 'akvijn',		matching_keyword: 'akvi'}],
+		['malakvojn',	1, {keyword_modify_src: 'malakvojn',		matching_keyword: 'akvo'}],
+		['malakvijn',	1, {keyword_modify_src: 'malakvijn',		matching_keyword: 'akvi'}],
+		// 'malamo + -j + -n'
+		['malamojn',	1, {keyword_modify_src: 'malamojn',		matching_keyword: 'malamo'}],
+		// 'eno + -j'
+		['enoj',	1, {keyword_modify_src: 'enoj',			matching_keyword: 'eno'}],
 	];
 	for(let i = 0; i < datas.length; i++){
 		let res;
