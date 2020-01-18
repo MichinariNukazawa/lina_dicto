@@ -52,6 +52,10 @@ it ("dictionary incremental", function() {
 	assert(true === Dictionary.is_initialized(dictionary_handle));
 
 	assert(-1 !== Dictionary.query_index_from_incremental_keyword(dictionary_handle, "amrilat"));
+
+	assert(-1 !== Dictionary.query_index_from_incremental_keyword(dictionary_handle, "z"));
+	assert(-1 === Dictionary.query_index_from_incremental_keyword(dictionary_handle, "zz"));
+	assert(-1 === Dictionary.query_index_from_incremental_keyword(dictionary_handle, "zzz"));
 });
 
 it ("dictionary incremental 2", function() {
