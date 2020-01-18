@@ -91,12 +91,12 @@ it ("getResponsesFromKeystring", function() {
 		['volto en metro estas',		['volto en metro', 'esti',]],
 		['estas volto en metro estas',		['esti', 'volto en metro', 'esti']],
 		// 4word
-		//["tutmonda esperantista junulara organizo",	["tutmonda esperantista junulara organizo",	]],
-		//["tie kaj c^i tie",				["tie kaj c^i tie",				]],
-		//["skatolo el ondumita kartono",			["skatolo el ondumita kartono",			]],
-		//["sistemo internacia de unitoj",		["sistemo internacia de unitoj",		]],
-		//["sankta kristoforo kaj neviso",		["sankta kristoforo kaj neviso",		]],
-		//["reg^o de la birdoj",				["reg^o de la birdoj",				]],
+		["tutmonda esperantista junulara organizo",	["tutmonda esperantista junulara organizo",	]],
+		["tie kaj c^i tie",				["tie kaj c^i tie",				]],
+		["skatolo el ondumita kartono",			["skatolo el ondumita kartono",			]],
+		["sistemo internacia de unitoj",		["sistemo internacia de unitoj",		]],
+		["sankta kristoforo kaj neviso",		["sankta kristoforo kaj neviso",		]],
+		["reg^o de la birdoj",				["reg^o de la birdoj",				]],
 		//["estas tutmonda esperantista junulara organizo",	['esti', "tutmonda esperantista junulara organizo",	]],
 		//["estas tie kaj c^i tie",				['esti', "tie kaj c^i tie",				]],
 		//

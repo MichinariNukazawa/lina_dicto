@@ -394,6 +394,29 @@ module.exports = class Linad{
 
 		const words = Linad.splitter_(dictionary_handle, keystring);
 
+		do{
+			// 最初に全文で完全マッチを試行する
+			let response;
+			const head = 0;
+			const countJoinWord = words.length;
+
+			const joinedKeywordObj = Linad.joinKeyword_(dictionary_handle, words, head, countJoinWord);
+			if(! joinedKeywordObj){ // 日エス混じりで検索キーワードにならなかった
+				break;
+			}
+
+			if('ja' === joinedKeywordObj.lang){
+				response = Linad.getResponseSearchJKeywordFullMatch_(dictionary_handle, joinedKeywordObj.word);
+			}else{
+				response = Linad.getResponseSearchKeywordFullMatch_(dictionary_handle, joinedKeywordObj.word);
+			}
+
+			if(response){
+				// マッチした
+				return [response];
+			}
+		}while(false);
+
 		let head = 0;
 		while(head < words.length){
 			let response;
