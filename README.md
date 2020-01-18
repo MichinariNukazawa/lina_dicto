@@ -2,10 +2,10 @@ lina\_dicto
 ====
 [![Build Status](https://travis-ci.org/MichinariNukazawa/lina_dicto.svg?branch=master)](https://travis-ci.org/MichinariNukazawa/lina_dicto)  
 
-\- Dictionary for Japanese to Esperanto -
+\- Dictionary for Esperanto/Japanese -
 
 # About
-lina\_dicto は日本語/Esperanto変換を検索できる辞書アプリケーションです。  
+lina\_dicto はエスペラント/日本語の訳を検索できる辞書アプリケーションです。  
 
 Win/Mac/Linux対応。  
 [Android版(for Android)]( https://play.google.com/store/apps/details?id=com.michinari_nukazawa.app.lina_dicto_for_android )  
