@@ -28,7 +28,7 @@ if [ 1 -eq $# ] ; then
 	PACKAGE_POSTFIX="-$1"
 fi
 
-SHOW_VERSION=$(cat ${SOURCE_DIR}/package.json | grep '"version"' | sed -e 's/.*:.*"\(.*\)".*/\1/g')
+SHOW_VERSION=$(cat ${SOURCE_DIR}/package.json | grep '"version"' | sed -e 's/.*:.*"\(.*\)".*/\1/g' | sed -e 's/\./_/g')
 
 GIT_HASH=$(git log --pretty=format:'%h' -n 1)
 GIT_STATUS_SHORT=$(git diff --stat | tail -1)
@@ -36,7 +36,7 @@ EX=""
 if [ -n "${GIT_STATUS_SHORT}" ] ; then
 EX="develop"
 fi
-PACKAGE_NAME=${APP_NAME}-win64-${SHOW_VERSION}${EX}-${GIT_HASH}${PACKAGE_POSTFIX}
+PACKAGE_NAME=${APP_NAME}-win64-v${SHOW_VERSION}${EX}-${GIT_HASH}${PACKAGE_POSTFIX}
 
 ## build
 rm -rf ${BUILD_DIR}
