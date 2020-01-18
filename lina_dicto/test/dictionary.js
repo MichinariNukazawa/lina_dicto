@@ -20,6 +20,7 @@ it ("dictionary", function() {
 
 	let item;
 	let indexes;
+	// typo amrilato
 	assert(null === Dictionary.query_item_from_keyword(dictionary_handle, "amlilato"));
 	assert(null === Dictionary.get_item_from_index(dictionary_handle, -1));
 
@@ -50,9 +51,7 @@ it ("dictionary incremental", function() {
 	dictionary_handle = Dictionary.init_dictionary(dictionary_data);
 	assert(true === Dictionary.is_initialized(dictionary_handle));
 
-	let item;
-	let index;
-	assert(0 !== (index = Dictionary.query_index_from_incremental_keyword(dictionary_handle, "amlilat")));
+	assert(-1 !== Dictionary.query_index_from_incremental_keyword(dictionary_handle, "amrilat"));
 });
 
 it ("dictionary incremental 2", function() {
@@ -64,7 +63,7 @@ it ("dictionary incremental 2", function() {
 		'dictionary': [
 			['', '', "a-"],
 			['', '', "ama"],
-			['', '', "amlilato"],
+			['', '', "amrilato"],
 			['', '', "ava"],
 		],
 	};
@@ -73,9 +72,9 @@ it ("dictionary incremental 2", function() {
 	assert(0 === Dictionary.query_index_from_incremental_keyword(dictionary_handle00, "a-"));
 	assert(1 === Dictionary.query_index_from_incremental_keyword(dictionary_handle00, "am"));
 	assert(1 === Dictionary.query_index_from_incremental_keyword(dictionary_handle00, "ama"));
-	assert(2 === Dictionary.query_index_from_incremental_keyword(dictionary_handle00, "amlilat"));
-	assert(2 === Dictionary.query_index_from_incremental_keyword(dictionary_handle00, "amlilato"));
-	assert(-1 == Dictionary.query_index_from_incremental_keyword(dictionary_handle00, "amlilatox"));
+	assert(2 === Dictionary.query_index_from_incremental_keyword(dictionary_handle00, "amrilat"));
+	assert(2 === Dictionary.query_index_from_incremental_keyword(dictionary_handle00, "amrilato"));
+	assert(-1 == Dictionary.query_index_from_incremental_keyword(dictionary_handle00, "amrilatox"));
 
 	const dictionary_handle01 = {
 		'hash_of_esperanto': [
@@ -84,7 +83,7 @@ it ("dictionary incremental 2", function() {
 		'dictionary': [
 			['', '', "a-"],
 			['', '', "-an"], // 中央に'-*'な語を置いた場合
-			['', '', "amlilat"],
+			['', '', "amrilat"],
 		],
 	};
 
@@ -92,6 +91,6 @@ it ("dictionary incremental 2", function() {
 	assert(0 === Dictionary.query_index_from_incremental_keyword(dictionary_handle01, "a-"));
 	//assert(1 === Dictionary.query_index_from_incremental_keyword(dictionary_handle01, "an"));
 	//assert(1 === Dictionary.query_index_from_incremental_keyword(dictionary_handle01, "-an"));
-	assert(2 === Dictionary.query_index_from_incremental_keyword(dictionary_handle01, "amlilat"));
+	assert(2 === Dictionary.query_index_from_incremental_keyword(dictionary_handle01, "amrilat"));
 });
 
