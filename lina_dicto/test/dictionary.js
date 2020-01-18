@@ -43,7 +43,7 @@ it ("dictionary", function() {
 	assert(1 === Dictionary.query_indexes_from_jakeyword(dictionary_handle, "赤色").length);
 });
 
-it ("dictionary", function() {
+it ("dictionary incremental", function() {
 	let dictionary_data = data00;
 
 	let dictionary_handle;
@@ -53,5 +53,45 @@ it ("dictionary", function() {
 	let item;
 	let index;
 	assert(0 !== (index = Dictionary.query_index_from_incremental_keyword(dictionary_handle, "amlilat")));
+});
+
+it ("dictionary incremental 2", function() {
+
+	const dictionary_handle00 = {
+		'hash_of_esperanto': [
+			['a', 0],
+		],
+		'dictionary': [
+			['', '', "a-"],
+			['', '', "ama"],
+			['', '', "amlilato"],
+			['', '', "ava"],
+		],
+	};
+
+	assert(0 === Dictionary.query_index_from_incremental_keyword(dictionary_handle00, "a"));
+	assert(0 === Dictionary.query_index_from_incremental_keyword(dictionary_handle00, "a-"));
+	assert(1 === Dictionary.query_index_from_incremental_keyword(dictionary_handle00, "am"));
+	assert(1 === Dictionary.query_index_from_incremental_keyword(dictionary_handle00, "ama"));
+	assert(2 === Dictionary.query_index_from_incremental_keyword(dictionary_handle00, "amlilat"));
+	assert(2 === Dictionary.query_index_from_incremental_keyword(dictionary_handle00, "amlilato"));
+	assert(-1 == Dictionary.query_index_from_incremental_keyword(dictionary_handle00, "amlilatox"));
+
+	const dictionary_handle01 = {
+		'hash_of_esperanto': [
+			['a', 0],
+		],
+		'dictionary': [
+			['', '', "a-"],
+			['', '', "-an"], // 中央に'-*'な語を置いた場合
+			['', '', "amlilat"],
+		],
+	};
+
+	assert(0 === Dictionary.query_index_from_incremental_keyword(dictionary_handle01, "a"));
+	assert(0 === Dictionary.query_index_from_incremental_keyword(dictionary_handle01, "a-"));
+	//assert(1 === Dictionary.query_index_from_incremental_keyword(dictionary_handle01, "an"));
+	//assert(1 === Dictionary.query_index_from_incremental_keyword(dictionary_handle01, "-an"));
+	assert(2 === Dictionary.query_index_from_incremental_keyword(dictionary_handle01, "amlilat"));
 });
 
