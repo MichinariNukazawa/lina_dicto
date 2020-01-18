@@ -486,38 +486,6 @@ function set_callback_input_replace(element)
 	}, true);
 }
 
-function query_index_from_incremental_keyword_foot(keyword)
-{
-	keyword = Dictionary.normalize_query_keyword(keyword);
-
-	{
-		const index = Dictionary.query_index_from_incremental_keyword(dictionary_handle, keyword);
-		if(-1 != index){
-			return index;
-		}
-	}
-
-	const ss = keyword.split(' ');
-
-	if(ss.length >= 2){
-		const keyword_foot = ss[ss.length - 2] + ' ' + ss[ss.length - 1];
-		const index = Dictionary.query_index_from_incremental_keyword(dictionary_handle, keyword_foot);
-		if(-1 != index){
-			return index;
-		}
-	}
-
-	if(ss.length >= 1){
-		const keyword_foot = ss[ss.length - 1];
-		const index = Dictionary.query_index_from_incremental_keyword(dictionary_handle, keyword_foot);
-		if(-1 != index){
-			return index;
-		}
-	}
-
-	return -1;
-}
-
 function update_query_input_element_datalist(keyword)
 {
 	let query_incrementals_element = document.getElementById('query-area__query-incrementals');
@@ -527,14 +495,9 @@ function update_query_input_element_datalist(keyword)
 		query_incrementals_element.removeChild(query_incrementals_element.firstChild);
 	}
 
-	const index = query_index_from_incremental_keyword_foot(keyword);
-
-	for(let i = 0; i < 3; i++){
-		const item = Dictionary.get_item_from_index(dictionary_handle, index + i);
-		if(! item){
-			break;
-		}
-		const show_word = Dictionary.get_show_word_from_item(dictionary_handle, item);
+	const items = Linad.getIncrementalItemsFromKeyword(dictionary_handle, keyword);
+	for(let i = 0; i < items.length; i++){
+		const show_word = Dictionary.get_show_word_from_item(dictionary_handle, items[i]);
 
 		if(0 != i){
 			query_incrementals_element.appendChild(create_span_from_text('|'));
@@ -556,9 +519,8 @@ function update_query_input_element_datalist(keyword)
 		return;
 	}
 
-	if(-1 != index){
-		const item = Dictionary.get_item_from_index(dictionary_handle, index);
-		keyword = Dictionary.get_show_word_from_item(dictionary_handle, item);
+	if(0 < items.length){
+		keyword = Dictionary.get_show_word_from_item(dictionary_handle, items[0]);
 	}
 	let elem = add_timeline_item_element_from_keyword(keyword)
 	if(null !== elem){

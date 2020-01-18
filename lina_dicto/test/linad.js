@@ -199,3 +199,31 @@ it ("getResponsesFromKeystring prefikso sufikso", function() {
 	});
 });
 
+it ("getIncrementalItemsFromKeyword", function() {
+	var dictionary_handle;
+	dictionary_handle = Dictionary.init_dictionary(dictionary_data);
+
+	Linad.initialize(function(){
+
+	const datas = [
+		['bonan mateno'			, 3, 'Bonan matenon!'],
+		[''				, 0, ''],
+		['xxxxxx'			, 0, ''],
+		['esta'				, 3, 'establado'], // esti
+		['estas'			, 0, ''], // esti
+	];
+	for(let i = 0; i < datas.length; i++){
+		let res;
+
+		res = Linad.getIncrementalItemsFromKeyword(dictionary_handle, datas[i][0]);
+		//console.log('##keystr', datas[i][0], res);
+		assert(datas[i][1] === res.length);
+		if(1 < res.length){
+			const show_word = Dictionary.get_show_word_from_item(dictionary_handle, res[0]);
+			assert(datas[i][2] === show_word);
+		}
+	}
+
+	});
+});
+

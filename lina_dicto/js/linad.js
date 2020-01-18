@@ -500,5 +500,56 @@ module.exports = class Linad{
 
 		return responses;
 	}
+
+	static getIncrementalItemsFromKeyword(dictionary_handle, keyword)
+	{
+		let items = [];
+
+		const query_index_from_incremental_keyword_foot = (dictionary_handle, keyword) =>
+		{
+			keyword = Dictionary.normalize_query_keyword(keyword);
+
+			{
+				const index = Dictionary.query_index_from_incremental_keyword(dictionary_handle, keyword);
+				if(-1 != index){
+					return index;
+				}
+			}
+
+			const ss = keyword.split(' ');
+
+			if(ss.length >= 2){
+				const keyword_foot = ss[ss.length - 2] + ' ' + ss[ss.length - 1];
+				const index = Dictionary.query_index_from_incremental_keyword(dictionary_handle, keyword_foot);
+				if(-1 != index){
+					return index;
+				}
+			}
+
+			if(ss.length >= 1){
+				const keyword_foot = ss[ss.length - 1];
+				const index = Dictionary.query_index_from_incremental_keyword(dictionary_handle, keyword_foot);
+				if(-1 != index){
+					return index;
+				}
+			}
+
+			return -1;
+		}
+
+		const index = query_index_from_incremental_keyword_foot(dictionary_handle, keyword);
+		if(-1 == index){
+			return items;
+		}
+
+		for(let i = 0; i < 3; i++){
+			const item = Dictionary.get_item_from_index(dictionary_handle, index + i);
+			if(item){
+				items.push(item);
+			}
+		}
+
+		return items;
+	}
 };
 
