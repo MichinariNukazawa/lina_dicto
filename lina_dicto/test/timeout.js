@@ -60,15 +60,40 @@ it ("Dictionary.query_index_from_incremental_keyword timeout", function(done) {
 	this.retries(2);
 
 	const EO_TO_JA_DICT_DATAS = [
-		['voc^o',		{'isMatch':true}],
+		['bona',		{'isMatch':true}],
 		['bonan',		{'isMatch':true}],
 		['bonan matenon',	{'isMatch':true}],
+		['bonan nokton',	{'isMatch':true}],
 		['kafo',		{'isMatch':true}],
+		['kafbero',		{'isMatch':true}],
 		['kafolakto',		{'isMatch':true}],
+		['kafplantejo',		{'isMatch':true}],
 		['vitra',		{'isMatch':true}],
+		['vitro',		{'isMatch':true}],
+		['zorga',		{'isMatch':true}],
 		['zorgo',		{'isMatch':true}],
+		['voc^a',		{'isMatch':true}],
+		['voc^o',		{'isMatch':true}],
+		['vocxa',		{'isMatch':false}],
+		['vocxo',		{'isMatch':false}],
+		['bocxa',		{'isMatch':false}],
 		['boc^o',		{'isMatch':false}],
+		['boc^a',		{'isMatch':false}],
+		['boc^o',		{'isMatch':false}],
+		['eee',			{'isMatch':false}],
+		['sss',			{'isMatch':false}],
 		['zzz',			{'isMatch':false}],
+		['eeeee',		{'isMatch':false}],
+		['sssss',		{'isMatch':false}],
+		['zzzzz',		{'isMatch':false}],
+		['eeeeee',		{'isMatch':false}],
+		['ssssss',		{'isMatch':false}],
+		['zzzzzz',		{'isMatch':false}],
+		['eeeeeee',		{'isMatch':false}],
+		['sssssss',		{'isMatch':false}],
+		['zzzzzzz',		{'isMatch':false}],
+		['eeeeeeeeee',		{'isMatch':false}],
+		['ssssssssss',		{'isMatch':false}],
 		['xxxxxxxxxx',		{'isMatch':false}],
 	];
 
@@ -89,7 +114,7 @@ it ("Dictionary.query_index_from_incremental_keyword timeout", function(done) {
 
 	setTimeout(done, 100); // 実行完了が早すぎる場合に実行時間が表示されない
 
-}).timeout(200); // 基本的に200で十分なのだけれど、たまにハズレ値を出す
+}).timeout(200);
 
 it ("Dictionary.query_indexes_from_jakeyword timeout", function(done) {
 	this.retries(2);
