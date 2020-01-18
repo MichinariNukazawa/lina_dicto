@@ -21,6 +21,8 @@ it ("Linad.initialize timeout", function(done) {
 }).timeout(6000);
 
 it ("Dictionary.query_item_from_keyword timeout", function(done) {
+	this.retries(2);
+
 	// ループによる水増しは、平均化にあまり効果があるように見えない。
 	// データ数を増やしたほうが良さそうに見える。
 	const EO_TO_JA_DICT_DATAS = [
@@ -55,6 +57,13 @@ it ("Dictionary.query_item_from_keyword timeout", function(done) {
 		['eeeeeeeeee',		{'isMatch':false}],
 		['ssssssssss',		{'isMatch':false}],
 		['xxxxxxxxxx',		{'isMatch':false}],
+		['ee ee ee ee ee ee ee ee',		{'isMatch':false}],
+		['ss ss ss ss ss ss ss ss',		{'isMatch':false}],
+		['xx aa xx aa xx aa xx aa',		{'isMatch':false}],
+		['x  x  x  x  x  x  x  x ',		{'isMatch':false}],
+		['ssssssssrrrrrrrr eeeeeeeellllllll',	{'isMatch':false}],
+		['ssssssssrrrrrrrr eeeeeeeellllllll ssssssssrrrrrrrr',	{'isMatch':false}],
+		['ssssssssrrrrrrrr eeeeeeeellllllll ssssssssrrrrrrrr eeeeeeeellllllll',	{'isMatch':false}],
 	];
 
 	const datas = EO_TO_JA_DICT_DATAS;
@@ -164,6 +173,13 @@ it ("Dictionary.query_index_from_incremental_keyword timeout", function(done) {
 		['eeeeeeeeee',		{'isMatch':false}],
 		['ssssssssss',		{'isMatch':false}],
 		['xxxxxxxxxx',		{'isMatch':false}],
+		['ee ee ee ee ee ee ee ee',		{'isMatch':false}],
+		['ss ss ss ss ss ss ss ss',		{'isMatch':false}],
+		['xx aa xx aa xx aa xx aa',		{'isMatch':false}],
+		['x  x  x  x  x  x  x  x ',		{'isMatch':false}],
+		['ssssssssrrrrrrrr eeeeeeeellllllll',	{'isMatch':false}],
+		['ssssssssrrrrrrrr eeeeeeeellllllll ssssssssrrrrrrrr',	{'isMatch':false}],
+		['ssssssssrrrrrrrr eeeeeeeellllllll ssssssssrrrrrrrr eeeeeeeellllllll',	{'isMatch':false}],
 	];
 
 	const datas = EO_TO_JA_DICT_DATAS;
