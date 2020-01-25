@@ -173,7 +173,7 @@ it ("getResponsesFromKeystring Radiko verbo match", function() {
 	});
 });
 
-it ("getResponsesFromKeystring prefikso sufikso", function() {
+it ("query prefikso sufikso", function() {
 	var dictionary_handle;
 	dictionary_handle = Dictionary.init_dictionary(dictionary_data);
 
@@ -213,6 +213,35 @@ it ("getResponsesFromKeystring prefikso sufikso", function() {
 		assert(1		=== res.length);
 		if(1 === res.length){ assert(1			=== res[0].match_items.length); }
 		if(1 === res.length){ assert(datas[i][1]	=== res[0].keyword_modify_kind); }
+	}
+
+	const datas2 = [
+		// 接尾辞（学術接尾辞等）
+		['-an-'			, ['-an',]],
+		['-ant-'		, ['-ant',]],
+		['-skop-'		, ['-skop',]],
+		['-skopi-'		, ['-skopi',]],
+		['-um-'			, ['-um',]],
+		['-in-'			, ['-in',]],
+		['-int-'		, ['-int',]],
+		['-obl-'		, ['-ob',]],
+		// 接尾辞
+		['-o'			, ['-o',]],
+		//['-oble'		, ['-oble',]],
+		['-forma'		, ['-form',]],
+		['-us'			, ['-us',]],
+	];
+	for(let i = 0; i < datas2.length; i++){
+		const keyword = datas2[i][0];
+		for(let t = 0; t < datas2[i][1].length; t++){
+			const word = datas2[i][1][t];
+			//console.log("## ", i, t, word);
+			const items = Linad.getIncrementalItemsFromKeyword(dictionary_handle, word);
+			assert(1 <= items.length);
+
+			const show_word = Dictionary.get_show_word_from_item(dictionary_handle, items[0]);
+			assert(keyword === show_word);
+		}
 	}
 
 	});

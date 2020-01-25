@@ -210,7 +210,9 @@ module.exports = class Dictionary{
 			return -1;
 		}
 
-		const hash_info = Dictionary.get_hash_info_from_character_(handle, keyword[0]);
+		const head_char = ('-' == keyword[0]) ? keyword[1]:keyword[0];
+
+		const hash_info = Dictionary.get_hash_info_from_character_(handle, head_char);
 		if(! hash_info){
 			return -1;
 		}

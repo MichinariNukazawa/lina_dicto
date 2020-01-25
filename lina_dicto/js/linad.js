@@ -560,6 +560,17 @@ module.exports = class Linad{
 			return -1;
 		}
 
+		{
+			// sufikso "-*-", "-*"
+			const index = Dictionary.query_index_from_incremental_keyword(dictionary_handle, '-' + keyword);
+			if(-1 != index){
+				const item = Dictionary.get_item_from_index(dictionary_handle, index);
+				if(item){
+					items.push(item);
+				}
+			}
+		}
+
 		const index = query_index_from_incremental_keyword_foot(dictionary_handle, keyword);
 		if(-1 == index){
 			return items;
