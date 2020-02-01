@@ -24,7 +24,8 @@ test:
 
 .PHONY: dictionary
 dictionary:
-	cd lina_dicto && bash ./dictionary/esperanto/gen_dictionary.sh
+	cd lina_dicto/dictionary/esperanto/dictionary_source/ && bash ./gen_dictionary.sh
+	cd lina_dicto/dictionary/esperanto/dictionary_source/ && node ./expand_dictionary.js
 
 .PHONY: package package_desktop
 package: package_desktop
