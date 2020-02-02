@@ -47,7 +47,6 @@ it ("splitter_", function() {
 		['bona', ['bona']],
 		['bonan matenon.', ['bonan', 'matenon']],
 		['SukeraSparo', ['Sukera','Sparo']],
-		['SukeraSparo', ['Sukera','Sparo']],
 		//['SukeraSparoのスペースにPanoを持ってくると', ['Sukera', 'Sparo', 'の', 'スペース', 'に', 'Pano', 'を持ってくると']],
 		// ここの出力はkuromoziに依存
 		['SukeraSparoのスペースにPanoを持ってくると', ["Sukera","Sparo","の","スペース","に","Pano","を","持っ","て","くる","と"]],
@@ -77,8 +76,8 @@ it ("getResponsesFromKeystring", function() {
 	const datas = [
 		['bona', ['bona']],
 		['bonan matenon.', ['bonan matenon']],
-		['SukeraSparo', ['Sukera','Sparo']],
-		['SukeraSparo', ['Sukera','Sparo']],
+		//['BonanMatenon', ['bonan matenon']],
+		['SukeraSparo', ['Sukera Sparo']],//['SukeraSparo']],
 		['Kio estas', ['Kio', 'esti']], // bug ['Kio estas'(もしかして:'tio estas'), 'c^i', 'tio']
 		['Kio estas c^i tio.', ['Kio', 'esti', 'c^i tio']], // bug ['Kio estas'(もしかして:'tio estas'), 'c^i', 'tio']
 		// 3word
@@ -107,7 +106,7 @@ it ("getResponsesFromKeystring", function() {
 		['Brasiko estas 100enoj', ['Brasiko', 'esti', '100', 'eno']],
 		//['SukeraSparoのスペースにPanoを持ってくると', ['Sukera', 'Sparo', 'の', 'スペース', 'に', 'Pano', 'を持ってくると']],
 		// ここの出力はkuromoziに依存
-		['SukeraSparoのスペースにPanoを持ってくると', ["Sukera","Sparo","の","スペース","に","Pano","を","持って","くる","と"]],
+		['SukeraSparoのスペースにPanoを持ってくると', ["Sukera Sparo","の","スペース","に","Pano","を","持って","くる","と"]],
 		['りんご', ['リンゴ']], // ひらがなでマッチしなかった場合にカタカナで検索する
 		['じゃがいもってりんごだったの!?', ['じゃがいも', 'って', 'リンゴ', 'だった', 'の']],
 		['だったの！？', ['だった', 'の']], // 全角記号
