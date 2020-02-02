@@ -42,6 +42,8 @@ it ("dictionary", function() {
 	// ** fix query match
 	assert(1 === Dictionary.query_indexes_from_jakeyword(dictionary_handle, "赤").length);
 	assert(1 === Dictionary.query_indexes_from_jakeyword(dictionary_handle, "赤色").length);
+	// new word
+	assert(null !== Dictionary.query_item_from_keyword(dictionary_handle, "Juliamo"));
 });
 
 it ("dictionary incremental", function() {
