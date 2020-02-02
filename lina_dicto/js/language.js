@@ -16,13 +16,16 @@ module.exports = class Language{
 		}else if(0 === keyword.indexOf(":gvidilo")){
 			let str = read_textfile('dictionary/esperanto/gvidilo.txt');
 			return str;
+		}else if(0 === keyword.indexOf(":DictionaryChanges")){
+			let str = read_textfile('dictionary/esperanto/DictionaryChanges.md');
+			return str;
 		}
 
 		return null;
 	}
 
 	static get_command_list(){
-		return [":legumin", ":gvidilo"];
+		return [":legumin", ":gvidilo", ":DictionaryChanges"];
 	}
 };
 

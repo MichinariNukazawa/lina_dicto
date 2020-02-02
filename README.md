@@ -42,7 +42,7 @@ Win/Mac/Linux対応。
 
 # 辞書データについて
 外部の辞書データを改変し収録させて頂きました。感謝いたします。  
-[辞書データのREADME](lina_dicto/dictionary/README.md)参照  
+[辞書データについて](lina_dicto/dictionary/esperanto/DictionaryChanges.md)参照  
 
 # Donate/Buy
 @todo  

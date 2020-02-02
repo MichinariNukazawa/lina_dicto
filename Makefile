@@ -22,10 +22,13 @@ ci-test:
 test:
 	cd lina_dicto && npm run test test/$(ARG)
 
-.PHONY: dictionary
-dictionary:
+.PHONY: dictionary_source dictionary dictionary
+dictionary_source:
 	cd lina_dicto/dictionary/esperanto/dictionary_source/ && bash ./gen_dictionary.sh
+dictionary:
 	cd lina_dicto/dictionary/esperanto/dictionary_source/ && node ./expand_dictionary.js
+dictionary_ios: dictionary
+	cd lina_dicto/dictionary/esperanto/dictionary_source/ && bash ./gen_dictionary.sh
 
 .PHONY: package package_desktop
 package: package_desktop
