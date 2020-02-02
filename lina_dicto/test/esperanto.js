@@ -57,7 +57,7 @@ it ("get_candidates verbo", function() {
 	];
 
 	for(let i = 0; i < list.length - 1; i++){
-		candidates = Esperanto.get_verbo_candidates(list[i]);
+		candidates = Esperanto.get_finajxo_candidates(list[i]);
 		for(let t = 0; t < list.length; t++){
 			if(i == t){
 				continue;

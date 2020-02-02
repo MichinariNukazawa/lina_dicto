@@ -74,11 +74,16 @@ it ("getResponsesFromKeystring", function() {
 	Linad.initialize(function(){
 
 	const datas = [
+		// 1word
 		['bona', ['bona']],
+		// candidate
+		['estas', ['esti']],
+		['sennecesi', ['sennecesa']],
+		// 2word
 		['bonan matenon.', ['bonan matenon']],
 		//['BonanMatenon', ['bonan matenon']],
 		['SukeraSparo', ['Sukera Sparo']],//['SukeraSparo']],
-		['Kio estas', ['Kio', 'esti']], // bug ['Kio estas'(もしかして:'tio estas'), 'c^i', 'tio']
+		['Kio estas', ['Kio', 'esti']],
 		['Kio estas c^i tio.', ['Kio', 'esti', 'c^i tio']], // bug ['Kio estas'(もしかして:'tio estas'), 'c^i', 'tio']
 		// 3word
 		['abstini de alkoholaj^o',	['abstini de alkoholaj^o']],

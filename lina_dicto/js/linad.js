@@ -159,24 +159,59 @@ module.exports = class Linad{
 			}
 		}
 
-		let candidates = Esperanto.get_verbo_candidates(keyword);
-		let sufiksoj = Dictionary.get_prefiksoj(dictionary_handle);
-		for(const sufikso of sufiksoj){
-			if(keyword.startsWith(sufikso.word)){
-				candidates.push(keyword.slice(sufikso.word.length));
-				keyword_modify_kinds.push(`"${sufikso.word}-"`); // TODO 本当は先頭に置きたい
-				break;
+		// 語尾変化マッチ
+		{
+			let candidates = Esperanto.get_finajxo_candidates(keyword);
+			for(const candidate of candidates){
+				const item = Dictionary.query_item_from_keyword(dictionary_handle, candidate);
+				if(item){
+					response.matching_keyword	= candidate;
+					response.keyword_modify_src	= keyword_modify_src;
+					keyword_modify_kinds.unshift('"radiko match"');
+					response.keyword_modify_kind	= keyword_modify_kinds.join(' + ');
+					response.radiko_items.push(item);
+					return response;
+				}
 			}
 		}
-		for(const candidate of candidates){
-			const item = Dictionary.query_item_from_keyword(dictionary_handle, candidate);
-			if(item){
-				response.matching_keyword	= candidate;
-				response.keyword_modify_src	= keyword_modify_src;
-				keyword_modify_kinds.unshift('"radiko match"');
-				response.keyword_modify_kind	= keyword_modify_kinds.join(' + ');
-				response.radiko_items.push(item);
-				return response;
+
+		// 接頭辞+語尾変化マッチ
+		{
+			let changed = false;
+			let sufiksoj = Dictionary.get_prefiksoj(dictionary_handle);
+			for(const sufikso of sufiksoj){
+				if(keyword.startsWith(sufikso.word)){
+					keyword = keyword.slice(sufikso.word.length);
+					keyword_modify_kinds.push(`"${sufikso.word}-"`); // TODO 本当は先頭に置きたい
+					changed = true;
+					break;
+				}
+			}
+
+			if(changed){
+				{
+					const item = Dictionary.query_item_from_keyword(dictionary_handle, keyword);
+					if(item){
+						response.matching_keyword	= keyword;
+						response.keyword_modify_src	= keyword_modify_src;
+						response.keyword_modify_kind	= keyword_modify_kinds.join(' + ');
+						response.radiko_items.push(item);
+						return response;
+					}
+				}
+
+				let candidates = Esperanto.get_finajxo_candidates(keyword);
+				for(const candidate of candidates){
+					const item = Dictionary.query_item_from_keyword(dictionary_handle, candidate);
+					if(item){
+						response.matching_keyword	= candidate;
+						response.keyword_modify_src	= keyword_modify_src;
+						keyword_modify_kinds.unshift('"radiko match"');
+						response.keyword_modify_kind	= keyword_modify_kinds.join(' + ');
+						response.radiko_items.push(item);
+						return response;
+					}
+				}
 			}
 		}
 

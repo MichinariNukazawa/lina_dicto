@@ -92,17 +92,19 @@ module.exports = class Esperanto{
 	}
 
 	/** @brief 動詞語尾変換候補一覧があれば返す */
-	static get_verbo_candidates(str)
+	static get_finajxo_candidates(str)
 	{
 		// `不定形動詞(-i), 名詞(-o)の優先順とした。(estas -> esti)
 		const finajxoj = [
 			"i",
-			"o",
-			"as",
-			"is",
-			"os",
-			"us",
-			"u"
+			"o",		// 名詞（substantivo）
+			"a",		// 形容詞（adjektivo）
+			"e",		// 副詞（adverbo）
+			"as",		// 動詞語尾(verbo) 現在形
+			"is",		// 動詞語尾(verbo) 過去形
+			"os",		// 動詞語尾(verbo) 未来形
+			"us",		// 動詞語尾(verbo) 仮定形
+			"u",		// 動詞語尾(verbo) 命令形
 		];
 
 		let radikalo = null;
@@ -225,7 +227,7 @@ module.exports = class Esperanto{
 	{
 		let candidates = [];
 
-		candidates = Esperanto.get_verbo_candidates(str);
+		candidates = Esperanto.get_finajxo_candidates(str);
 
 		//! esperantoであまり使わないqwxyと、挿入可能位置に条件のある代用表記を除く
 		const alphabets = 'abcdefghijklmnoprstuvz';
