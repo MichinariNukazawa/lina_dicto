@@ -89,6 +89,7 @@ module.exports = class Dictionary{
 	static init_edictionary_(handle, dictionary_data)
 	{
 		let kvs = {};
+		let prefiksoj = [];
 		const dict = dictionary_data;
 
 		const array_length = dict.length;
@@ -96,6 +97,11 @@ module.exports = class Dictionary{
 			//! 検索用keyword
 			const key = dict[i][2];
 			kvs[key] = i;
+
+			if('-' !== key[0] && '-' === key[key.length - 1]){
+				const w = key.slice(0, -1);
+				prefiksoj.push({'word': w, 'index':i});
+			}
 
 			//if(0 == i % 10000){
 			//	console.log("%d/%d: `%s`,`%s`",
@@ -105,6 +111,7 @@ module.exports = class Dictionary{
 
 		handle.dictionary = dict;
 		handle.kvs = kvs;
+		handle.prefiksoj = prefiksoj;
 	}
 
 	static init_dictionary(dictionary_data)
@@ -289,6 +296,10 @@ module.exports = class Dictionary{
 		}
 
 		return glosses;
+	}
+
+	static get_prefiksoj(handle){
+		return handle.prefiksoj;
 	}
 
 	static get_item_from_index(handle, index)

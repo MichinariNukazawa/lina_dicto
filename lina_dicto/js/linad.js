@@ -160,9 +160,13 @@ module.exports = class Linad{
 		}
 
 		let candidates = Esperanto.get_verbo_candidates(keyword);
-		if(keyword.startsWith('mal')){
-			candidates.push(keyword.slice(3));
-			keyword_modify_kinds.push('"mal-"'); // TODO 本当は先頭に置きたい
+		let sufiksoj = Dictionary.get_prefiksoj(dictionary_handle);
+		for(const sufikso of sufiksoj){
+			if(keyword.startsWith(sufikso.word)){
+				candidates.push(keyword.slice(sufikso.word.length));
+				keyword_modify_kinds.push(`"${sufikso.word}-"`); // TODO 本当は先頭に置きたい
+				break;
+			}
 		}
 		for(const candidate of candidates){
 			const item = Dictionary.query_item_from_keyword(dictionary_handle, candidate);
@@ -456,7 +460,7 @@ module.exports = class Linad{
 			}
 
 			{
-				// 接頭辞・接尾辞の補完検索 '-{word}-' を行う
+				// 接頭辞・接尾辞の単語に対する補完検索を行う("-{Word}-"など、前後に'-'を付与してみる)
 				// 語根推定マッチより先にやらないと'us'が'i'でマッチしてしまうなどが起こる
 				const isMKw = ((response) && (0 !== response.match_items.length || 0 !== response.radiko_items.length));
 

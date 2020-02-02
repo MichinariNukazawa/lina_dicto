@@ -137,6 +137,8 @@ it ("getResponsesFromKeystring Radiko verbo match", function() {
 
 	const datas = [
 		['estas',	1, {keyword_modify_src: 'estas',		matching_keyword: 'esti'}],
+		// 接頭辞(sufikso)
+		// mal-
 		['mallingvo',	1, {keyword_modify_src: 'mallingvo',		matching_keyword: 'lingvo'}],
 		// ** mal 先頭マッチでkeyword優先できていることを確認
 		// マラバル海岸（インド）
@@ -145,6 +147,9 @@ it ("getResponsesFromKeystring Radiko verbo match", function() {
 		['malamo',	0, {keyword_modify_src: null,			matching_keyword: 'malamo'}],
 		// 左の, 左翼の, 左派の
 		['maldekstra',	0, {keyword_modify_src: null,			matching_keyword: 'maldekstra'}],
+		// mal-以外
+		//['sennecesi',	1, {keyword_modify_src: 'sennecesi',		matching_keyword: 'necesi'}], // -> sennecesa
+		['rekunsido',	1, {keyword_modify_src: 'rekunsido',		matching_keyword: 'kunsido'}],
 		// -j -n
 		['akvoj',	1, {keyword_modify_src: 'akvoj',		matching_keyword: 'akvo'}],
 		['akvij',	1, {keyword_modify_src: 'akvij',		matching_keyword: 'akvi'}],
