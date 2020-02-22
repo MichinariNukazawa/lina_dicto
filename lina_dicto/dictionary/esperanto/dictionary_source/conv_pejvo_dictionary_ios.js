@@ -7,8 +7,8 @@ lina_dicto_for_ios用の辞書データを生成
 const fs = require('fs');
 const path = require('path');
 
-const datafile = path.join(__dirname, 'dictionary01.json');
-const dstfile = path.join(__dirname, 'dictionary_ios.json');
+const datafile = path.join(__dirname, '/../dictionary_data.json');
+const dstfile = path.join(__dirname, '/ios/dictionary_ios.json');
 
 const t = fs.readFileSync(datafile, 'utf8');
 let dict = JSON.parse(t);
@@ -24,6 +24,6 @@ for (let i = 0; i < dict.length; i++) {
 	};
 }
 let t2 = JSON.stringify(dst);
-t2 = t2.replace(/\],\[/g, "],\n[");
+t2 = t2.replace(/\},\{/g, "},\n{");
 fs.writeFileSync(dstfile, t2);
 

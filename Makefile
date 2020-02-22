@@ -28,7 +28,9 @@ dictionary_source:
 dictionary:
 	cd lina_dicto/dictionary/esperanto/dictionary_source/ && node ./expand_dictionary.js
 dictionary_ios: dictionary
-	cd lina_dicto/dictionary/esperanto/dictionary_source/ && bash ./gen_dictionary.sh
+	cd lina_dicto/dictionary/esperanto/dictionary_source/ && mkdir -p ios
+	node lina_dicto/dictionary/esperanto/dictionary_source/conv_pejvo_dictionary_ios.js
+	node lina_dicto/dictionary/esperanto/dictionary_source/conv_pejvo_dictionary_ios_ja.js
 
 .PHONY: package package_desktop
 package: package_desktop

@@ -2,10 +2,10 @@
 
 const fs = require('fs');
 const path = require('path');
-const Dictionary = require('../../js/dictionary');
+const Dictionary = require('../../../js/dictionary');
 
-const datafile = path.join(__dirname, 'dictionary01.json');
-const dstfile = path.join(__dirname, 'JaDictionary.json');
+const datafile = path.join(__dirname, '/../dictionary_data.json');
+const dstfile = path.join(__dirname, '/ios/ja_dictionary_ios.json');
 
 const t = fs.readFileSync(datafile, 'utf8');
 const dictionary_data = JSON.parse(t);
