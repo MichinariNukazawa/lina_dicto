@@ -381,6 +381,19 @@ module.exports = class Linad{
 		let responses = [];
 
 		{
+			// マッチ高速化を目的に、他の前処理などの前に一発マッチしてみる
+			// @note 「インクリメンタル結果表示」(preprint)の複数化で速度が落ちたことへの対処
+			const ks = keystring
+					.toLowerCase()
+					.replace(/[^A-Za-z^~-]$/g, '')
+					;
+			let response0 = Linad.getResponseSearchKeywordFullMatch_(dictionary_handle, ks);
+			if(response0){
+				return [response0];
+			}
+		}
+
+		{
 			/** 全角記号を除いておく
 			 @todo 多数かつ正しくない検索結果が出る問題に対する対策だが
 			 全角記号のみだと空の検索結果が返るので正しい挙動について考える必要がある。

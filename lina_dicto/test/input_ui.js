@@ -42,13 +42,14 @@ describe('Application launch', function () {
 				.then(function(text){
 					assert(text.includes('おはよう'));
 				})
-				.isExisting('#timeline__item__incremental__preprint')
+				.isExisting('.timeline__item__incremental__preprint')
 				.then(function(res){
 					assert(res); // exist
 				})
-				.getText('#timeline__item__incremental__preprint')
-				.then(function(text){
-					assert(text.includes('おはよう'));
+				.getText('.timeline__item__incremental__preprint')
+				.then(function(texts){
+					assert(0 < texts.length);
+					assert(texts[0].includes('おはよう'));
 				})
 				.getText('#query-area__query-incrementals')
 				.then(function(text){
@@ -68,7 +69,7 @@ describe('Application launch', function () {
 					assert(0 != text.indexOf('Bonan matenon!'))
 					assert(0 != text.indexOf('おはよう'))
 				})
-				.isExisting('#timeline__item__incremental__preprint')
+				.isExisting('.timeline__item__incremental__preprint')
 				.then(function(res){
 					assert(! res); // not exist
 				})
@@ -98,9 +99,10 @@ describe('Application launch', function () {
 				.then(function(text){
 					assert(text.includes('おはよう'));
 				})
-				.getText('#timeline__item__incremental__preprint')
-				.then(function(text){
-					assert(text.includes('おはよう'));
+				.getText('.timeline__item__incremental__preprint')
+				.then(function(texts){
+					assert(0 < texts.length);
+					assert(texts[0].includes('おはよう'));
 				})
 				.getText('#query-area__query-incrementals')
 				.then(function(text){

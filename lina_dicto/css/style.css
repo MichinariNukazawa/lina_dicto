@@ -83,8 +83,8 @@ html, body{
 .timeline__item__response__string__sub__juriamo_assign{
 }
 
-/** timeline item by incremental first one  */
-#timeline__item__incremental__preprint{
+/** timeline item by incremental pre print  */
+.timeline__item__incremental__preprint{
 	opacity: 0.5;
 }
 

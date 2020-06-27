@@ -506,11 +506,12 @@ function update_query_input_element_datalist(keyword)
 		query_incrementals_element.appendChild(create_element_with_callback_input_replace(show_word));
 	}
 
-	//
-	let elem_bef = document.getElementById('timeline__item__incremental__preprint');
-	if(null !== elem_bef){
-		elem_bef.remove();
-	}
+	// ** pre print
+	// **** remove prev preprint
+	let prev_elems = document.querySelectorAll('.timeline__item__incremental__preprint');
+	prev_elems.forEach(function(elem) {
+		elem.remove();
+	});
 
 	if(/^\s*$/.test(keyword)){
 		return;
@@ -519,13 +520,14 @@ function update_query_input_element_datalist(keyword)
 		return;
 	}
 
-	if(0 < items.length){
-		keyword = Dictionary.get_show_word_from_item(dictionary_handle, items[0]);
-	}
-	let elem = add_timeline_item_element_from_keyword(keyword)
-	if(null !== elem){
-		elem.setAttribute("id", 'timeline__item__incremental__preprint');
-	}
+	// **** add preprints
+	items.forEach(function(item) {
+		keyword = Dictionary.get_show_word_from_item(dictionary_handle, item);
+		let elem = add_timeline_item_element_from_keyword(keyword)
+		if(null !== elem){
+			elem.classList.add('timeline__item__incremental__preprint');
+		}
+	});
 }
 
 function command(keyword)
