@@ -5,6 +5,10 @@ all:
 	# NOP
 	exit 1
 
+reset:
+	rm -rf lina_dicto/node_modules
+	cd lina_dicto && npm install && npm audit fix
+
 run:
 	cd lina_dicto && npm run running
 
