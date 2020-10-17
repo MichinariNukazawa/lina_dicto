@@ -44,12 +44,12 @@
     "babel": "^6.23.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-register": "^6.26.0",
-    "electron": "^9.0.4",
-    "electron-installer-debian": "^3.0.0",
-    "electron-packager": "^14.2.1",
+    "electron": "^10.1.3",
+    "electron-installer-debian": "^3.1.0",
+    "electron-packager": "^15.1.0",
     "intelli-espower-loader": "^1.0.1",
-    "mocha": "^8.0.1",
+    "mocha": "^8.2.0",
     "power-assert": "^1.6.1",
-    "spectron": "^11.0.0"
+    "spectron": "^12.0.0"
   }
 }
