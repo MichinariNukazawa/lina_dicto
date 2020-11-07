@@ -129,7 +129,7 @@ function htmlspecialchars(code) {
 	code = code.replace(/>/g,"&gt;") ;
 	// 半角空白を処理する
 	//code = code.replace(/ /g,"&#32;") ;
-	code = code.replace(/\x20/g,"&ensp;") ;
+	//code = code.replace(/\x20/g,"&ensp;") ;
 	// タブを処理する
 	var tab = '<pre style="margin-top:0pt;margin-bottom:0pt;'
 		+ 'display: inline-block; _display: inline;" >&#x0009;</pre>' + "";
@@ -140,8 +140,10 @@ function htmlspecialchars(code) {
 function conv_text_html_from_plain(text)
 {
 
-	// HTML改行(行末<br />)を加える
 	text = htmlspecialchars(text);
+	// 先頭空文字をHTMLレンダラに省略させない
+	text = text.replace(/^\x20/g,"&ensp;") ;
+	// HTML改行(行末<br />)を加える
 	text = text.replace(/\n/g,"<br />\n");
 
 	return text;
