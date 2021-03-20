@@ -1,18 +1,14 @@
 'use strict';
 
-const remote = require('electron').remote;
-const app = remote.app;
-const Menu = remote.Menu;
-const MenuItem = remote.MenuItem;
+const {Menu, app, shell, dialog} = require('electron')
 const join = require('path').join;
 const openAboutWindow = require('about-window').default;
 
-var menu = new Menu();
+let menu = new Menu();
 
 function message_dialog(strtype, strtitle, strmessage) {
-	const {dialog} = require('electron').remote;
+	const {dialog} = require('electron');
 	dialog.showMessageBoxSync(
-			remote.getCurrentWindow(),
 			{
 				type: strtype,
 				buttons: ['OK'],
@@ -22,9 +18,8 @@ function message_dialog(strtype, strtitle, strmessage) {
 }
 
 function confirm_dialog(strtitle, strmessage) {
-	const {dialog} = require('electron').remote;
+	const {dialog} = require('electron');
 	let choice = dialog.showMessageBoxSync(
-			remote.getCurrentWindow(),
 			{
 				type: 'question',
 				buttons: ['Yes', 'No'],
@@ -36,7 +31,7 @@ function confirm_dialog(strtitle, strmessage) {
 	return choice === 0;
 };
 
-var template = [
+let template = [
 {
 	label: '&File',
 	submenu: [
@@ -53,7 +48,7 @@ var template = [
 					return;
 				}
 			}
-			require('electron').shell.openExternal(
+			shell.openExternal(
 					"file://" + filepath,
 					true,
 					function(err){
@@ -86,7 +81,7 @@ var template = [
 			if(! fileex.is_exist_file(filepath)){
 				message_dialog('warning', 'Open Preference File', 'preference is not exist.');
 			}else{
-				require('electron').shell.openExternal(
+				shell.openExternal(
 						"file://" + Preference.get_filepath(),
 						true,
 						function(err){
@@ -233,7 +228,7 @@ var template = [
 			if(! history.is_exist_file()){
 				message_dialog('warning', 'Open History File', 'history is not exist.');
 			}else{
-				require('electron').shell.openExternal(
+				shell.openExternal(
 						"file://" + history.get_filepath(),
 						true,
 						function(err){
@@ -261,14 +256,14 @@ var template = [
 	submenu: [
 	{
 		label: 'daisy bell official site',
-		click: function () { require('electron').shell.openExternal('https://daisy-bell.booth.pm/') }
+		click: function () { shell.openExternal('https://daisy-bell.booth.pm/') }
 	},
 	{
 		label: '&Donate',
 		submenu: [
 		{
 			label: '&Donate(Amazon)',
-			click: function () { require('electron').shell.openExternal('http://amzn.asia/gxaSPhE') }
+			click: function () { shell.openExternal('http://amzn.asia/gxaSPhE') }
 		},
 		]
 	},
@@ -277,11 +272,11 @@ var template = [
 		submenu: [
 		{
 			label: '&mailto:michinari.nukazawa@gmail.com',
-			click: function () { require('electron').shell.openExternal('mailto:michinari.nukazawa@gmail.com') }
+			click: function () { shell.openExternal('mailto:michinari.nukazawa@gmail.com') }
 		},
 		{
 			label: '&twitter:@MNukazawa',
-			click: function () { require('electron').shell.openExternal('https://twitter.com/MNukazawa') }
+			click: function () { shell.openExternal('https://twitter.com/MNukazawa') }
 		},
 		]
 	},
@@ -297,9 +292,9 @@ var template = [
 		label: '&About',
 		click: function () {
 			openAboutWindow({
-				icon_path: join(__dirname, 'image/icon.png'),
+				icon_path: join(__dirname, '../image/icon.png'),
 				copyright: 'Copyright (c) 2018 project daisy bell',
-				package_json_dir: __dirname,
+				package_json_dir: join(__dirname, '..'),
 				// open_devtools: process.env.NODE_ENV !== 'production',
 			});
 		}
@@ -331,7 +326,7 @@ function insert_window_menu(){
 if (process.platform === 'darwin') {
 	insert_window_menu();
 
-	var name = require('electron').remote.app.name;
+	let name = app.name;
 		template.unshift({
 			label: name,
 			submenu: [
@@ -386,6 +381,8 @@ if (process.platform === 'darwin') {
 			)
 }
 
-var menu = Menu.buildFromTemplate(template);
-Menu.setApplicationMenu(menu);
+app.on('ready', () => {
+	const menu = Menu.buildFromTemplate(template);
+	Menu.setApplicationMenu(menu);
+})
 
