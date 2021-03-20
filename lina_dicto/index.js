@@ -18,7 +18,8 @@ function createWindow () {
 		width: 800,
 		height: 600,
 		webPreferences: {
-			enableRemoteModule: true,
+			preload: __dirname + '/preload.js',
+			contextIsolation: true, // electron12からデフォルト化で不要
 			nodeIntegration: true
 		},
 		icon: path.join(__dirname, 'image/icon.png')
@@ -67,3 +68,19 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+// ==== ContextBridge
+
+const { ipcMain } = require('electron');
+ipcMain.handle('tomain-message-dialog', async (event, strtype, strtitle, strmessage) => {
+	const { dialog } = require('electron');
+	dialog.showMessageBoxSync(
+			win,
+			{
+				type: strtype,
+				buttons: ['OK'],
+				title: strtitle,
+				message: strmessage,
+			});
+});
+

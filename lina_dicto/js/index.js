@@ -16,7 +16,6 @@ var timeline_item_id = 0;
 let dictionary_handle = null;
 
 window.addEventListener("load", function(){
-
 	let dictionary_data = dictionary_loader();
 	dictionary_handle = Dictionary.init_dictionary(dictionary_data);
 
@@ -110,7 +109,7 @@ window.addEventListener("load", function(){
 			document.head.appendChild(link);
 		}
 	}catch(err){
-		message_dialog('error', 'user preference error', "user preference load error:\n" + err.message);
+		window.myApi.message_dialog('error', 'user preference error', "user preference load error:\n" + err.message);
 	}
 
 }, false)
