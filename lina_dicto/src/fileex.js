@@ -12,11 +12,6 @@ module.exports = class FileEx{
 		}
 	}
 
-	static touch(filepath){
-		const fs = require('fs');
-		fs.writeFileSync(filepath, "");
-	}
-
 	static join(path1, path2){
 		const path = require('path');
 		return path.join(path1, path2);

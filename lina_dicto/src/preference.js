@@ -15,6 +15,16 @@ module.exports = class Preference{
 		preference = Object.assign(defaultPreference, preference);
 
 		fs.writeFileSync(filepathPreference, JSON.stringify(preference, null, '\t'));
+
+		// User CSS
+		{
+			const fileex = require('../src/fileex');
+			const dst = Preference.get_filepath_user_css(userDataPath_)
+			const src = path.join(__dirname, '../resource/default-user.css');
+			if(! fileex.is_exist_file(dst)){
+				fs.copyFileSync(src, dst);
+			}
+		}
 	}
 
 	static get_filepath(userDataPath_){

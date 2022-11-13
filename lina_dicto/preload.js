@@ -73,15 +73,6 @@ ipcRenderer.on('menu-clicked', (event, arg) => {
 		case 'UserCss':
 			try{
 				const filepath = Preference.get_filepath_user_css(userDataPath_);
-				const fileex = require('./src/fileex');
-				if(! fileex.is_exist_file(filepath)){
-					try{
-						fileex.touch(filepath);
-					}catch(err){
-						message_dialog('error', "Open User CSS File", err.message);
-						return;
-					}
-				}
 				const promise = shell.openPath(filepath)
 				promise.then((errmsg) => {
 					if(0 !== errmsg.length){message_dialog('error', "Open User CSS File", errmsg);}
