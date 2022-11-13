@@ -1,7 +1,5 @@
 'use strict';
 
-const Esperanto = require('../js/esperanto');
-
 module.exports = class Dictionary{
 	static is_initialized(handle)
 	{

@@ -1,22 +1,34 @@
 'use strict';
 
-const Preference = require('./js/preference');
-var extension = new Extension();
-const Platform = require('./js/platform');
-// const Language = new Language();
-const Language = require('./js/language');
-const Esperanto = require('./js/esperanto');
-const Juriamo = require('./js/juriamo');
-const Dictionary = require('./js/dictionary');
-let dictionary = new Dictionary();
-const Linad = require('./js/linad');
-let history = new History();
+const extension = require('../src/extension');
+const Dictionary = require('../src/dictionary');
+const Platform = require('../src/platform');
+const Linad = require('../src/linad');
+const Esperanto = require('../src/esperanto');
+const Language = require('../src/language');
+const Juriamo = require('../src/juriamo');
+const ExternalBrowser = require('../src/external_browser');
 
 var timeline_item_id = 0;
 let dictionary_handle = null;
 
+
 window.addEventListener("load", function(){
-	let dictionary_data = dictionary_loader();
+	console.log('call window load')
+	window.myApi.init(inited);
+}, false)
+
+function inited(){
+	console.log('call inited')
+	window.myApi.read_dictionary_file(readed_dictionary_file);
+}
+
+function readed_dictionary_file(s)
+{
+	console.log('callbacked read_dic_file')
+
+	//let dictionary_data = dictionary_loader();
+	let dictionary_data = s;
 	dictionary_handle = Dictionary.init_dictionary(dictionary_data);
 
 	if(!extension.init()){
@@ -44,6 +56,7 @@ window.addEventListener("load", function(){
 			document.getElementById('query-area__query-input__input').value = 'Internal error.';
 			return;
 		}
+		console.log('callbacked linad.initialized')
 
 		// 入力欄のロックを解除し、フォーカスを与える
 		document.getElementById('query-area__query-input__input').value = '';
@@ -67,14 +80,13 @@ window.addEventListener("load", function(){
 		}
 	});
 
-	// ユーザ設定を読み込む
-	try{
-		if('android' === Platform.get_platform_name()){
-			return;
-		}
+	if('android' === Platform.get_platform_name()){
+		return;
+	}
 
-		Preference.init();
-		const pref = Preference.get_preference();
+	// ユーザ設定を読み込む
+	window.myApi.read_preference((pref) => {
+		console.log('readed pref', pref);
 
 		if(pref.is_visible_juriamo_assign){
 			let newStyle = document.createElement('style');
@@ -96,23 +108,22 @@ window.addEventListener("load", function(){
 			newStyle.appendChild(document.createTextNode("#timeline{font-family: 'webfont01';}"));
 			document.head.appendChild(newStyle);
 		}
+	});
 
-		// user CSS 設定の読み込み
-		const fileex = require('./js/fileex');
+	// user CSS 設定の読み込み
+	{
+		const css = window.myApi.get_filepath_user_css();
+		console.log('readed user css', css);
 
-		if(fileex.is_exist_file(Preference.get_filepath_user_css())){
-			console.log("user CSS `" + Preference.get_filepath_user_css() + "`");
+		if( (css) && 0 !== css.length){
 			let link = document.createElement('link');
 			link.rel = 'stylesheet';
 			link.type = 'text/css';
-			link.href = Preference.get_filepath_user_css();
+			link.href = css;
 			document.head.appendChild(link);
 		}
-	}catch(err){
-		window.myApi.message_dialog('error', 'user preference error', "user preference load error:\n" + err.message);
 	}
-
-}, false)
+}
 
 var query_input_default = {
 	'input_height':-1,
@@ -120,7 +131,7 @@ var query_input_default = {
 };
 
 // HTMLタグなどをエスケープする
-function htmlspecialchars(code) { 
+function htmlspecialchars(code) {
 	code = code.replace(/&/g,"&amp;") ;
 	code = code.replace(/"/g,"&quot;") ;
 	code = code.replace(/'/g,"&#039;") ;
@@ -571,7 +582,7 @@ function query_input_element()
 
 	timeline_item_id++;
 	add_timeline_item_element_from_keyword(keyword);
-	history.append_keyword(keyword, null);
+	window.myApi.append_history_keyword(keyword, null);
 }
 
 function add_timeline_item_element_from_keyword(keyword)
@@ -628,4 +639,3 @@ function on_keyup_by_query_input_element(e)
 
 	update_query_input_element_datalist(keyword);
 }
-

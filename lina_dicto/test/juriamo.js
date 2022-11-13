@@ -2,7 +2,7 @@
 
 var assert = require("power-assert"); // assertモジュールのinclude
 
-const Juriamo = require('../js/juriamo');
+const Juriamo = require('../src/juriamo');
 
 it ("convert", function() {
 	assert("Ａｍｒｉｌａｔｏ"	=== Juriamo.convert_juriamo_assign_from_alfabeto("Amrilato"));

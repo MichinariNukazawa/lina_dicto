@@ -4,7 +4,7 @@ var assert = require("power-assert"); // assertモジュールのinclude
 
 const data00 = require('../dictionary/esperanto/dictionary_data.json');
 
-const Dictionary = require('../js/dictionary');
+const Dictionary = require('../src/dictionary');
 const dictionary = new Dictionary();
 
 it ("dictionary", function() {

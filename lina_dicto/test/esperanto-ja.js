@@ -2,8 +2,8 @@
 
 var assert = require("power-assert");
 
-const Esperanto = require('../js/esperanto');
-const EsperantoJa = require('../js/esperanto-ja');
+const Esperanto = require('../src/esperanto');
+const EsperantoJa = require('../src/esperanto-ja');
 
 
 	const sound_datas = [

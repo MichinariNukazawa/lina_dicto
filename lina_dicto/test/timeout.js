@@ -3,10 +3,10 @@
 var assert = require("power-assert"); // assertモジュールのinclude
 
 const dictionary_data = require('../dictionary/esperanto/dictionary_data.json');
-const Dictionary = require('../js/dictionary');
+const Dictionary = require('../src/dictionary');
 let dictionary = new Dictionary();
 
-const Linad = require('../js/linad');
+const Linad = require('../src/linad');
 
 var dictionary_handle;
 it ("Dictionary.init_dictionary timeout", function(done) {

@@ -84,3 +84,23 @@ ipcMain.handle('tomain-message-dialog', async (event, strtype, strtitle, strmess
 			});
 });
 
+ipcMain.handle('tomain-confirm-dialog', async (event, strtitle, strmessage) => {
+	const {dialog} = require('electron');
+	let choice = dialog.showMessageBoxSync(
+			{
+				type: 'question',
+				buttons: ['Yes', 'No'],
+				defaultId: 1,
+				title: strtitle,
+				message: strmessage,
+			});
+
+	return (choice === 0);
+});
+
+ipcMain.handle('init', (event, data) => {
+	let res = {
+		'userDataPath': app.getPath('userData')
+	};
+	return(res);
+})

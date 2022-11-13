@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const Dictionary = require('../../../js/dictionary');
+const Dictionary = require('../../../src/dictionary');
 
 const datafile = path.join(__dirname, '/../dictionary_data.json');
 const dstfile = path.join(__dirname, '/ios/ja_dictionary_ios.json');

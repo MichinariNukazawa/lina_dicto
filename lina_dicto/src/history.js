@@ -1,14 +1,14 @@
 'use strict';
 
-// var remote = require('remote')
-// var app = remote.require('app')
+const fs = require('fs');
 
-/*export default*/ class History{
-	constructor(){
+module.exports = class History{
+	constructor(userDataPath){
+		//const {app} = require('electron').remote;
 
-		const {app} = require('electron').remote;
+		const path = require('path');
 
-		this.filepath = path.join(app.getPath('userData'), 'history.log');
+		this.filepath = path.join(userDataPath, 'history.log');
 		console.debug("history:" + this.filepath);
 
 		this.history_index = -1;

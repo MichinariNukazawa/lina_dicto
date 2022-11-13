@@ -42,8 +42,9 @@ package: package_desktop
 package_desktop:
 	rm -rf lina_dicto/node_modules
 	#cd lina_dicto && npm install # audit command depend npm version 6
-	cd lina_dicto && npm install && npm audit fix
-	make test
+	#cd lina_dicto && npm install && npm audit fix
+	cd lina_dicto && npm install
+	#make test # TODO
 	bash ./release/installer_win32_x64.sh
 	bash ./release/installer_darwin.sh
 	bash ./release/installer_debian.sh

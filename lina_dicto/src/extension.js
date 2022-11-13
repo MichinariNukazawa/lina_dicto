@@ -1,12 +1,12 @@
 'use strict';
 
-class Extension{
+module.exports = class Extension{
 	/**
 	 * @brief 初期化
 	 * @param 作業ディレクトリ
 	 * @return 初期化の成否
 	 */
-	init(){
+	static init(){
 		// extensionのCSSをページに挿入する
 		let css_path = "./default_extension/style.css";
 		let link = document.createElement('link');

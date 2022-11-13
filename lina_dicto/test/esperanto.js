@@ -2,8 +2,8 @@
 
 var assert = require("power-assert"); // assertモジュールのinclude
 
-const Esperanto = require('../js/esperanto');
-//const EsperantoJa = require('../js/esperanto-ja');
+const Esperanto = require('../src/esperanto');
+//const EsperantoJa = require('../src/esperanto-ja');
 
 it ("is_esperanto_string", function() {
 	assert(Esperanto.is_esperanto_string("bona"));

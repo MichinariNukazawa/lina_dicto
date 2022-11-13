@@ -1,6 +1,6 @@
 'use strict';
 
-class ExternalBrowser{
+module.exports = class ExternalBrowser{
 	static is_enable(){
 		return true;
 	}
@@ -16,12 +16,11 @@ class ExternalBrowser{
 	}
 
 	static open(link){
-		require('electron').shell.openExternal(link)
+		window.myApi.open_external_browser(link)
 	}
 
-	static create_onclick_google_translate(keyword, src_lang, dst_lang)
-	{
-		let element = create_span_from_text('(goto google translate)');
+	static create_onclick_google_translate(keyword, src_lang, dst_lang){
+		let element = ExternalBrowser.create_span_from_text_('(goto google translate)');
 
 		element.classList.add('goto-google-translate-button');
 		element.addEventListener('click', function(e){
@@ -37,5 +36,11 @@ class ExternalBrowser{
 		return element;
 	}
 
+	static create_span_from_text_(text){
+		let element = document.createElement('span');
+		element.textContent = text;
+
+		return element;
+	}
 };
 

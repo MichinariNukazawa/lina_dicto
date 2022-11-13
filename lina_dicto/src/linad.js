@@ -1,30 +1,15 @@
 'use strict';
 
-const Language = require('../js/language');
-const Esperanto = require('../js/esperanto');
-const EsperantoJa = require('../js/esperanto-ja');
-const Dictionary = require('../js/dictionary');
-
 const writeInt = require('write-int');
-const path = require('path');
-const Kuromoji = require("kuromoji");
-let japaneseTokenizer_;
+const Language = require('../src/language');
+const Esperanto = require('../src/esperanto');
+const EsperantoJa = require('../src/esperanto-ja');
+const Dictionary = require('../src/dictionary');
 
 module.exports = class Linad{
 	static initialize(callback)
 	{
-		if(japaneseTokenizer_){
-			console.error("BUG already init");
-			return;
-		}
-
-		Kuromoji.builder({
-			dicPath: path.join(__dirname, '../node_modules/kuromoji/dict')
-			//dicPath: 'node_modules/kuromoji/dict'
-		}).build(function (err, tokenizer) {
-			japaneseTokenizer_ = tokenizer;
-			callback(err);
-		});
+		callback(null);
 	}
 
 	static createResponse_(lang, matching_keyword)
@@ -315,7 +300,8 @@ module.exports = class Linad{
 			const word = src1_words[i];
 			//console.log('##jws word', word);
 			if(reIsJapanese.test(word)){
-				const ws = japaneseTokenizer_.tokenize(word);
+				const ws = window.myApi.japanese_tokenize(word);
+				console.log('jsplit', word, ws)
 				let ws_ = [];
 				for(let t = 0; t < ws.length; t++){
 					ws_.push(ws[t].surface_form);

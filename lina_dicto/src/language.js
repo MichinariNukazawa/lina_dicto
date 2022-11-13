@@ -29,3 +29,7 @@ module.exports = class Language{
 	}
 };
 
+function read_textfile(srcpath)
+{
+	return window.myApi.read_textfile(srcpath)
+}
