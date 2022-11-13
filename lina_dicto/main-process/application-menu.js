@@ -98,10 +98,6 @@ function createMenu() {
 	{
 		label: '&View',
 		submenu: [
-/*
-		// ページ再読込とフルスクリーンは、
-		// これをするとmenuが正常に動作しなくなるようなので一旦無効にしておく。
-		// (electron 21 にて確認)
 		{
 			label: 'Reload',
 			accelerator: 'CmdOrCtrl+R',
@@ -124,7 +120,6 @@ function createMenu() {
 				}
 			}
 		},
-*/
 		{
 			label: 'Toggle Developer Tools',
 			accelerator: (function () {
